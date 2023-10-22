@@ -174,7 +174,7 @@ public class GestionOS {
 		System.out.println("introduce el precio del articulo");
 		precio = teclado.nextDouble();
 		teclado.nextLine();
-		controlador.addArticulo(controlador.crearInstanciaArticulo(cp,desc,precio));
+		controlador.addArticulo(cp,desc,precio);
 	};
 
 	public void addDatosCliente(){
@@ -244,9 +244,9 @@ public class GestionOS {
 		controlador.addCliente("pepe@gmail","pepe","camino2");
 		controlador.addCliente("jose@gmail","paco","camino3");
 
-		controlador.addArticulo(controlador.crearInstanciaArticulo("cp","ordenador",120));
-		controlador.addArticulo(controlador.crearInstanciaArticulo("mc","movil",120));
-		controlador.addArticulo(controlador.crearInstanciaArticulo("ja","tablet",120));
+		controlador.addArticulo("cp","ordenador",120);
+		controlador.addArticulo("mc","movil",120);
+		controlador.addArticulo("ja","tablet",120);
 
 		controlador.addPedido("pepe","cp",1,"doce",5,true,12.0);
 		controlador.addPedido("paco","mc",2,"doce",2,false,12.0);

@@ -15,14 +15,10 @@ public class Controlador {
         this.datos = new Datos();
 
     }
-    public Articulo crearInstanciaArticulo(String cp, String desc, double precio){
+    public void addArticulo(String cp, String desc, double precio){
 
-        Articulo art;
-        art = new Articulo(cp,desc,precio);
-        return  art;
-    };
-
-    public void addArticulo(Articulo a){
+        Articulo a;
+        a = new Articulo(cp,desc,precio);
         datos.agregarArticulo(a);
 
     };
@@ -30,8 +26,6 @@ public class Controlador {
     public void mostrarArticulos(){
         datos.obtenerArticulo();
     }
-
-
 
     public void addCliente(String mail, String name, String dir){
 
