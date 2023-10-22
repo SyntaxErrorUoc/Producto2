@@ -1,9 +1,9 @@
 package vista;
 
 import java.util.Scanner;
-
+import java.time.format.DateTimeFormatter;
 import controlador.Controlador;
-
+import java.time.LocalDate;
 public class GestionOS {
 
 	private Controlador controlador;
@@ -120,8 +120,6 @@ public class GestionOS {
 
 	}
 
-	
-
 	public void menuPedidos() {
 		boolean salir = false;
 		int opcion;
@@ -130,7 +128,7 @@ public class GestionOS {
 			System.out.println("1. Add pedido");
 			System.out.println("2. Eliminar pedido");
 			System.out.println("3. Mostrar pedidos pendientes de envio");
-			System.out.println("4. Mostrar pedidos a enviar ");
+			System.out.println("4. Mostrar pedidos enviados ");
 			System.out.println("0 para salir");
 
 			opcion = teclado.nextInt();
@@ -145,10 +143,10 @@ public class GestionOS {
 					deletePedido();
 					break;
 				case 3:
-					addDatosArticulo();
+					controlador.mostrarPedido(false);
 					break;
 				case 4:
-					addDatosArticulo();
+					controlador.mostrarPedido(true);
 					break;
 				case 0:
 					salir = true;
@@ -205,7 +203,7 @@ public class GestionOS {
 		String art;
 		int cantidad;
 		double costeE;
-		String fechaHora;
+		LocalDate fechaHora;
 		boolean envio;
 		int np;
 
@@ -220,7 +218,8 @@ public class GestionOS {
 		np = teclado.nextInt();
 		teclado.nextLine();
 		System.out.println("introduce la fecha y hora");
-		fechaHora = teclado.nextLine();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		fechaHora = LocalDate.parse(teclado.nextLine(),formatter);
 		System.out.println("esta enviado?");
 		envio = teclado.nextBoolean();
 		teclado.nextLine();
@@ -248,9 +247,9 @@ public class GestionOS {
 		controlador.addArticulo("mc","movil",120);
 		controlador.addArticulo("ja","tablet",120);
 
-		controlador.addPedido("pepe","cp",1,"doce",5,true,12.0);
-		controlador.addPedido("paco","mc",2,"doce",2,false,12.0);
-		controlador.addPedido("jose","ja",3,"doce",6,false,12.0);
+		controlador.addPedido("pepe","cp",1,LocalDate.parse("1920-12-12"),5,true,12.0);
+		controlador.addPedido("paco","mc",2,LocalDate.parse("1920-12-12"),2,false,12.0);
+		controlador.addPedido("jose","ja",3,LocalDate.parse("1920-12-12"),6,false,12.0);
 	}
 }
 

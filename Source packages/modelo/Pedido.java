@@ -1,8 +1,8 @@
 package modelo;
-
+import java.time.LocalDate;
 public class Pedido {
 	 	private int numeroPedido;
-	    private String fechaHoraPedido;
+	    private LocalDate fechaHoraPedido;
 	    private Cliente cliente;
 	    private Articulo articulo;
 		private double costeEnvio;
@@ -11,7 +11,7 @@ public class Pedido {
 	    
 	    
 	    // Constructor
-		public Pedido(int numeroPedido, String fechaHoraPedido, Cliente cliente, Articulo articulo, int cantidad,
+		public Pedido(int numeroPedido, LocalDate fechaHoraPedido, Cliente cliente, Articulo articulo, int cantidad,
 					  boolean enviado,double costeEnvio) {
 			super();
 			this.numeroPedido = numeroPedido;
@@ -29,7 +29,7 @@ public class Pedido {
 		}
 
 
-		public String getFechaHoraPedido() {
+		public LocalDate getFechaHoraPedido() {
 			return fechaHoraPedido;
 		}
 
@@ -59,7 +59,7 @@ public class Pedido {
 		}
 
 
-		public void setFechaHoraPedido(String fechaHoraPedido) {
+		public void setFechaHoraPedido(LocalDate fechaHoraPedido) {
 			this.fechaHoraPedido = fechaHoraPedido;
 		}
 

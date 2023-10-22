@@ -4,7 +4,7 @@ import modelo.*;
 import vista.GestionOS;
 
 import java.util.ArrayList;
-
+import java.time.LocalDate;
 public class Controlador {
 	private Datos datos;
 
@@ -61,7 +61,7 @@ public class Controlador {
         }
     };
 
-    public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, String fechaHoraPedido,int cantidad,
+    public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDate fechaHoraPedido,int cantidad,
                           boolean enviado,double costeEnvio){
        Articulo art;
        Cliente cl;
@@ -85,5 +85,22 @@ public class Controlador {
         ped = datos.getListaPedidos().getLista().get(np-1);
         datos.eliminarPedido(ped);
         System.out.println(datos.getListaPedidos().getLista());
+    }
+    public void mostrarPedido(boolean enviado){
+
+        if (enviado){
+            for(Pedido pedido:datos.getListaPedidos().getLista()){
+                if (pedido.pedidoEnviado()){
+                    System.out.println(pedido);
+                }
+            }
+
+        }else{
+            for(Pedido pedido:datos.getListaPedidos().getLista()){
+                if (!pedido.pedidoEnviado()){
+                    System.out.println(pedido);
+                }
+            }
+        }
     }
 }
