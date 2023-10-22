@@ -1,7 +1,7 @@
-package syntaxerror.controlador;
+package controlador;
 
-import syntaxerror.modelo.*;
-import syntaxerror.vista.GestionOS;
+import modelo.*;
+import vista.GestionOS;
 
 import java.util.ArrayList;
 

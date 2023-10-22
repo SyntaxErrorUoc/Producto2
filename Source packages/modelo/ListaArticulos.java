@@ -1,4 +1,4 @@
-package syntaxerror.modelo;
+package modelo;
 
 public class ListaArticulos extends Lista<Articulo>{
 

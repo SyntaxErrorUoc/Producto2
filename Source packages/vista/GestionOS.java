@@ -1,8 +1,8 @@
-package syntaxerror.vista;
+package vista;
 
 import java.util.Scanner;
 
-import syntaxerror.controlador.Controlador;
+import controlador.Controlador;
 
 public class GestionOS {
 

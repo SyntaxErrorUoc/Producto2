@@ -1,4 +1,4 @@
-package syntaxerror.vista;
+package vista;
 
 
 public class OnlineStore {

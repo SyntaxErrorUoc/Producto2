@@ -1,4 +1,4 @@
-package syntaxerror.modelo;
+package modelo;
 
 public class ClienteEstandar extends Cliente {
 	// Constructor
