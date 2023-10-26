@@ -15,14 +15,16 @@ public class ClienteEstandar extends Cliente {
 
 	@Override
 	public double calcAnual() {
-		// Implementación del cálculo de la cuota anual para un cliente estándar
-		return 0.0;
+		// Implementación del cálculo de la cuota anual para un cliente premium.
+		double cuota = 0.0;
+		return cuota;
 	}
 
 	@Override
 	public double descuentoEnv() {
-		// Implementación del descuento de gastos de envío para un cliente estándar
-		return 0.0;
+		// Implementación del descuento de gastos de envío para un cliente premium.
+		double descuentoE = 0.0;
+		return descuentoE;
 	}
 	@Override
 	public String toString() {

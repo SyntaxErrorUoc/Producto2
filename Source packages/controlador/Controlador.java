@@ -86,6 +86,7 @@ public class Controlador {
 
         if (enviado){
             for(Pedido pedido:datos.getListaPedidos().getLista()){
+
                 if (pedido.pedidoEnviado()){
                     System.out.println(pedido);
                 }
@@ -99,4 +100,7 @@ public class Controlador {
             }
         }
     }
+    public double obtenerDescuento(){
+       return 0.45;
+    };
 }

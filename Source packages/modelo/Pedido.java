@@ -102,7 +102,7 @@ public class Pedido {
 		public double precioTotal (){
 
 			double total= 0.0;
-			total = precioEnvio(cantidad * articulo.getPrecio());
+			total = precioEnvio(cantidad * articulo.getPrecio())+precioEnvio(costeEnvio);
 			return total;
 		}
 
@@ -110,7 +110,7 @@ public class Pedido {
 		@Override
 		public String toString() {
 			return "Pedido [numeroPedido=" + numeroPedido + ", fechaHoraPedido=" + fechaHoraPedido + ", cliente="
-					+ cliente + ", articulo=" + articulo + ", cantidad=" + cantidad + ", enviado=" + enviado + ",costeEnvio:"+
+					+ cliente.getNombre() +"," + cliente.getCorreoElectronico()+ ", articulo=" + articulo + ", cantidad=" + cantidad + ", enviado=" + enviado + ",costeEnvio:"+
 					precioEnvio(costeEnvio)+",precioTotal: "+ precioTotal() +"]\n";
 		}
 	    

@@ -50,7 +50,7 @@ public class Articulo {
 
 	@Override
 	public String toString() {
-		return "Articulo [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]";
+		return "\nArticulo [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]\n";
 	}
 
 

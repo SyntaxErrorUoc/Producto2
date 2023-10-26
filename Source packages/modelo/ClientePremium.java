@@ -18,13 +18,15 @@ public class ClientePremium extends Cliente{
 	@Override
 	public double calcAnual() {
 		// Implementación del cálculo de la cuota anual para un cliente premium.
-		return 0.0;
+		double cuota = 30.0;
+		return cuota;
 	}
 
 	@Override
 	public double descuentoEnv() {
 		// Implementación del descuento de gastos de envío para un cliente premium.
-		return 0.0;
+		double descuentoE = 0.2;
+		return descuentoE;
 	}
 
 	@Override

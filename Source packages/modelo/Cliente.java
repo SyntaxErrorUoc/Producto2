@@ -54,11 +54,9 @@ public abstract class Cliente {
 	
 	@Override
 	public String toString() {
-		return "Cliente [correoElectronico=" + correoElectronico + ", nombre=" + nombre + ", direccion=" + direccion
-				+ "]";
+		return "\nCliente [correoElectronico=" + correoElectronico + ", nombre=" + nombre + ", direccion=" + direccion
+				+ "]\n";
 	}
-	
-	
-	
+
 	
 }
