@@ -132,6 +132,7 @@ public class GestionOS {
 	public void menuPedidos() {
 		boolean salir = false;
 		int opcion;
+		String filtr;
 
 		do {
 			try {
@@ -146,10 +147,22 @@ public class GestionOS {
 						deletePedido();
 						break;
 					case 3:
-						controlador.mostrarPedido(false);
+						System.out.println("Desea filtrar por cliente(S/N)");
+						filtr = teclado.nextLine();
+						if (filtr.equals("N")) {
+							controlador.mostrarPedido(false,false);
+						}else{
+							controlador.mostrarPedido(false,true);
+						}
 						break;
 					case 4:
-						controlador.mostrarPedido(true);
+						System.out.println("Desea filtrar por cliente(S/N)");
+						filtr = teclado.nextLine();
+						if (filtr.equals("N")) {
+							controlador.mostrarPedido(true,false);
+						}else{
+							controlador.mostrarPedido(true,true);
+						}
 						break;
 					case 0:
 						salir = true;

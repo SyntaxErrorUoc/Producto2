@@ -82,24 +82,33 @@ public class Controlador {
         datos.eliminarPedido(ped);
         System.out.println(datos.getListaPedidos().getLista());
     }
-    public void mostrarPedido(boolean enviado){
+    public void mostrarPedido(boolean enviado, boolean filtro){
 
         if (enviado){
             for(Pedido pedido:datos.getListaPedidos().getLista()){
-
-                if (pedido.pedidoEnviado()){
-                    System.out.println(pedido);
+                if (filtro){
+                    //TODO
+                }else{
+                    if (pedido.pedidoEnviado()){
+                        System.out.println(pedido);
+                    }
                 }
             }
 
         }else{
-            for(Pedido pedido:datos.getListaPedidos().getLista()){
-                if (!pedido.pedidoEnviado()){
-                    System.out.println(pedido);
+            if (filtro){
+                //TODO
+            }
+            else{
+                for(Pedido pedido:datos.getListaPedidos().getLista()) {
+                    if (!pedido.pedidoEnviado()) {
+                        System.out.println(pedido);
+                    }
                 }
             }
         }
     }
+
     public double obtenerDescuento(){
        return 0.45;
     };
