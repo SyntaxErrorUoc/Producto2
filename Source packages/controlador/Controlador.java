@@ -22,11 +22,9 @@ public class Controlador {
         datos.agregarArticulo(a);
 
     };
-
     public void mostrarArticulos(){
         datos.obtenerArticulo();
     }
-
     public void addCliente(String mail, String name, String dir){
 
         ClienteEstandar stand;
@@ -41,7 +39,6 @@ public class Controlador {
         datos.agregarCliente(prem);
 
     }
-
     public void mostrarCliente(){
         datos.obtenerCliente();
     }
@@ -60,7 +57,6 @@ public class Controlador {
             }
         }
     };
-
     public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDate fechaHoraPedido,int cantidad,
                           boolean enviado,double costeEnvio){
        Articulo art;

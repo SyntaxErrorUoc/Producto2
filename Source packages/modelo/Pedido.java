@@ -23,7 +23,10 @@ public class Pedido {
 			this.costeEnvio = costeEnvio;
 		}
 
-		// Getters
+	public Pedido() {
+	}
+
+	// Getters
 		public int getNumeroPedido() {
 			return numeroPedido;
 		}
@@ -90,13 +93,12 @@ public class Pedido {
 
 	    public double precioEnvio(double costeEnvio ) {
 
+				if (cliente instanceof ClientePremium) {
+					costeEnvio -= (costeEnvio * cliente.descuentoEnv()/100);
+				}
+				return costeEnvio;
+			}
 
-	    	
-	    	if (cliente instanceof ClientePremium) {
-	    		costeEnvio -= (costeEnvio * cliente.descuentoEnv()/100);
-	    	}
-	    	return costeEnvio;
-	    }
 		public double precioTotal (){
 
 			double total= 0.0;

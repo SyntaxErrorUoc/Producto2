@@ -80,8 +80,6 @@ public class GestionOS {
 
 	}
 
-	;
-
 	public void menuClientes() {
 		boolean salir = false;
 		int opcion;
@@ -199,6 +197,7 @@ public class GestionOS {
 	}
 
 	public void addPedido(){
+
 		String cl;
 		String art;
 		int cantidad;
@@ -227,6 +226,7 @@ public class GestionOS {
 		costeE = teclado.nextDouble();
 		teclado.nextLine();
 		controlador.addPedido(cl,art,np,fechaHora,cantidad,envio,costeE);
+
 	}
 	public void deletePedido(){
 

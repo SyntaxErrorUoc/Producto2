@@ -6,14 +6,13 @@ public class Datos {
 	private ListaPedidos listaPedidos;
 
 
-
-
 	// Constructor
 	public Datos() {
 		listaArticulos = new ListaArticulos();
 		listaClientes = new ListaClientes();
 		listaPedidos = new ListaPedidos();
 	}
+
 
 	// Métodos para gestionar Artículos
 	public void agregarArticulo(Articulo articulo) {
@@ -34,9 +33,18 @@ public class Datos {
 
 	public ListaArticulos getListaArticulos() {return listaArticulos;}
 
+	public void setListaArticulos(ListaArticulos listaArticulos) {
+		this.listaArticulos = listaArticulos;
+	}
+
+
 	// Métodos para gestionar Clientes
 	public void agregarCliente(Cliente cliente) {
 		listaClientes.agregar(cliente);
+	}
+
+	public void setListaClientes(ListaClientes listaClientes) {
+		this.listaClientes = listaClientes;
 	}
 
 	public void eliminarCliente(Cliente cliente) {
@@ -53,11 +61,17 @@ public class Datos {
 		return listaClientes.tamanio();
 	}
 
-	// Métodos para gestionar Pedidos
 
+
+
+	// Métodos para gestionar Pedidos
 
 	public ListaPedidos getListaPedidos() {
 		return listaPedidos;
+	}
+
+	public void setListaPedidos(ListaPedidos listaPedidos) {
+		this.listaPedidos = listaPedidos;
 	}
 
 	public void agregarPedido(Pedido pedido) {
@@ -75,6 +89,8 @@ public class Datos {
 	public void tamPedidos() {
 		listaPedidos.tamanio();
 	}
+
+
 
 	// Metodos para obtener los indices
 	public int devolverIndiceCliente(String valor){
@@ -111,7 +127,6 @@ public class Datos {
 			return counter;
 			}
 		}
-
 	public int devolverIndicePedido(int valor){
 
 		boolean existe = false;

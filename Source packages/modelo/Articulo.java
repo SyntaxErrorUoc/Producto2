@@ -13,6 +13,10 @@ public class Articulo {
 		this.descripcion = descripcion;
 		this.precio = precio;
 	}
+	//constructor sobrecargado
+	public Articulo() {
+	}
+
 
 	// Getters
 	public String getCodigo() {

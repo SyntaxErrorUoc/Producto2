@@ -12,7 +12,10 @@ public abstract class Cliente {
 		this.nombre = nombre;
 		this.direccion = direccion;
 	}
-	
+
+	public Cliente() {
+	}
+
 	// Getters
 	public String getCorreoElectronico() {
 		return correoElectronico;

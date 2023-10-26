@@ -4,9 +4,7 @@ public class ClienteEstandar extends Cliente {
 	// Constructor
 	public ClienteEstandar(String correoElectronico, String nombre, String direccion) {
 		super(correoElectronico, nombre, direccion);
-		
 	}
-
 
 
 	@Override

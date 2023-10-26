@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 
 public class Lista<T> {
+
 	public ArrayList<T> getLista() {
 		return lista;
 	}
