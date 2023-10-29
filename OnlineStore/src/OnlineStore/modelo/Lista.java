@@ -41,16 +41,33 @@ public class Lista<T> {
     }
 
     public void clear(){
-
-
+        try {
+            this.lista.clear();
+        } catch (Exception e) {
+            System.out.println("ERROR : " + e.getMessage());
+        }
     }
 
     public void borrar (T t){
-
+        for (int i=0; i< this.lista.size(); i++){
+            if (lista.contains(t)){
+                try {
+                    lista.remove(t);
+                } catch (Exception e) {
+                    System.out.println("Se produjo una excepción al eliminar el elemento a la lista: " + e.getMessage());
+                }
+            }
+        }
     }
 
     public void add(T objeto){
-        this.lista.add(objeto);
+
+        try {
+            this.lista.add(objeto);
+        } catch (Exception e) {
+            System.out.println("Se produjo una excepción al agregar el elemento a la lista: " + e.getMessage());
+        }
+
     }
 
 
