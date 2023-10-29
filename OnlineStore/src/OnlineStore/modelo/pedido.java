@@ -1,7 +1,9 @@
 package OnlineStore.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class pedido {
 
@@ -73,20 +75,39 @@ public class pedido {
         this.unidades = unidades;
     }
 
-    public void eliminarpedido(int numpedido){
-
-    }
-
     /**
      * Otros métodos
      */
 
-    public double pedidoEnviado(){
+    public LocalTime tiempoentrega(){
+        LocalDateTime fechaYHoraActual = LocalDateTime.now();
+        LocalTime horaactual = fechaYHoraActual.toLocalTime();
+        LocalTime horapreparacion = this.Articulo.getTiempopreparacion();
+        LocalTime horapedido = this.horapedido;
+        LocalTime tiempopreparacion = horapedido.plusHours(horapreparacion.getHour()).plusMinutes(horapreparacion.getMinute());
+        return tiempopreparacion;
+    }
 
-        return 5.5;
+    public boolean pedidoEnviado(){
+        LocalDateTime fechaYHoraActual = LocalDateTime.now();
+        LocalTime horaactual = fechaYHoraActual.toLocalTime();
+        LocalTime horapreparacion = this.Articulo.getTiempopreparacion();
+        LocalTime horapedido = this.horapedido;
+        LocalTime tiempopreparacion = horapedido.plusHours(horapreparacion.getHour()).plusMinutes(horapreparacion.getMinute());
+
+        boolean flag = false;
+
+        if (horaactual.isBefore(tiempopreparacion)){
+            // Pendiente
+            flag=true;
+        } else {
+            // Enviado
+            flag=false;
+        }
+        return flag;
     };
 
-    public float precioEnvio(){
+    public double precioEnvio(){
 
         return 6.5F;
     };
@@ -95,7 +116,7 @@ public class pedido {
     public void MuestraTicket(int Pedido){
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("| Nº Pedido    : " + this.getNumpedido());
-        System.out.println("| Cliente      : " + this.getCliente() );
+        System.out.println("| Cliente      : " + this.getCliente().toString() );
         System.out.println("| Fecha Pedido : " + this.getFechapedido() + " Hora : " + this.getHorapedido() );
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println(this.getArticulo().toString() + " CANTIDAD : " + this.getUnidades());
