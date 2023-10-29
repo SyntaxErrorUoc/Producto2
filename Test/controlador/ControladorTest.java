@@ -35,7 +35,7 @@ public class ControladorTest {
 
     @Test
     public void testDeletePedido() {
-
+        //este es el junit para el deletepedido
         controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
         controlador.addCliente("pepe@gmail","pepe","camino2");
         controlador.addPedido("pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
