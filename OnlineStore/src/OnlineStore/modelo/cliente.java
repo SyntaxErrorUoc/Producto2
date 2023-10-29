@@ -93,47 +93,6 @@ public abstract class cliente {
 
     public abstract float descuentoEnv();
 
-    public boolean validarNIF(String nif){
-        boolean status = false;
-        nif = nif.trim().toUpperCase();
-        if (nif.length() != 9){
-            status = false;
-        }
-        String numero = nif.substring(0, 8);
-        char letraControl = nif.charAt(8);
-
-        // Comprobar que el número es numérico
-        if (!numero.matches("[0-9]+")) {
-            return false;
-        }
-
-        // Calcular la letra de control esperada
-        char letraEsperada = calcularLetraControl(Integer.parseInt(numero));
-
-        // Comparar la letra de control esperada con la proporcionada
-        return letraControl == letraEsperada;
-
-    }
-
-    private static char calcularLetraControl(int numero) {
-        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-        return letras.charAt(numero % 23);
-    }
-
-    public static boolean esDireccionEmailValida(String email) {
-        // Patrón de expresión regular para verificar direcciones de correo electrónico
-        String patronEmail = "^[A-Za-z0-9+_.-]+@(.+)$";
-
-        // Compilar el patrón
-        Pattern pattern = Pattern.compile(patronEmail);
-
-        // Crear un objeto Matcher
-        Matcher matcher = pattern.matcher(email);
-
-        // Verificar si la cadena cumple con el patrón
-        return matcher.matches();
-    }
-
     /**
      * Método que devuelve la información del Modelo.cliente.
      * @return Detalle del Modelo.cliente.
