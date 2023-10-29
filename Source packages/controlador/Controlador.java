@@ -48,6 +48,11 @@ public class Controlador {
      */
     public void addCliente(String mail, String name, String dir){
 
+        if(emailExiste(mail)){
+            System.out.println("Error: El correo electrónico " + mail + " ya existe.");
+            return;
+        }
+
         ClienteEstandar stand;
         stand = new ClienteEstandar(mail,name,dir);
         datos.agregarCliente(stand);
@@ -62,6 +67,11 @@ public class Controlador {
      * @param desc de tipo double
      */
     public void addCliente(String mail, String name, String dir,double desc){
+
+        if(emailExiste(mail)){
+            System.out.println("Error: El correo electrónico " + mail + " ya existe.");
+            return;
+        }
 
         ClientePremium prem;
         prem = new ClientePremium(mail,name, dir, desc);
@@ -110,20 +120,35 @@ public class Controlador {
      * @param costeEnvio de tipo double
      */
     public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
-                          boolean enviado,double costeEnvio){
-       Articulo art;
-       Cliente cl;
-       Pedido pd;
-       int indexArt;
-       int  indexCl;
-       indexArt = datos.devolverIndiceArticulo(codigoArticulo);
-       art = datos.getListaArticulos().getLista().get(indexArt);
-       indexCl = datos.devolverIndiceCliente(nombreCliente);
-       cl = datos.getListaClientes().getLista().get(indexCl);
-       pd = new Pedido(numeroPedido,fechaHoraPedido,cl,art,cantidad,enviado,costeEnvio);
-       datos.agregarPedido(pd);
-       System.out.println(pd);
 
+                       boolean enviado,double costeEnvio){
+
+        if(pedidoExiste(numeroPedido)){
+            System.out.println("Error: El número de pedido " + numeroPedido + " ya existe.");
+            return;
+        }
+
+        try {
+
+            Articulo art;
+            Cliente cl;
+            Pedido pd;
+            int indexArt;
+            int indexCl;
+            indexArt = datos.devolverIndiceArticulo(codigoArticulo);
+            art = datos.getListaArticulos().getLista().get(indexArt);
+            indexCl = datos.devolverIndiceCliente(nombreCliente);
+            cl = datos.getListaClientes().getLista().get(indexCl);
+            pd = new Pedido(numeroPedido, fechaHoraPedido, cl, art, cantidad, enviado, costeEnvio);
+            datos.agregarPedido(pd);
+            System.out.println(pd);
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Error: Índice fuera de rango.");
+        } catch (NullPointerException e){
+            System.out.println("Error: Obleto nulo inesperado.");
+        } catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -224,4 +249,22 @@ public class Controlador {
         }
         return valida;
     }
+
+    private boolean pedidoExiste(int numeroPedido){
+        for (Pedido pedido: datos.getListaPedidos().getLista()){
+            if(pedido.getNumeroPedido() == numeroPedido){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean emailExiste(String email) {
+        for (Cliente cliente : datos.getListaClientes().getLista()) {
+            if (cliente.getCorreoElectronico().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

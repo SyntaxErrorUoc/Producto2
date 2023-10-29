@@ -390,12 +390,12 @@ public class GestionOS {
 	 * Metodo que introduce una base inicial
 	 */
 	public void introducirBase(){
-		controlador.addCliente("jose@gmail","jose","camino1");
-		controlador.addCliente("pepe@gmail","pepe","camino2");
-		controlador.addCliente("paco@gmail","paco","camino3");
-		controlador.addCliente("juan@gmail","juan","camino1");
-		controlador.addCliente("mario@gmail","mario","camino2");
-		controlador.addCliente("laura@gmail","laura","camino3");
+		controlador.addCliente("jose@gmail.com","jose","camino1");
+		controlador.addCliente("pepe@gmail.com","pepe","camino2");
+		controlador.addCliente("paco@gmail.com","paco","camino3");
+		controlador.addCliente("juan@gmail.com","juan","camino1");
+		controlador.addCliente("mario@gmail.com","mario","camino2");
+		controlador.addCliente("laura@gmail.com","laura","camino3");
 
 		controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
 		controlador.addArticulo("mc","movil",120,Duration.parse("PT360H40M"));
@@ -404,10 +404,10 @@ public class GestionOS {
 		controlador.addPedido("pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
 		controlador.addPedido("paco","mc",2,LocalDateTime.parse("2023-10-29T23:00:00"),2,false,12.0);
 		controlador.addPedido("jose","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,false,12.0);
-		controlador.addPedido("juan","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
-		controlador.addPedido("mario","mc",2,LocalDateTime.parse("1920-12-12T23:00:00"),2,true,12.0);
-		controlador.addPedido("laura","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,true,12.0);
-		controlador.addPedido("laura","pc",3,LocalDateTime.parse("1920-12-12T23:00:00"),12,true,12.0);
+		controlador.addPedido("juan","cp",4,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
+		controlador.addPedido("mario","mc",5,LocalDateTime.parse("1920-12-12T23:00:00"),2,true,12.0);
+		controlador.addPedido("laura","ja",6,LocalDateTime.parse("1920-12-12T23:00:00"),6,true,12.0);
+		controlador.addPedido("laura","pc",7,LocalDateTime.parse("1920-12-12T23:00:00"),12,true,12.0);
 	}
 
 }
