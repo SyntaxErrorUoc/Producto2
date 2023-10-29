@@ -1,17 +1,31 @@
 package modelo;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Articulo {
 	private String codigo;
     private String descripcion;
     private double precio;
-    
-    
-    // Constructor
-	public Articulo(String codigo, String descripcion, double precio) {
+	private Duration tiempoPreparacion;
+
+
+	public Duration getTiempoPreparacion() {
+		return tiempoPreparacion;
+	}
+
+	public void setTiempoPreparacion(Duration tiempoPreparacion) {
+		this.tiempoPreparacion = tiempoPreparacion;
+	}
+
+	// Constructor
+	public Articulo(String codigo, String descripcion, double precio, Duration tiempoPreparacion) {
 		super();
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.tiempoPreparacion = tiempoPreparacion;
 	}
 	//constructor sobrecargado
 	public Articulo() {

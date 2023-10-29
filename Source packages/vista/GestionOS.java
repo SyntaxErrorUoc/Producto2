@@ -1,5 +1,6 @@
 package vista;
 
+import java.time.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
@@ -248,9 +249,12 @@ public class GestionOS {
 			String art;
 			int cantidad;
 			double costeE;
-			LocalDate fechaHora;
+			LocalDateTime fechaHora;
 			boolean envio;
 			int np;
+			String fecha;
+			String hora;
+			String fechahora;
 
 			System.out.println("Introduce nombre cliente");
 			cl = teclado.nextLine();
@@ -262,9 +266,14 @@ public class GestionOS {
 			System.out.println("introduce el numero de pedido");
 			np = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce la fecha y hora");
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			fechaHora = LocalDate.parse(teclado.nextLine(), formatter);
+			System.out.println("introduce la fecha ");
+			fecha = teclado.nextLine();
+			System.out.println("introduce la hora ");
+			hora = teclado.nextLine();
+			fechahora = (fecha+"T"+hora);
+			System.out.println(fechahora);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			fechaHora = LocalDateTime.parse(fechahora, formatter);
 			System.out.println("esta enviado?");
 			envio = teclado.nextBoolean();
 			teclado.nextLine();
@@ -283,6 +292,7 @@ public class GestionOS {
 			String cp;
 			String desc;
 			double precio;
+			Duration tiempoPrep;
 
 			System.out.println("introduce el cp");
 			cp = teclado.nextLine();
@@ -291,7 +301,20 @@ public class GestionOS {
 			System.out.println("introduce el precio del articulo(0,0)");
 			precio = teclado.nextDouble();
 			teclado.nextLine();
-			controlador.addArticulo(cp, desc, precio);
+			System.out.println("introduce el timepo de preparacion en horas(HH:MM):");
+			String tiempo = teclado.nextLine();
+			String[] partes = tiempo.split(":");
+			if (partes.length == 2){
+				try{
+					int horas = Integer.parseInt(partes[0]);
+					int minutos = Integer.parseInt(partes[1]);
+					tiempoPrep = Duration.ofHours(horas).plusMinutes(minutos);
+					System.out.println(tiempoPrep);
+					controlador.addArticulo(cp, desc, precio,tiempoPrep);
+				}catch(NumberFormatException e){
+					System.out.println("La hora no es valida");
+				}
+			}
 		}catch(InputMismatchException e){
 			System.out.println(" dato introducido no valido, vuelve a introducirlo");
 			teclado.nextLine();
@@ -301,11 +324,16 @@ public class GestionOS {
 	public void deletePedido(){
 
 		int cp;
+		Boolean eliminado;
 		System.out.println("introduce el numero de pedido a eliminar");
 		cp = teclado.nextInt();
 		teclado.nextLine();
-
-		controlador.deletePedido(cp);
+		eliminado = controlador.deletePedido(cp);
+		if (eliminado){
+			System.out.println("El pedido se ha eliminado");
+		}else{
+			System.out.println("El pedido no se ha eliminado, fecha de preparacion vencida");
+		}
 	}
 	public void introducirBase(){
 		controlador.addCliente("jose@gmail","jose","camino1");
@@ -315,17 +343,17 @@ public class GestionOS {
 		controlador.addCliente("mario@gmail","mario","camino2");
 		controlador.addCliente("laura@gmail","laura","camino3");
 
-		controlador.addArticulo("cp","ordenador",120);
-		controlador.addArticulo("mc","movil",120);
-		controlador.addArticulo("ja","tablet",120);
+		controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
+		controlador.addArticulo("mc","movil",120,Duration.parse("PT360H40M"));
+		controlador.addArticulo("ja","tablet",120,Duration.parse("PT720H20M"));
 
-		controlador.addPedido("pepe","cp",1,LocalDate.parse("1920-12-12"),5,true,12.0);
-		controlador.addPedido("paco","mc",2,LocalDate.parse("1920-12-12"),2,false,12.0);
-		controlador.addPedido("jose","ja",3,LocalDate.parse("1920-12-12"),6,false,12.0);
-		controlador.addPedido("juan","cp",1,LocalDate.parse("1920-12-12"),5,true,12.0);
-		controlador.addPedido("mario","mc",2,LocalDate.parse("1920-12-12"),2,true,12.0);
-		controlador.addPedido("laura","ja",3,LocalDate.parse("1920-12-12"),6,true,12.0);
-		controlador.addPedido("laura","pc",3,LocalDate.parse("1922-12-12"),12,true,12.0);
+		controlador.addPedido("pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
+		controlador.addPedido("paco","mc",2,LocalDateTime.parse("2023-10-29T23:00:00"),2,false,12.0);
+		controlador.addPedido("jose","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,false,12.0);
+		controlador.addPedido("juan","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
+		controlador.addPedido("mario","mc",2,LocalDateTime.parse("1920-12-12T23:00:00"),2,true,12.0);
+		controlador.addPedido("laura","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,true,12.0);
+		controlador.addPedido("laura","pc",3,LocalDateTime.parse("1920-12-12T23:00:00"),12,true,12.0);
 	}
 
 }

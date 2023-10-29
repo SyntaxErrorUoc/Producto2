@@ -1,10 +1,7 @@
 package controlador;
-
 import modelo.*;
-import vista.GestionOS;
+import java.time.*;
 
-import java.util.ArrayList;
-import java.time.LocalDate;
 public class Controlador {
 	private Datos datos;
 
@@ -15,10 +12,10 @@ public class Controlador {
         this.datos = new Datos();
 
     }
-    public void addArticulo(String cp, String desc, double precio){
+    public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
 
         Articulo a;
-        a = new Articulo(cp,desc,precio);
+        a = new Articulo(cp,desc,precio, timempoPrepacion);
         datos.agregarArticulo(a);
 
     };
@@ -57,7 +54,7 @@ public class Controlador {
             }
         }
     };
-    public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDate fechaHoraPedido,int cantidad,
+    public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
                           boolean enviado,double costeEnvio){
        Articulo art;
        Cliente cl;
@@ -73,14 +70,18 @@ public class Controlador {
        System.out.println(pd);
 
     }
-    public void deletePedido(int np){
+    public Boolean deletePedido(int np){
         Pedido ped;
-        int indicePedido;
-        indicePedido = datos.devolverIndicePedido(np);
+
+        Boolean eliminado =false;
 
         ped = datos.getListaPedidos().getLista().get(np-1);
-        datos.eliminarPedido(ped);
-        System.out.println(datos.getListaPedidos().getLista());
+        if (!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())){
+            datos.eliminarPedido(ped);
+            eliminado = true;
+        }
+        return eliminado;
+
     }
     public void mostrarPedido(boolean enviado){
 
@@ -128,4 +129,16 @@ public class Controlador {
     public double obtenerDescuento(){
        return 0.45;
     };
+    public boolean comprobarPreparacion(LocalDateTime fechaHoraActual, Duration tiempoPrep){
+        LocalDateTime now = LocalDateTime.now();
+        boolean valida = false;
+        fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
+        System.out.println(fechaHoraActual);
+        if (now.isBefore(fechaHoraActual)){
+            valida = false;
+        }else{
+            valida = true;
+        }
+        return valida;
+    }
 }
