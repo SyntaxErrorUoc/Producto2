@@ -1,88 +1,121 @@
-package OnlineStore.modelo;
+package OnlineStore.modelo; /**
+ * Clase Modelo.articulo.java
+ * Esta clase contiene las referencias a los artículos.
+ */
 
-public class Datos {
-    private ListaArticulos listaArticulos;
-    private ListaClientes listaClientes;
-    private ListaPedidos listaPedidos;
+import java.time.LocalTime;
 
+public class articulo {
 
-    public Datos (){
-        listaArticulos = new ListaArticulos();
-        listaClientes = new ListaClientes();
-        listaPedidos = new ListaPedidos ();
+    private String codigo;
+    private String descripcion;
+    private double precioventa;
+    private double gastosenvio;
+    private LocalTime tiempopreparacion;
+
+    /** Constructor de la clase Modelo.articulo
+     *
+     * @param Codigo Indica el código del artículo.
+     * @param Descripcion Muestra la descripción del artículo.
+     * @param PrecioVenta Precio venta del artículo.
+     * @param GastosEnvio Gastos de envío del artículo.
+     * @param TiempoPreparacion Tiempo de preparación del artículo. Es importante ya que idncia el momento en el que ya no se podrá cancelar el Modelo.pedido.
+     */
+    public articulo(String Codigo, String Descripcion, double PrecioVenta, double GastosEnvio, LocalTime TiempoPreparacion){
+        this.codigo = Codigo;
+        this.descripcion = Descripcion;
+        this.precioventa = PrecioVenta;
+        this.gastosenvio = GastosEnvio;
+        this.tiempopreparacion = TiempoPreparacion;
     }
 
-    public void addArticulo(articulo Articulo){
+    /**
+     * Getters and Setters
+     */
 
-        this.listaArticulos.add(Articulo);
+    /**
+     * Método que devuelve el código del artículo
+     * @return Devuelve el código del artículo
+     */
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void dropArticulo(int Indice){
-        articulo T;
-        T = listaArticulos.getAt(Indice);
-        listaArticulos.borrar(T);
+    /**
+     * Metodo que establece el código del artículo
+     * @param codigo
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public void viewArticulos(){
-        listaArticulos.mostrartodo();
+    /**
+     * Método que devuelve la descripción del artículo
+     * @return
+     */
+    public String getDescripcion() {
+        return descripcion;
     }
 
-
-    public void dropcliente(int Indice){
-        listaClientes.eliminarElemento(Indice);
-    }
-    public void addClientePremium(cliente_premium Cliente){
-        this.listaClientes.add(Cliente);
-    }
-
-    public void addClienteEstandard(cliente_estandard Cliente){
-
-        this.listaClientes.add(Cliente);
+    /**
+     *Método que establece la descripción del artículo
+     * @param descripcion Descripción del artículo.
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void viewClientes(){
-        System.out.println("-------------------------------------");
-        System.out.println("| LISTADO DE CLIENTES COMPLETO       ");
-        System.out.println("-------------------------------------\n");
-        listaClientes.mostrartodo();
+    /**
+     * Método que devuelve el precio de venta del artículo
+     * @return Precio de venta del artículo
+     */
+    public double getPrecioventa() {
+        return precioventa;
     }
 
-    public void viewClientesPorTipo(String Tipo){
-        System.out.println("-------------------------------------");
-        System.out.println("| LISTADO DE CLIENTES TIPO : " + Tipo);
-        System.out.println("-------------------------------------\n");
-        for ( cliente C: listaClientes.getArrayList()){
-            if(C.tipoCliente().equals(Tipo)){
-                System.out.println(C.toString());
-            }
-        }
+    /**
+     * Método que establece el precio de venta del artículo
+     * @param precioventa precio de venta del artículo
+     */
+    public void setPrecioventa(double precioventa) {
+        this.precioventa = precioventa;
     }
 
-    public void listaclienteindice(){
-        System.out.println("| Índice\t Nombre Cliente \t Tipo Cliente");
-        for (int i = 0; i < listaClientes.getSize(); i++){
-            System.out.print("|" + i + "\t\t");
-            System.out.print( " " + String.format("%-20s", listaClientes.getAt(i).getNombre()) + "\t");
-            System.out.println( " " + String.format("%-20s",listaClientes.getAt(i).tipoCliente()) );
-        }
+    /**
+     * Método que devuelve el importe de gastos de envío del artículo
+     * @return gastos de envío del artículo
+     */
+    public double getGastosenvio() {
+        return gastosenvio;
     }
 
-    public void listaarticuloindice(){
-        System.out.println("Índice\t Artículo  \t Descripción");
-        for (int i = 0; i < listaArticulos.getSize(); i++){
-            System.out.print("|" + i + "\t\t");
-            System.out.print(" " + String.format("%-10s",listaArticulos.getAt(i).getCodigo()) + "\t");
-            System.out.println(" " + String.format("%-20s",listaArticulos.getAt(i).getDescripcion()) );
-        }
+    /**
+     * Método que
+     * @param gastosenvio
+     */
+    public void setGastosenvio(double gastosenvio) {
+        this.gastosenvio = gastosenvio;
     }
 
-    public void addPedido(){
-
+    public LocalTime getTiempopreparacion() {
+        return tiempopreparacion;
     }
 
-    public void dropPedido(int Indice){
-        listaArticulos.eliminarElemento(Indice);
+    public void setTiempopreparacion(LocalTime tiempopreparacion) {
+        this.tiempopreparacion = tiempopreparacion;
     }
 
-
+    /**
+     * Método que devuelve datos del artículo.
+     * @return Detalle del artículo.
+     */
+    @Override
+    public String toString() {
+        return "Código: " + String.format("%-10s",this.codigo)
+                + "\tDescripción: " + String.format("%-20s",this.descripcion)
+                + "\tPrecio Venta : " + this.precioventa
+                + "\tGastos envío: " + this.gastosenvio
+                + "\tTiempo preparación: " + this.tiempopreparacion
+                + "\n";
+    }
 }
