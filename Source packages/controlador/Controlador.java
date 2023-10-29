@@ -1,27 +1,51 @@
 package controlador;
 import modelo.*;
 import java.time.*;
-
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
 public class Controlador {
 	private Datos datos;
 
 
-    // Constructor
+    /**
+     * Constructor de la clase vacio
+     */
     public Controlador() {
 
         this.datos = new Datos();
 
     }
+
+    /**
+     *
+     * @param cp
+     * @param desc
+     * @param precio
+     * @param timempoPrepacion
+     */
     public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
 
         Articulo a;
         a = new Articulo(cp,desc,precio, timempoPrepacion);
         datos.agregarArticulo(a);
 
-    };
+    }
+
+    /**
+     * Metodo para mostrar Articulo
+     */
     public void mostrarArticulos(){
         datos.obtenerArticulo();
     }
+
+    /**
+     * Metodo para añadir cliente sobrecargados
+     * @param mail de tipo String
+     * @param name de tipo String
+     * @param dir de tipo String
+     */
     public void addCliente(String mail, String name, String dir){
 
         ClienteEstandar stand;
@@ -29,6 +53,14 @@ public class Controlador {
         datos.agregarCliente(stand);
 
     }
+
+    /**
+     * Metodo para añadir cliente sobrecargados
+     * @param mail de tipo String
+     * @param name de tipo String
+     * @param dir de tipo String
+     * @param desc de tipo double
+     */
     public void addCliente(String mail, String name, String dir,double desc){
 
         ClientePremium prem;
@@ -36,9 +68,17 @@ public class Controlador {
         datos.agregarCliente(prem);
 
     }
+
+    /**
+     * Metdo para mostrar cliente
+     */
     public void mostrarCliente(){
         datos.obtenerCliente();
     }
+
+    /**
+     * Metdo para mostrar cliente Premium
+     */
     public void mostrarClientePremium(){
         for( Cliente cliente: datos.getListaClientes().getLista()){
             if (cliente.tipoCliente().equals("Premium")){
@@ -46,14 +86,29 @@ public class Controlador {
             }
         }
 
-    };
+    }
+
+    /**
+     * Metdo para mostrar Estandar
+     */
     public void mostrarClienteStandard(){
         for( Cliente cliente: datos.getListaClientes().getLista()){
             if (cliente.tipoCliente().equals("Estandar")){
                 System.out.println(cliente);
             }
         }
-    };
+    }
+
+    /**
+     * Metdo para añadir pedido
+     * @param nombreCliente de tipo String
+     * @param codigoArticulo de tipo String
+     * @param numeroPedido de tipo int
+     * @param fechaHoraPedido de tipo LocalDateTime
+     * @param cantidad de tipo int
+     * @param enviado de tipo boolean
+     * @param costeEnvio de tipo double
+     */
     public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
                           boolean enviado,double costeEnvio){
        Articulo art;
@@ -70,6 +125,12 @@ public class Controlador {
        System.out.println(pd);
 
     }
+
+    /**
+     * Metodo para borrar Pedido
+     * @param np de tipo int
+     * @return devuelve un tipo boolean
+     */
     public Boolean deletePedido(int np){
         Pedido ped;
 
@@ -83,6 +144,11 @@ public class Controlador {
         return eliminado;
 
     }
+
+    /**
+     * Metodo para mostrarPedido
+     * @param enviado recibe un boolean
+     */
     public void mostrarPedido(boolean enviado){
 
         if (enviado){
@@ -104,6 +170,12 @@ public class Controlador {
             }
         }
     }
+
+    /**
+     * Metodo para mostrar pedido sobrecargados
+     * @param enviado recibe un boolean
+     * @param mail recibe un string
+     */
     public void mostrarPedido(boolean enviado, String  mail){
         int indice;
         if (enviado){
@@ -126,9 +198,20 @@ public class Controlador {
         }
     }
 
+    /**
+     * Metodo para obtener el descuento
+     * @return devuelve un double
+     */
     public double obtenerDescuento(){
        return 0.45;
-    };
+    }
+
+    /**
+     * Metodo para comprobarPreparacion
+     * @param fechaHoraActual de tipo LocalDateTime
+     * @param tiempoPrep de tipo Dutration
+     * @return devuelve un boolean
+     */
     public boolean comprobarPreparacion(LocalDateTime fechaHoraActual, Duration tiempoPrep){
         LocalDateTime now = LocalDateTime.now();
         boolean valida = false;

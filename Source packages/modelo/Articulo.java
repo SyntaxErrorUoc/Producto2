@@ -3,7 +3,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
 public class Articulo {
 	private String codigo;
     private String descripcion;

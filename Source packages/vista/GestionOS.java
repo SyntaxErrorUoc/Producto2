@@ -13,15 +13,26 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
 public class GestionOS {
 
 	private Controlador controlador;
 
 	Scanner teclado = new Scanner(System.in);
 
+	/**
+	 * Constructor de la clase que inicializa el atributo controlador
+	 */
 	public GestionOS() {
 		controlador = new Controlador();
 	}
+
+	/**
+	 * Metodo inicial que muestra el menu inicial
+	 */
 	public void inicio() {
 
 		introducirBase();
@@ -61,6 +72,10 @@ public class GestionOS {
 		while (!salir);
 
 	}
+
+	/**
+	 * Metodo para mostrar el menu articulos
+	 */
 	public void menuArticulo() {
 		boolean salir = false;
 		int opcion;
@@ -93,6 +108,9 @@ public class GestionOS {
 		while (!salir);
 
 	}
+	/**
+	 * Metodo para mostrar el menu clientes
+	 */
 	public void menuClientes() {
 
 		boolean salir = false;
@@ -130,6 +148,9 @@ public class GestionOS {
 		while (!salir);
 
 	}
+	/**
+	 * Metodo para mostrar el menu Pedidos
+	 */
 	public void menuPedidos() {
 		boolean salir = false;
 		int opcion;
@@ -186,6 +207,10 @@ public class GestionOS {
 		}
 		while (!salir);
 	}
+
+	/**
+	 * Metodo para mostrar el menu las opciones de todos los menus
+	 */
 	public void mostrarMenu(String... Opciones){
 		System.out.println("*****************************");
 		for (int i = 0;i< Opciones.length;i++){
@@ -193,6 +218,9 @@ public class GestionOS {
 		}
 		System.out.println( "0. Pâra salir ");
 	}
+	/**
+	 * Metodo para mostrar pedir la opcion de todos los menus
+	 */
 	public int pedirOpcion(int OpcionMax){
 		int resultado;
 		System.out.printf("Selecciona una opcion(1 a %d o 0)\n", OpcionMax);
@@ -200,6 +228,10 @@ public class GestionOS {
 		teclado.nextLine();
 		return resultado;
 	}
+
+	/**
+	 * Metodo para añadir clientes
+	 */
 	public void addDatosCliente(){
 
 		try {
@@ -237,12 +269,22 @@ public class GestionOS {
 		}
 
 	}
+
+	/**
+	 * Metodo para validar Email
+	 * @param emilio de tipo string
+	 * @return devuelve un boolean
+	 */
 	public boolean validaEmilio(String emilio){
 		String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher((emilio));
 		return matcher.matches();
 	}
+
+	/**
+	 * Metodo para añadir pedidos
+	 */
 	public void addPedido(){
 		try {
 			String cl;
@@ -287,6 +329,10 @@ public class GestionOS {
 			addPedido();
 		}
 	}
+
+	/**
+	 * Metodo para añadir articulos
+	 */
 	public void addDatosArticulo(){
 		try {
 			String cp;
@@ -321,6 +367,10 @@ public class GestionOS {
 			addDatosArticulo();
 		}
 	}
+
+	/**
+	 * Metodo para borrar pedidos
+	 */
 	public void deletePedido(){
 
 		int cp;
@@ -335,6 +385,10 @@ public class GestionOS {
 			System.out.println("El pedido no se ha eliminado, fecha de preparacion vencida");
 		}
 	}
+
+	/**
+	 * Metodo que introduce una base inicial
+	 */
 	public void introducirBase(){
 		controlador.addCliente("jose@gmail","jose","camino1");
 		controlador.addCliente("pepe@gmail","pepe","camino2");

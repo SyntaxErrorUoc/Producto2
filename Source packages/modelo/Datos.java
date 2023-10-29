@@ -1,5 +1,10 @@
 package modelo;
 
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
+
 public class Datos {
 	private ListaArticulos listaArticulos;
 	private ListaClientes listaClientes;
@@ -69,15 +74,15 @@ public class Datos {
 	// Métodos para gestionar Clientes
 
 	/**
-	 *
-	 * @param cliente
+	 * Metodo para agregar cliente
+	 * @param cliente recibe un tipo Cliente
 	 */
 	public void agregarCliente(Cliente cliente) {
 		listaClientes.agregar(cliente);
 	}
 
 	/**
-	 *
+	 * Metodo para obtener la lista Clientes
 	 * @param listaClientes
 	 */
 	public void setListaClientes(ListaClientes listaClientes) {
@@ -85,23 +90,23 @@ public class Datos {
 	}
 
 	/**
-	 *
-	 * @param cliente
+	 * Metodo para eliminar Cliente
+	 * @param cliente recibe un tipo Cliente
 	 */
 	public void eliminarCliente(Cliente cliente) {
 		listaClientes.eliminar(cliente);
 	}
 
 	/**
-	 *
-	 * @return
+	 * Metodo para mostrar ListaCliente
+	 * @return ListaCliente
 	 */
 	public ListaClientes getListaClientes() {
 		return listaClientes;
 	}
 
 	/**
-	 *
+	 * Metodo para mostrar Todos los Clientes
 	 */
 	public void obtenerCliente () {
 		 listaClientes.mostrarTodo();
@@ -121,24 +126,23 @@ public class Datos {
 	// Métodos para gestionar Pedidos
 
 	/**
-	 *
-	 * @return
+	 * Getter ListaPedido
+	 * @return devuelve un listaPedido
 	 */
 	public ListaPedidos getListaPedidos() {
 		return listaPedidos;
 	}
 
 	/**
-	 *
-	 * @param listaPedidos
+	 * Setter de listaPedidos
+	 * @param listaPedidos recibe listadoPedido
 	 */
-
 	public void setListaPedidos(ListaPedidos listaPedidos) {
 		this.listaPedidos = listaPedidos;
 	}
 
 	/**
-	 *
+	 * Metodo para agregar pedido
 	 * @param pedido
 	 */
 	public void agregarPedido(Pedido pedido) {
@@ -146,7 +150,7 @@ public class Datos {
 	    }
 
 	/**
-	 *
+	 * Metodo para eliminar pedido
 	 * @param pedido
 	 */
 	public void eliminarPedido(Pedido pedido) {
@@ -154,14 +158,14 @@ public class Datos {
 	}
 
 	/**
-	 *
+	 * Metodo para obtener os pedidos
 	 */
 	public void obtenerPedido() {
 		listaPedidos.mostrarTodo();
 	}
 
 	/**
-	 *
+	 * Metodo para obtener el tamaño de lista pedido
 	 */
 	public void tamPedidos() {
 		listaPedidos.tamanio();
@@ -172,9 +176,9 @@ public class Datos {
 	// Metodos para obtener los indices
 
 	/**
-	 *
-	 * @param valor
-	 * @return
+	 * Metodo para obtener el indice de un cliente
+	 * @param valor recibe un String
+	 * @return devuelve un int
 	 */
 	public int devolverIndiceCliente(String valor){
 		boolean existe = false;
@@ -194,9 +198,9 @@ public class Datos {
 		}
 
 	/**
-	 *
-	 * @param valor
-	 * @return
+	 * Metodo para obtener el indice de un cliente
+	 * @param valor recibe un String
+	 * @return devuelve un int
 	 */
 	public int devolverIndiceArticulo(String valor){
 
@@ -218,9 +222,9 @@ public class Datos {
 		}
 
 	/**
-	 *
-	 * @param valor
-	 * @return
+	 * Metodo para obtener el indice de un pedido
+	 * @param valor recibe un int
+	 * @return devuelve un int
 	 */
 	public int devolverIndicePedido(int valor){
 

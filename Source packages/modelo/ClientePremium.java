@@ -1,6 +1,9 @@
 package modelo;
 
-
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
 public class ClientePremium extends Cliente{
 	private double descuento;
 	/**

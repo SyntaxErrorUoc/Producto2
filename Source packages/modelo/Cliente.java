@@ -1,5 +1,8 @@
 package modelo;
-
+/**
+ * @author SyntaxError
+ * @version 2.0.1
+ */
 public abstract class Cliente {
 
 	private String correoElectronico;
