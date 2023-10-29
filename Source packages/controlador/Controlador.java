@@ -26,9 +26,12 @@ public class Controlador {
      * @param timempoPrepacion
      */
     public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
-
+        if (articuloExiste(cp)){
+            System.out.println("ERROR: El articulo ya existe");
+            return ;
+        }
         Articulo a;
-        a = new Articulo(cp,desc,precio, timempoPrepacion);
+        a = new Articulo(cp, desc, precio, timempoPrepacion);
         datos.agregarArticulo(a);
 
     }
@@ -261,6 +264,14 @@ public class Controlador {
     private boolean emailExiste(String email) {
         for (Cliente cliente : datos.getListaClientes().getLista()) {
             if (cliente.getCorreoElectronico().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean articuloExiste(String cp) {
+        for (Articulo articulo : datos.getListaArticulos().getLista()) {
+            if (articulo.getCodigo().equals(cp)) {
                 return true;
             }
         }

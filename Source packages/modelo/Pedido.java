@@ -180,12 +180,13 @@ public class Pedido {
 	}
 
 
-		@Override
-		public String toString() {
-			return "\n-----------------"+"\nPedido numero : " + numeroPedido +"\n-----------------"+ "\nFecha y hora del pedido :" + fechaHoraPedido + "\nCliente del pedido: "
-					+ cliente.getNombre() +"\n Mail del cliente" + cliente.getCorreoElectronico()+ "Articulo=" + articulo + "\nCantidad del articulo :" + cantidad + "\nEstado del envio :" + enviado + "\nCosteEnvio :"+
-					precioEnvio(costeEnvio)+"Precio total del pedido : "+ precioTotal() +"\n";
-		}
-	    
-	    
+	@Override
+	public String toString() {
+		return "\n-----------------" + "\nPedido numero : " + numeroPedido + "\n-----------------" + "\nFecha y hora del pedido :" + fechaHoraPedido + "\nCliente del pedido :"
+				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviado + "\nCosteEnvío :"
+				+ precioEnvio(costeEnvio) + "\nPrecio total del pedido :" + precioTotal() + "\n";
+	}
+
+
+
 }

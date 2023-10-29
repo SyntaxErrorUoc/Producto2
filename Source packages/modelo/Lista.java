@@ -59,7 +59,11 @@ public class Lista<T> {
 	 */
 
 	public void mostrarTodo(){
-		System.out.println(lista);
+
+		for (T lista: getLista() ){
+			System.out.println(lista);
+		}
+
 	}
 
 
