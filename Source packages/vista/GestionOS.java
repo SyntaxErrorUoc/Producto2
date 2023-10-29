@@ -133,6 +133,7 @@ public class GestionOS {
 		boolean salir = false;
 		int opcion;
 		String filtr;
+		String mail;
 
 		do {
 			try {
@@ -150,18 +151,26 @@ public class GestionOS {
 						System.out.println("Desea filtrar por cliente(S/N)");
 						filtr = teclado.nextLine();
 						if (filtr.equals("N")) {
-							controlador.mostrarPedido(false,false);
+							controlador.mostrarPedido(false);
+						}else if (filtr.equals("S")){
+							System.out.println("Introduce el correo electronico del cliente:");
+							mail = teclado.nextLine();
+							controlador.mostrarPedido(false,mail);
 						}else{
-							controlador.mostrarPedido(false,true);
+							System.out.println("Introduce un valor correcto");
 						}
 						break;
 					case 4:
 						System.out.println("Desea filtrar por cliente(S/N)");
 						filtr = teclado.nextLine();
 						if (filtr.equals("N")) {
-							controlador.mostrarPedido(true,false);
+							controlador.mostrarPedido(true);
+						}else if (filtr.equals("S")){
+							System.out.println("Introduce el correo electronico del cliente:");
+							mail = teclado.nextLine();
+							controlador.mostrarPedido(true,mail);
 						}else{
-							controlador.mostrarPedido(true,true);
+							System.out.println("Introduce un valor correcto");
 						}
 						break;
 					case 0:
@@ -302,6 +311,9 @@ public class GestionOS {
 		controlador.addCliente("jose@gmail","jose","camino1");
 		controlador.addCliente("pepe@gmail","pepe","camino2");
 		controlador.addCliente("paco@gmail","paco","camino3");
+		controlador.addCliente("juan@gmail","juan","camino1");
+		controlador.addCliente("mario@gmail","mario","camino2");
+		controlador.addCliente("laura@gmail","laura","camino3");
 
 		controlador.addArticulo("cp","ordenador",120);
 		controlador.addArticulo("mc","movil",120);
@@ -310,6 +322,10 @@ public class GestionOS {
 		controlador.addPedido("pepe","cp",1,LocalDate.parse("1920-12-12"),5,true,12.0);
 		controlador.addPedido("paco","mc",2,LocalDate.parse("1920-12-12"),2,false,12.0);
 		controlador.addPedido("jose","ja",3,LocalDate.parse("1920-12-12"),6,false,12.0);
+		controlador.addPedido("juan","cp",1,LocalDate.parse("1920-12-12"),5,true,12.0);
+		controlador.addPedido("mario","mc",2,LocalDate.parse("1920-12-12"),2,true,12.0);
+		controlador.addPedido("laura","ja",3,LocalDate.parse("1920-12-12"),6,true,12.0);
+		controlador.addPedido("laura","pc",3,LocalDate.parse("1922-12-12"),12,true,12.0);
 	}
 
 }

@@ -105,6 +105,9 @@ public class Pedido {
 			total = precioEnvio(cantidad * articulo.getPrecio())+precioEnvio(costeEnvio);
 			return total;
 		}
+		public String getMailCliente(){
+			return cliente.getCorreoElectronico();
+		}
 
 
 		@Override
