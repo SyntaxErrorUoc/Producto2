@@ -26,7 +26,7 @@ public class cliente_premium extends cliente {
     }
 
     /**
-     * Método que edevuelve el Descuento a aplicar al Modelo.cliente
+     * Método que devuelve el Descuento a aplicar al Modelo.cliente
      * @return Descuento del Modelo.cliente.
      */
     public float getDescuento() {
@@ -39,11 +39,17 @@ public class cliente_premium extends cliente {
 
     @Override
     public float descuentoEnv() {
+        //
+        //  Recibe el importe del pedido y retorna el descuento aplicado.
+        //
         return this.descuento;
     }
 
     @Override
     public float calcAnual() {
+        //
+        // Se calcula el importe por el tiempo que lleva de alta.
+        //
         return this.cuota;
     }
 
