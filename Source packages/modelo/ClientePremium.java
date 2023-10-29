@@ -50,6 +50,6 @@ public class ClientePremium extends Cliente{
 
 	@Override
 	public String toString() {
-		return super.toString() + "CLIENTE PREMIUM" + "y su descuento es " + this.descuento;
+		return super.toString() + "CLIENTE PREMIUM " + "y su descuento es " + this.descuento+"\n";
 	}
 }

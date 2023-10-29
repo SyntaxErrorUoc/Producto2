@@ -96,8 +96,7 @@ public abstract class Cliente {
 	
 	@Override
 	public String toString() {
-		return "\nCliente [correoElectronico=" + correoElectronico + ", nombre=" + nombre + ", direccion=" + direccion
-				+ "]\n";
+		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electronico"+correoElectronico+"\nDireccion fiscal: " +  direccion + "\n";
 	}
 
 	

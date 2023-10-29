@@ -49,7 +49,7 @@ public class ClienteEstandar extends Cliente {
 	}
 	@Override
 	public String toString() {
-		return super.toString() + "CLIENTE STANDARD";
+		return super.toString() + "CLIENTE STANDARD\n";
 	}
 	
 

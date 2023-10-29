@@ -182,9 +182,9 @@ public class Pedido {
 
 		@Override
 		public String toString() {
-			return "Pedido [numeroPedido=" + numeroPedido + ", fechaHoraPedido=" + fechaHoraPedido + ", cliente="
-					+ cliente.getNombre() +"," + cliente.getCorreoElectronico()+ ", articulo=" + articulo + ", cantidad=" + cantidad + ", enviado=" + enviado + ",costeEnvio:"+
-					precioEnvio(costeEnvio)+",precioTotal: "+ precioTotal() +"]\n";
+			return "\n-----------------"+"\nPedido numero : " + numeroPedido +"\n-----------------"+ "\nFecha y hora del pedido :" + fechaHoraPedido + "\nCliente del pedido: "
+					+ cliente.getNombre() +"\n Mail del cliente" + cliente.getCorreoElectronico()+ "Articulo=" + articulo + "\nCantidad del articulo :" + cantidad + "\nEstado del envio :" + enviado + "\nCosteEnvio :"+
+					precioEnvio(costeEnvio)+"Precio total del pedido : "+ precioTotal() +"\n";
 		}
 	    
 	    

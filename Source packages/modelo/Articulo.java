@@ -1,8 +1,6 @@
 package modelo;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
@@ -106,7 +104,9 @@ public class Articulo {
 
 	@Override
 	public String toString() {
-		return "\nArticulo [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]\n";
+		return "\n----------------"+"\nArticulo \n"+"--------------\n"+
+				"codigo del producto :" + codigo + "\ndescripcion del producto :"
+				+ descripcion + "\nPrecio del producto:" + precio + "\n";
 	}
 
 
