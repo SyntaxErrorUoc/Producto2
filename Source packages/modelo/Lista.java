@@ -62,6 +62,7 @@ public class Lista<T> {
 
 		for (T lista: getLista() ){
 			System.out.println(lista);
+
 		}
 
 	}
