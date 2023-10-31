@@ -255,7 +255,7 @@ public class Controlador {
         return valida;
     }
 
-    private boolean pedidoExiste(int numeroPedido){
+    public boolean pedidoExiste(int numeroPedido){
         for (Pedido pedido: datos.getListaPedidos().getLista()){
             if(pedido.getNumeroPedido() == numeroPedido){
                 return true;
@@ -263,7 +263,7 @@ public class Controlador {
         }
         return false;
     }
-    private boolean emailExiste(String email) {
+    public boolean emailExiste(String email) {
         for (Cliente cliente : datos.getListaClientes().getLista()) {
             if (cliente.getCorreoElectronico().equals(email)) {
                 return true;
@@ -271,9 +271,17 @@ public class Controlador {
         }
         return false;
     }
-    private boolean articuloExiste(String cp) {
+    public boolean articuloExiste(String cp) {
         for (Articulo articulo : datos.getListaArticulos().getLista()) {
             if (articulo.getCodigo().equals(cp)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean clienteExiste (String nombre) {
+        for (Cliente cliente : datos.getListaClientes().getLista()) {
+            if (cliente.getNombre().equals(nombre)) {
                 return true;
             }
         }
