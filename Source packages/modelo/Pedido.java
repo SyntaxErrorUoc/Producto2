@@ -181,6 +181,10 @@ public class Pedido {
 		return cliente.getCorreoElectronico();
 	}
 
+	/**
+	 * Metodo para convertir fecha y Hora a un String
+	 * @return devuelve un String
+	 */
 	public String fechaHoraReturn(){
 
 		String fechahora, fecha, hora;
@@ -194,6 +198,11 @@ public class Pedido {
 		fechahora = fecha + "-"+hora;
 		return fechahora;
 	}
+
+	/**
+	 * Metodo para que enviado nos muestre un String y no un boolean
+	 * @return devuelve un String
+	 */
 	public String enviadoParse(){
 		if (enviado){
 			return "Enviado";
