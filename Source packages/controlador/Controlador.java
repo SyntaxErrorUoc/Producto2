@@ -302,18 +302,6 @@ public class Controlador {
         return false;
     }
 
-    /**
-     * Metodo para comprobar si un cliente existe
-     * @param nombre recibe un String
-     * @return devuelve un Boolean
-     */
-    public boolean clienteExiste (String nombre) {
-        for (Cliente cliente : datos.getListaClientes().getLista()) {
-            if (cliente.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 }

@@ -5,11 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
-import com.sun.source.tree.TryTree;
+
 import controlador.Controlador;
 
-import javax.sound.midi.Soundbank;
-import java.time.LocalDate;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class GestionOS {
 
-	private Controlador controlador;
+	private final Controlador controlador;
 
 	Scanner teclado = new Scanner(System.in);
 
@@ -298,7 +297,7 @@ public class GestionOS {
 			int cantidad;
 			double costeE;
 			LocalDateTime fechaHora;
-			boolean envio = false;
+			boolean envio;
 			String envioS;
 			int np;
 			String fecha;
