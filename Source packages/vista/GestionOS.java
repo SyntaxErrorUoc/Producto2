@@ -244,11 +244,17 @@ public class GestionOS {
 
 			System.out.println("Introduce el mail");
 			mail = teclado.nextLine();
+
+			if(controlador.emailExiste(mail)){
+				System.out.println("El cliente ya existe");
+				return;
+			}
 			while(!validaEmilio(mail)){
 				System.out.println("Mail no valido , intentalo de nuevo.");
 				System.out.println("Introduce el correo electronico:");
 				mail = teclado.nextLine();
 			}
+
 			System.out.println(" Introduce la direccion");
 			dir = teclado.nextLine();
 			System.out.println("introduce el nombre");
@@ -292,39 +298,67 @@ public class GestionOS {
 			int cantidad;
 			double costeE;
 			LocalDateTime fechaHora;
-			boolean envio;
+			boolean envio = false;
+			String envioS;
 			int np;
 			String fecha;
 			String hora;
 			String fechahora;
 
-			System.out.println("Introduce nombre cliente");
+			System.out.println("Introduce nombre cliente:");
 			cl = teclado.nextLine();
-			System.out.println("Introduce el codigo de articulo");
+			if (!controlador.clienteExiste(cl)){
+				System.out.println("El nombre de cliente es invalido o no existe");
+				return;
+			}
+			System.out.println("Introduce el codigo de articulo:");
 			art = teclado.nextLine();
-			System.out.println("Introduce la cantidad");
+			if (!controlador.articuloExiste(art)){
+				System.out.println("El codigo de articulo es invalido o ya existe");
+				return;
+			}
+			System.out.println("Introduce la cantidad:");
 			cantidad = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce el numero de pedido");
+			System.out.println("introduce el numero de pedido:");
 			np = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce la fecha ");
+			if (controlador.pedidoExiste(np)){
+				System.out.println("El numero de pedido ya existe");
+				return;
+			}
+
+			try{System.out.println("introduce la fecha (y-m-d):");
 			fecha = teclado.nextLine();
-			System.out.println("introduce la hora ");
+			System.out.println("introduce la hora (h:m:s)");
 			hora = teclado.nextLine();
 			fechahora = (fecha+"T"+hora);
-			System.out.println(fechahora);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			fechaHora = LocalDateTime.parse(fechahora, formatter);
-			System.out.println("esta enviado?");
-			envio = teclado.nextBoolean();
-			teclado.nextLine();
-			System.out.println("introduce precio envio");
+			fechaHora = LocalDateTime.parse(fechahora, formatter);}
+
+			catch(Exception e){
+				System.out.println(" dato introducido no valido, recuerda el formato correcto!!!" );
+
+				return ;
+			}
+			System.out.println("esta enviado?(S/N):");
+			envioS = teclado.nextLine();
+			if (envioS.equalsIgnoreCase("s")){
+				envio = true;
+			}else if(envioS.equalsIgnoreCase("n")){
+
+				envio = false;
+			}else{
+				System.out.println("Error al insertar envio");
+				return;
+			}
+
+			System.out.println("introduce el porcentaje de coste de envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
 		}catch(InputMismatchException e){
-			System.out.println(" dato introducido no valido, vuelve a introducirlo");
+			System.out.println(" dato introducido no valido, vuelve a introducirlo:");
 			teclado.nextLine();
 			addPedido();
 		}
@@ -342,6 +376,10 @@ public class GestionOS {
 
 			System.out.println("introduce el cp");
 			cp = teclado.nextLine();
+			if(controlador.articuloExiste(cp)){
+				System.out.println("El articulo ya existe");
+				return;
+			}
 			System.out.println(" Introduce la descripcion");
 			desc = teclado.nextLine();
 			System.out.println("introduce el precio del articulo(0,0)");
@@ -355,7 +393,6 @@ public class GestionOS {
 					int horas = Integer.parseInt(partes[0]);
 					int minutos = Integer.parseInt(partes[1]);
 					tiempoPrep = Duration.ofHours(horas).plusMinutes(minutos);
-					System.out.println(tiempoPrep);
 					controlador.addArticulo(cp, desc, precio,tiempoPrep);
 				}catch(NumberFormatException e){
 					System.out.println("La hora no es valida");
