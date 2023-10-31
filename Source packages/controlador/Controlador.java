@@ -247,6 +247,11 @@ public class Controlador {
         return valida;
     }
 
+    /**
+     * Metodo para comprobar si un numero existe
+     * @param numeroPedido recibe un int
+     * @return devuelve un Boolean
+     */
     public boolean pedidoExiste(int numeroPedido){
         for (Pedido pedido: datos.getListaPedidos().getLista()){
             if(pedido.getNumeroPedido() == numeroPedido){
@@ -255,6 +260,11 @@ public class Controlador {
         }
         return false;
     }
+    /**
+     * Metodo para comprobar si un email existe
+     * @param email recibe un String
+     * @return devuelve un Boolean
+     */
     public boolean emailExiste(String email) {
         for (Cliente cliente : datos.getListaClientes().getLista()) {
             if (cliente.getCorreoElectronico().equals(email)) {
@@ -263,6 +273,12 @@ public class Controlador {
         }
         return false;
     }
+
+    /**
+     * Metodo para comprobar si un articulo existe
+     * @param cp recibe un String
+     * @return devuelve un Boolean
+     */
     public boolean articuloExiste(String cp) {
         for (Articulo articulo : datos.getListaArticulos().getLista()) {
             if (articulo.getCodigo().equals(cp)) {
@@ -271,6 +287,20 @@ public class Controlador {
         }
         return false;
     }
+    public boolean clienteExiste (String nombre) {
+        for (Cliente cliente : datos.getListaClientes().getLista()) {
+            if (cliente.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Metodo para comprobar si un cliente existe
+     * @param nombre recibe un String
+     * @return devuelve un Boolean
+     */
     public boolean clienteExiste (String nombre) {
         for (Cliente cliente : datos.getListaClientes().getLista()) {
             if (cliente.getNombre().equals(nombre)) {
