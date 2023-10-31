@@ -301,32 +301,53 @@ public class GestionOS {
 
 			System.out.println("Introduce nombre cliente:");
 			cl = teclado.nextLine();
+			if (!controlador.clienteExiste(cl)){
+				System.out.println("El nombre de cliente es invalido o no existe");
+				return;
+			}
 			System.out.println("Introduce el codigo de articulo:");
 			art = teclado.nextLine();
+			if (!controlador.articuloExiste(art)){
+				System.out.println("El codigo de articulo es invalido o ya existe");
+				return;
+			}
 			System.out.println("Introduce la cantidad:");
 			cantidad = teclado.nextInt();
 			teclado.nextLine();
 			System.out.println("introduce el numero de pedido:");
 			np = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce la fecha (y-m-d):");
+			if (controlador.pedidoExiste(np)){
+				System.out.println("El numero de pedido ya existe");
+				return;
+			}
+
+			try{System.out.println("introduce la fecha (y-m-d):");
 			fecha = teclado.nextLine();
 			System.out.println("introduce la hora (h:m:s)");
 			hora = teclado.nextLine();
 			fechahora = (fecha+"T"+hora);
 			System.out.println(fechahora);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			fechaHora = LocalDateTime.parse(fechahora, formatter);
+			fechaHora = LocalDateTime.parse(fechahora, formatter);}
+
+			catch(Exception e){
+				System.out.println(" dato introducido no valido, recuerda el formato correcto!!!" );
+
+				return ;
+			}
 			System.out.println("esta enviado?(S/N):");
 			envioS = teclado.nextLine();
 			if (envioS.equalsIgnoreCase("s")){
 				envio = true;
 			}else if(envioS.equalsIgnoreCase("n")){
+
 				envio = false;
 			}else{
 				System.out.println("Error al insertar envio");
 				return;
 			}
+
 			System.out.println("introduce precio envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
