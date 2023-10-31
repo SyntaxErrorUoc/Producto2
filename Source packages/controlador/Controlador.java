@@ -26,10 +26,7 @@ public class Controlador {
      * @param timempoPrepacion
      */
     public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
-        if (articuloExiste(cp)){
-            System.out.println("ERROR: El articulo ya existe");
-            return ;
-        }
+
         Articulo a;
         a = new Articulo(cp, desc, precio, timempoPrepacion);
         datos.agregarArticulo(a);
@@ -50,11 +47,6 @@ public class Controlador {
      * @param dir de tipo String
      */
     public void addCliente(String mail, String name, String dir){
-
-        if(emailExiste(mail)){
-            System.out.println("Error: El correo electrónico " + mail + " ya existe.");
-            return;
-        }
 
         ClienteEstandar stand;
         stand = new ClienteEstandar(mail,name,dir);
@@ -144,7 +136,6 @@ public class Controlador {
             cl = datos.getListaClientes().getLista().get(indexCl);
             pd = new Pedido(numeroPedido, fechaHoraPedido, cl, art, cantidad, enviado, costeEnvio);
             datos.agregarPedido(pd);
-            System.out.println(pd);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Error: Índice fuera de rango.");
         } catch (NullPointerException e){
@@ -161,11 +152,14 @@ public class Controlador {
      */
     public Boolean deletePedido(int np){
         Pedido ped;
-
+        int indicePedido;
         Boolean eliminado =false;
 
-        ped = datos.getListaPedidos().getLista().get(np-1);
-        if (!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())){
+        indicePedido = datos.devolverIndicePedido(np);
+
+        ped = datos.getListaPedidos().getLista().get(indicePedido);
+        if ((!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())
+                && (!datos.getListaPedidos().getLista().get(indicePedido).isEnviado()))){
             datos.eliminarPedido(ped);
             eliminado = true;
         }
@@ -244,7 +238,7 @@ public class Controlador {
         LocalDateTime now = LocalDateTime.now();
         boolean valida = false;
         fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
-        System.out.println(fechaHoraActual);
+
         if (now.isBefore(fechaHoraActual)){
             valida = false;
         }else{
@@ -253,7 +247,12 @@ public class Controlador {
         return valida;
     }
 
-    private boolean pedidoExiste(int numeroPedido){
+    /**
+     * Metodo para comprobar si un numero existe
+     * @param numeroPedido recibe un int
+     * @return devuelve un Boolean
+     */
+    public boolean pedidoExiste(int numeroPedido){
         for (Pedido pedido: datos.getListaPedidos().getLista()){
             if(pedido.getNumeroPedido() == numeroPedido){
                 return true;
@@ -261,7 +260,12 @@ public class Controlador {
         }
         return false;
     }
-    private boolean emailExiste(String email) {
+    /**
+     * Metodo para comprobar si un email existe
+     * @param email recibe un String
+     * @return devuelve un Boolean
+     */
+    public boolean emailExiste(String email) {
         for (Cliente cliente : datos.getListaClientes().getLista()) {
             if (cliente.getCorreoElectronico().equals(email)) {
                 return true;
@@ -269,9 +273,29 @@ public class Controlador {
         }
         return false;
     }
-    private boolean articuloExiste(String cp) {
+
+    /**
+     * Metodo para comprobar si un articulo existe
+     * @param cp recibe un String
+     * @return devuelve un Boolean
+     */
+    public boolean articuloExiste(String cp) {
         for (Articulo articulo : datos.getListaArticulos().getLista()) {
             if (articulo.getCodigo().equals(cp)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Metodo para comprobar si un cliente existe
+     * @param nombre recibe un String
+     * @return devuelve un Boolean
+     */
+    public boolean clienteExiste (String nombre) {
+        for (Cliente cliente : datos.getListaClientes().getLista()) {
+            if (cliente.getNombre().equals(nombre)) {
                 return true;
             }
         }
