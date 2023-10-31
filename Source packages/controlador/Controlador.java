@@ -144,7 +144,6 @@ public class Controlador {
             cl = datos.getListaClientes().getLista().get(indexCl);
             pd = new Pedido(numeroPedido, fechaHoraPedido, cl, art, cantidad, enviado, costeEnvio);
             datos.agregarPedido(pd);
-            System.out.println(pd);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Error: Índice fuera de rango.");
         } catch (NullPointerException e){
@@ -161,11 +160,14 @@ public class Controlador {
      */
     public Boolean deletePedido(int np){
         Pedido ped;
-
+        int indicePedido;
         Boolean eliminado =false;
 
-        ped = datos.getListaPedidos().getLista().get(np-1);
-        if (!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())){
+        indicePedido = datos.devolverIndicePedido(np);
+
+        ped = datos.getListaPedidos().getLista().get(indicePedido);
+        if ((!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())
+                && (!datos.getListaPedidos().getLista().get(indicePedido).isEnviado()))){
             datos.eliminarPedido(ped);
             eliminado = true;
         }
@@ -244,7 +246,7 @@ public class Controlador {
         LocalDateTime now = LocalDateTime.now();
         boolean valida = false;
         fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
-        System.out.println(fechaHoraActual);
+
         if (now.isBefore(fechaHoraActual)){
             valida = false;
         }else{
