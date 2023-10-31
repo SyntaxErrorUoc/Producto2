@@ -1,5 +1,7 @@
 package modelo;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
@@ -179,11 +181,41 @@ public class Pedido {
 		return cliente.getCorreoElectronico();
 	}
 
+	/**
+	 * Metodo para convertir fecha y Hora a un String
+	 * @return devuelve un String
+	 */
+	public String fechaHoraReturn(){
+
+		String fechahora, fecha, hora;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		String formatHoraDate = fechaHoraPedido.format(formatter);
+		System.out.println(formatHoraDate);
+
+		String[] parts = formatHoraDate.split("T");
+		fecha = parts[0];
+		hora = parts[1];
+		fechahora = fecha + "-"+hora;
+		return fechahora;
+	}
+
+	/**
+	 * Metodo para que enviado nos muestre un String y no un boolean
+	 * @return devuelve un String
+	 */
+	public String enviadoParse(){
+		if (enviado){
+			return "Enviado";
+		}else{
+			return "Falta de envio";
+		}
+	}
+
 
 	@Override
 	public String toString() {
-		return "\n-----------------" + "\nPedido numero : " + numeroPedido + "\n-----------------" + "\nFecha y hora del pedido :" + fechaHoraPedido + "\nCliente del pedido :"
-				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviado + "\nCosteEnvío :"
+		return "\n-----------------" + "\nPedido numero : " + numeroPedido + "\n-----------------" + "\nFecha y hora del pedido :" + fechaHoraReturn() + "\nCliente del pedido :"
+				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviadoParse() + "\nCosteEnvío :"
 				+ precioEnvio(costeEnvio) + "\nPrecio total del pedido :" + precioTotal() + "\n";
 	}
 
