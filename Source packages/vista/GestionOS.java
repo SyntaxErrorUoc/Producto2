@@ -292,39 +292,47 @@ public class GestionOS {
 			int cantidad;
 			double costeE;
 			LocalDateTime fechaHora;
-			boolean envio;
+			boolean envio = false;
+			String envioS;
 			int np;
 			String fecha;
 			String hora;
 			String fechahora;
 
-			System.out.println("Introduce nombre cliente");
+			System.out.println("Introduce nombre cliente:");
 			cl = teclado.nextLine();
-			System.out.println("Introduce el codigo de articulo");
+			System.out.println("Introduce el codigo de articulo:");
 			art = teclado.nextLine();
-			System.out.println("Introduce la cantidad");
+			System.out.println("Introduce la cantidad:");
 			cantidad = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce el numero de pedido");
+			System.out.println("introduce el numero de pedido:");
 			np = teclado.nextInt();
 			teclado.nextLine();
-			System.out.println("introduce la fecha ");
+			System.out.println("introduce la fecha (y-m-d):");
 			fecha = teclado.nextLine();
-			System.out.println("introduce la hora ");
+			System.out.println("introduce la hora (h:m:s)");
 			hora = teclado.nextLine();
 			fechahora = (fecha+"T"+hora);
 			System.out.println(fechahora);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 			fechaHora = LocalDateTime.parse(fechahora, formatter);
-			System.out.println("esta enviado?");
-			envio = teclado.nextBoolean();
-			teclado.nextLine();
-			System.out.println("introduce precio envio");
+			System.out.println("esta enviado?(S/N):");
+			envioS = teclado.nextLine();
+			if (envioS.equalsIgnoreCase("s")){
+				envio = true;
+			}else if(envioS.equalsIgnoreCase("n")){
+				envio = false;
+			}else{
+				System.out.println("Error al insertar envio");
+				return;
+			}
+			System.out.println("introduce precio envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
 		}catch(InputMismatchException e){
-			System.out.println(" dato introducido no valido, vuelve a introducirlo");
+			System.out.println(" dato introducido no valido, vuelve a introducirlo:");
 			teclado.nextLine();
 			addPedido();
 		}
