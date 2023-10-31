@@ -244,11 +244,17 @@ public class GestionOS {
 
 			System.out.println("Introduce el mail");
 			mail = teclado.nextLine();
+
+			if(controlador.emailExiste(mail)){
+				System.out.println("El cliente ya existe");
+				return;
+			}
 			while(!validaEmilio(mail)){
 				System.out.println("Mail no valido , intentalo de nuevo.");
 				System.out.println("Introduce el correo electronico:");
 				mail = teclado.nextLine();
 			}
+
 			System.out.println(" Introduce la direccion");
 			dir = teclado.nextLine();
 			System.out.println("introduce el nombre");
@@ -348,7 +354,7 @@ public class GestionOS {
 				return;
 			}
 
-			System.out.println("introduce precio envio:");
+			System.out.println("introduce el porcentaje al de precio envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
@@ -371,6 +377,10 @@ public class GestionOS {
 
 			System.out.println("introduce el cp");
 			cp = teclado.nextLine();
+			if(controlador.articuloExiste(cp)){
+				System.out.println("El articulo ya existe");
+				return;
+			}
 			System.out.println(" Introduce la descripcion");
 			desc = teclado.nextLine();
 			System.out.println("introduce el precio del articulo(0,0)");
@@ -384,7 +394,6 @@ public class GestionOS {
 					int horas = Integer.parseInt(partes[0]);
 					int minutos = Integer.parseInt(partes[1]);
 					tiempoPrep = Duration.ofHours(horas).plusMinutes(minutos);
-					System.out.println(tiempoPrep);
 					controlador.addArticulo(cp, desc, precio,tiempoPrep);
 				}catch(NumberFormatException e){
 					System.out.println("La hora no es valida");

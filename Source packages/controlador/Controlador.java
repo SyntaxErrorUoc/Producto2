@@ -26,10 +26,7 @@ public class Controlador {
      * @param timempoPrepacion
      */
     public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
-        if (articuloExiste(cp)){
-            System.out.println("ERROR: El articulo ya existe");
-            return ;
-        }
+
         Articulo a;
         a = new Articulo(cp, desc, precio, timempoPrepacion);
         datos.agregarArticulo(a);
@@ -50,11 +47,6 @@ public class Controlador {
      * @param dir de tipo String
      */
     public void addCliente(String mail, String name, String dir){
-
-        if(emailExiste(mail)){
-            System.out.println("Error: El correo electrónico " + mail + " ya existe.");
-            return;
-        }
 
         ClienteEstandar stand;
         stand = new ClienteEstandar(mail,name,dir);
