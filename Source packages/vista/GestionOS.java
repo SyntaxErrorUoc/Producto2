@@ -333,7 +333,6 @@ public class GestionOS {
 			System.out.println("introduce la hora (h:m:s)");
 			hora = teclado.nextLine();
 			fechahora = (fecha+"T"+hora);
-			System.out.println(fechahora);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 			fechaHora = LocalDateTime.parse(fechahora, formatter);}
 
@@ -354,7 +353,7 @@ public class GestionOS {
 				return;
 			}
 
-			System.out.println("introduce el porcentaje al de precio envio:");
+			System.out.println("introduce el porcentaje de coste de envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
