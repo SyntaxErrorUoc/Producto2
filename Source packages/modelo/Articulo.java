@@ -1,4 +1,5 @@
 package modelo;
+import java.sql.Time;
 import java.time.Duration;
 
 /**
@@ -38,9 +39,10 @@ public class Articulo {
 
 	/**
 	 * Getter de Tiempo de preparación
+	 *
 	 * @return Devuelve un tipo Duration
 	 */
-	public Duration getTiempoPreparacion() {
+	public Time getTiempoPreparacion() {
 		return tiempoPreparacion;
 	}
 
