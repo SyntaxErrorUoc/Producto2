@@ -7,6 +7,7 @@ import modelo.Datos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -32,9 +33,18 @@ public class ControladorTest {
 
     }
 
+    public String convertirDuration(Duration duration){
+        // Hay que pasar Duration a String
+        String cadena = duration.toString(); // formato ISO
+        // formato personalizado
+        return String.format("%02d:%02d:%02d",
+                duration.toHours(),
+                duration.toMinutesPart(),
+                duration.toSecondsPart());
+    }
 
     @Test
-    public void testDeletePedido() {
+    public void testDeletePedido() throws SQLException {
         //este es el junit para el deletepedido
         controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
         controlador.addCliente("pepe@gmail","pepe","camino2");

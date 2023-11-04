@@ -1,6 +1,6 @@
 package modelo;
-import java.sql.Time;
 import java.time.Duration;
+import java.time.LocalTime;
 
 /**
  * @author SyntaxError
@@ -11,8 +11,6 @@ public class Articulo {
     private String descripcion;
     private double precio;
 	private Duration tiempoPreparacion;
-
-
 
 	/**
 	 * Constructor de la clase con 4 prámetros
@@ -30,19 +28,15 @@ public class Articulo {
 		this.tiempoPreparacion = tiempoPreparacion;
 	}
 
-	/**
-	 * Constructor de la clase vacío
-	 */
-	//constructor sobrecargado
 	public Articulo() {
-	}
 
+	}
 	/**
-	 * Getter de Tiempo de preparación
-	 *
-	 * @return Devuelve un tipo Duration
-	 */
-	public Time getTiempoPreparacion() {
+     * Getter de Tiempo de preparación
+     *
+     * @return Devuelve un tipo Duration
+     */
+	public Duration getTiempoPreparacion() {
 		return tiempoPreparacion;
 	}
 
@@ -53,7 +47,6 @@ public class Articulo {
 	public void setTiempoPreparacion(Duration tiempoPreparacion) {
 		this.tiempoPreparacion = tiempoPreparacion;
 	}
-
 
 	/**
 	 * Getter de Código
@@ -104,11 +97,31 @@ public class Articulo {
 		this.precio = precio;
 	}
 
+	public String convertirDurationToString(Duration duration){
+		// Obtener una representación en formato ISO-8601
+		String isoString = duration.toString();
+
+		// Formatear la cadena según tus necesidades
+		String formattedDuration = String.format(
+				"%02d:%02d:%02d",
+				duration.toHoursPart(),
+				duration.toMinutesPart(),
+				duration.toSecondsPart()
+		);
+		return formattedDuration;
+	}
+	public Duration convertirStringToDuration(String duration){
+		// Parsear la cadena y crear una instancia de Duration
+		Duration formattedDuration = Duration.parse(duration);
+		return formattedDuration;
+	}
+
 	@Override
 	public String toString() {
 		return "\n----------------"+"\nArticulo \n"+"--------------\n"+
 				"codigo del producto :" + codigo + "\ndescripcion del producto :"
-				+ descripcion + "\nPrecio del producto:" + precio + "\n";
+				+ descripcion + "\nPrecio del producto:" + precio
+				+ "\nTiempo : "+ convertirDurationToString(tiempoPreparacion) + "\n";
 	}
 
 

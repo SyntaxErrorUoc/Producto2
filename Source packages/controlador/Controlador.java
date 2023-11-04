@@ -1,6 +1,14 @@
 package controlador;
+
+import DAO.MySQL.ConexionMySQL;
 import modelo.*;
+
+import DAO.MySQL.articuloMySQLDAO;
+
+import java.sql.SQLException;
 import java.time.*;
+import java.time.temporal.TemporalAmount;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
@@ -23,16 +31,18 @@ public class Controlador {
      * @param cp
      * @param desc
      * @param precio
-     * @param timempoPrepacion
+     * @param tiempoPrepacion
      */
-    public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
+    public void addArticulo(String cp, String desc, double precio, Duration tiempoPrepacion) throws SQLException, ClassNotFoundException {
         if (articuloExiste(cp)){
             System.out.println("ERROR: El articulo ya existe");
             return ;
         }
         Articulo a;
-        a = new Articulo(cp, desc, precio, timempoPrepacion);
-        datos.agregarArticulo(a);
+        a = new Articulo(cp, desc, precio, tiempoPrepacion);
+        //datos.agregarArticulo(a);
+        articuloMySQLDAO b = new articuloMySQLDAO(ConexionMySQL.conectarMySQL());
+        b.insertar(a);
 
     }
 
@@ -243,7 +253,7 @@ public class Controlador {
     public boolean comprobarPreparacion(LocalDateTime fechaHoraActual, Duration tiempoPrep){
         LocalDateTime now = LocalDateTime.now();
         boolean valida = false;
-        fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
+        fechaHoraActual = fechaHoraActual.plus((TemporalAmount) tiempoPrep);
         System.out.println(fechaHoraActual);
         if (now.isBefore(fechaHoraActual)){
             valida = false;
