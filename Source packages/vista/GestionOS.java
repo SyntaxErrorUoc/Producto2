@@ -34,7 +34,7 @@ public class GestionOS {
 	/**
 	 * Metodo inicial que muestra el menu inicial
 	 */
-	public void inicio() throws SQLException {
+	public void inicio() throws SQLException, ClassNotFoundException {
 
 		introducirBase();
 		boolean salir = false;
@@ -364,6 +364,8 @@ public class GestionOS {
 					System.out.println("La hora no es valida");
 				} catch (SQLException e) {
                     throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
             }
 		}catch(InputMismatchException e){
@@ -394,7 +396,7 @@ public class GestionOS {
 	/**
 	 * Metodo que introduce una base inicial
 	 */
-	public void introducirBase() throws SQLException {
+	public void introducirBase() throws SQLException, ClassNotFoundException {
 		controlador.addCliente("M.jose@gmail.com","M.jose","camino1");
 		controlador.addCliente("M.pepe@gmail.com","M.pepe","camino2");
 		controlador.addCliente("M.paco@gmail.com","M.paco","camino3");

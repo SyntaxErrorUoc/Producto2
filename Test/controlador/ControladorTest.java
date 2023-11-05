@@ -44,7 +44,7 @@ public class ControladorTest {
     }
 
     @Test
-    public void testDeletePedido() throws SQLException {
+    public void testDeletePedido() throws SQLException, ClassNotFoundException {
         //este es el junit para el deletepedido
         controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
         controlador.addCliente("pepe@gmail","pepe","camino2");

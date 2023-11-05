@@ -186,11 +186,11 @@ public class pedidoMySQLDAO implements pedidoDAO {
                 // TODO
                 // Hay que detectar el Articulo y cargar la clase
                 // Datos.devolverIndiceArticulo(rs.getString("Articulo_CP"));
-                p.setArticulo(rs.getString("Articulo_CP"));
+                //p.setArticulo(rs.getString("Articulo_CP"));
                 // TODO
                 // Hay que leer el mail y cargar los datos del cliente
                 // Datos.devolverIndiceCliente(rs.getString("ClienteStandard_mail")
-                p.setCliente(rs.getString("ClienteStandard_mail"));
+                //p.setCliente(rs.getString("ClienteStandard_mail"));
 
             }
         } catch (SQLException e) {
