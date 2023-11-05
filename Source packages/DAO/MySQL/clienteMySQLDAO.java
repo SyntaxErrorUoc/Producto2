@@ -57,12 +57,13 @@ public class clienteMySQLDAO implements clienteDAO {
             stat.setString(2,C.getDireccion());
             if (C.tipoCliente().equals("PREMIUM")){
                 stat.setInt(2,1);
+                stat.setDouble(2,0.20);
+                stat.setDouble(2, 30);
             }else{
                 stat.setInt(2,0);
+                stat.setDouble(2,0);
+                stat.setDouble(2,0);
             }
-
-            stat.setDouble(2,C.descuentoEnv());
-            stat.setDouble(2,C.calcAnual());
 
             if (stat.executeUpdate() == 0){
 
@@ -101,7 +102,7 @@ public class clienteMySQLDAO implements clienteDAO {
             stat.setDouble(2,a.descuentoEnv());
             stat.setDouble(2,a.calcAnual());
 
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate(UPDATE) == 0){
                 throw new DAOExceptions(" posible error al guardar");
             }
 
@@ -124,7 +125,7 @@ public class clienteMySQLDAO implements clienteDAO {
         try{
             stat = conn.prepareStatement(DELETE);
             stat.setString(1,a.getCorreoElectronico());
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate(DELETE) == 0){
 
                 throw new DAOExceptions(" posible error al eliminar");
             }
@@ -171,7 +172,7 @@ public class clienteMySQLDAO implements clienteDAO {
                     // TODO
                     // Al final hay que hacer los Getters y Setters para pasar el valor o se asume
                     // ¿Hacer una tabla sólo para clientes VIP y que recoja los datos de esta?
-                    // b.tipoCliente("PREMIUM");
+                    // b.tipoCliente("ESTANDAR");
                     // b.calcAnual(30);
                     // b.descuentoEnv(0.20);
                 } else {
@@ -181,7 +182,7 @@ public class clienteMySQLDAO implements clienteDAO {
                     // -- [ Apellidos ] ---------------------------------------
                     a.setDireccion(rs.getString("direccion"));
                     // En cliente ESTANDAR no existe esto.
-                    // a.tipoCliente("ESTANDAR");
+                    // a.tipoCliente("PREMIUM");
                     // a.calcAnual(30);
                     // a.descuentoEnv(0.20);
                 }

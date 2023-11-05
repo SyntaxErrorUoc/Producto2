@@ -60,7 +60,7 @@ public class pedidoMySQLDAO implements pedidoDAO {
             stat.setString(3,p.getArticulo().getCodigo());
             stat.setString(3,p.getCliente().getCorreoElectronico());
 
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate(INSERT) == 0){
 
                 throw new DAOExceptions(" posible error al guardar");
             }
@@ -102,7 +102,7 @@ public class pedidoMySQLDAO implements pedidoDAO {
             stat.setString(3,p.getArticulo().getCodigo());
             stat.setString(3,p.getCliente().getCorreoElectronico());
 
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate(UPDATE) == 0){
                 throw new DAOExceptions(" posible error al guardar");
             }
 
@@ -129,7 +129,7 @@ public class pedidoMySQLDAO implements pedidoDAO {
         try{
             stat = conn.prepareStatement(DELETE);
             stat.setInt(1,p.getNumeroPedido());
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate(DELETE) == 0){
 
                 throw new DAOExceptions(" posible error al eliminar");
             }
@@ -183,14 +183,18 @@ public class pedidoMySQLDAO implements pedidoDAO {
                 // ------------------------------------------------
                 p.setCantidad(rs.getInt("cantidad"));
                 p.setEnviado(rs.getBoolean("enviado"));
-                // TODO
+                //TODO
                 // Hay que detectar el Articulo y cargar la clase
                 // Datos.devolverIndiceArticulo(rs.getString("Articulo_CP"));
-                //p.setArticulo(rs.getString("Articulo_CP"));
-                // TODO
+                articuloMySQLDAO a = null;
+                //a.obtener(rs.getString("Articulo_CP"));
+                p.setArticulo(a.obtener(rs.getString("Articulo_CP")));
+                //TODO
                 // Hay que leer el mail y cargar los datos del cliente
-                // Datos.devolverIndiceCliente(rs.getString("ClienteStandard_mail")
-                //p.setCliente(rs.getString("ClienteStandard_mail"));
+                // Datos.devolverIndiceCliente(rs.getString("ClienteStandard_mail"));
+                clienteMySQLDAO c = null;
+                //c.obtener(rs.getString("ClienteStandard_mail"));
+                p.setCliente(c.obtener(rs.getString("ClienteStandard_mail")));
 
             }
         } catch (SQLException e) {
