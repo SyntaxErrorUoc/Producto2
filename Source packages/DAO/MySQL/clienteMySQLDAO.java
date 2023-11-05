@@ -16,24 +16,24 @@ import java.util.List;
 
 public class clienteMySQLDAO implements clienteDAO {
 
-    final String INSERT ="INSERT INTO cliente (mail" +
-            ", nombre" +
-            ", apellidos" +
-            ", direccion" +
-            ", vip" +
-            ", descuento" +
-            ", cuotaAnual) " +
-            "VALUES ('?','?','?','?',?,?,?);";
-    final String UPDATE ="UPDATE cliente SET mail=?" +
-            ", nombre=?" +
-            ", apellidos=?" +
-            ", direccion=?" +
-            ", vip=?" +
-            ", descuento=?" +
-            ", cuotaAnual=? WHERE mail=?;";
-    final String DELETE ="DELETE FROM cliente WHERE 'mail'=?;";
-    final String GETONE= "SELECT * FROM cliente WHERE 'mail'='?';";
-    final String GETALL = "SELECT * FROM cliente;";
+    final String INSERT ="INSERT INTO `cliente` (mail`" +
+            ", `nombre`" +
+            ", `apellidos`" +
+            ", `direccion`" +
+            ", `vip`" +
+            ", `descuento`" +
+            ", `cuotaAnual`) " +
+            "VALUES (?,?,?,?,?,?,?);";
+    final String UPDATE ="UPDATE `cliente` SET " +
+            ", `nombre`=?" +
+            ", `apellidos`=?" +
+            ", `direccion`=?" +
+            ", `vip`=?" +
+            ", `descuento`=?" +
+            ", `cuotaAnual`=? WHERE `mail`=?;";
+    final String DELETE ="DELETE FROM `cliente` WHERE `mail`=?;";
+    final String GETONE= "SELECT * FROM `cliente` WHERE mail`'=?;";
+    final String GETALL = "SELECT * FROM `cliente`;";
 
     private Connection conn;
 

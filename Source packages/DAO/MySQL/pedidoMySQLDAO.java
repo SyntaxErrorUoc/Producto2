@@ -17,19 +17,21 @@ import java.util.List;
 
 public class pedidoMySQLDAO implements pedidoDAO {
 
-    final String INSERT ="INSERT INTO pedido (numeroPedido, fechaHoraPedido, costeEnvio" +
-            ", cantidad, enviado, Articulo_CP, ClienteStandard_mail) " +
-            " VALUES (?,'?',?,?,?,'?','?');";
-    final String UPDATE ="UPDATE pedido SET numeroPedido=?, fechaHoraPedido=?" +
-            ", costeEnvio=? " +
-            ", cantidad=?" +
-            ", enviado='?'" +
-            ", Articulo_CP='?'" +
-            ", ClienteStandard_mail='?'" +
-            " WHERE 'numeroPedido'=?;";
-    final String DELETE  ="DELETE FROM pedido WHERE 'numeroPedido'=?;";
-    final String GETONE= "SELECT * FROM pedido WHERE 'numeroPedido'=?;";
-    final String GETALL = "SELECT * FROM pedido;";
+    final String INSERT ="INSERT INTO `pedido` (`numeroPedido`, `fechaHoraPedido`, `costeEnvio`" +
+            ", `cantidad`, `enviado`, `Articulo_CP`, `ClienteStandard_mail`) " +
+            " VALUES (?,?,?,?,?,?,?);";
+    final String UPDATE ="UPDATE pedido SET " +
+            " `numeroPedido`=?" +
+            ", `fechaHoraPedido`=?" +
+            ", `costeEnvio`=? " +
+            ", `cantidad`=?" +
+            ", `enviado`=?" +
+            ", `Articulo_CP`=?" +
+            ", `ClienteStandard_mail`=?" +
+            " WHERE numeroPedido=?;";
+    final String DELETE  ="DELETE FROM `pedido` WHERE `numeroPedido`=?;";
+    final String GETONE= "SELECT * FROM `pedido` WHERE `numeroPedido`=?;";
+    final String GETALL = "SELECT * FROM `pedido`;";
     private Connection conn;
 
     public pedidoMySQLDAO(Connection Conn){
