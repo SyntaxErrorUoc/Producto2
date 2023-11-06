@@ -16,7 +16,9 @@ public class ClienteEstandar extends Cliente {
 		super(correoElectronico, nombre, direccion);
 	}
 
+	public ClienteEstandar() {
 
+	}
 	/**
 	 * Implementación de la clase abstracta tipoCliente
 	 * @return devuelve un tipo String

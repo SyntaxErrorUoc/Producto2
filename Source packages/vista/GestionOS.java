@@ -1,5 +1,6 @@
 package vista;
 
+import java.sql.SQLException;
 import java.time.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ public class GestionOS {
 	/**
 	 * Metodo inicial que muestra el menu inicial
 	 */
-	public void inicio() {
+	public void inicio() throws SQLException, ClassNotFoundException {
 
 		introducirBase();
 		boolean salir = false;
@@ -385,7 +386,7 @@ public class GestionOS {
 			System.out.println("introduce el precio del articulo(0,0)");
 			precio = teclado.nextDouble();
 			teclado.nextLine();
-			System.out.println("introduce el timepo de preparacion en horas(HH:MM):");
+			System.out.println("introduce el tiempo de preparacion en horas(HH:MM):");
 			String tiempo = teclado.nextLine();
 			String[] partes = tiempo.split(":");
 			if (partes.length == 2){
@@ -393,11 +394,18 @@ public class GestionOS {
 					int horas = Integer.parseInt(partes[0]);
 					int minutos = Integer.parseInt(partes[1]);
 					tiempoPrep = Duration.ofHours(horas).plusMinutes(minutos);
+					System.out.println(tiempoPrep);
+					// -------------------------------------------------------------
 					controlador.addArticulo(cp, desc, precio,tiempoPrep);
+					// -------------------------------------------------------------
 				}catch(NumberFormatException e){
 					System.out.println("La hora no es valida");
-				}
-			}
+				} catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 		}catch(InputMismatchException e){
 			System.out.println(" dato introducido no valido, vuelve a introducirlo");
 			teclado.nextLine();
@@ -426,25 +434,25 @@ public class GestionOS {
 	/**
 	 * Metodo que introduce una base inicial
 	 */
-	public void introducirBase(){
-		controlador.addCliente("jose@gmail.com","jose","camino1");
-		controlador.addCliente("pepe@gmail.com","pepe","camino2");
-		controlador.addCliente("paco@gmail.com","paco","camino3");
-		controlador.addCliente("juan@gmail.com","juan","camino1");
-		controlador.addCliente("mario@gmail.com","mario","camino2");
-		controlador.addCliente("laura@gmail.com","laura","camino3");
+	public void introducirBase() throws SQLException, ClassNotFoundException {
+		controlador.addCliente("M.jose@gmail.com","M.jose","camino1");
+		controlador.addCliente("M.pepe@gmail.com","M.pepe","camino2");
+		controlador.addCliente("M.paco@gmail.com","M.paco","camino3");
+		controlador.addCliente("M.juan@gmail.com","M.juan","camino1");
+		controlador.addCliente("M.mario@gmail.com","M.mario","camino2");
+		controlador.addCliente("M.laura@gmail.com","M.laura","camino3");
 
-		controlador.addArticulo("cp","ordenador",120,Duration.parse("PT180H30M"));
-		controlador.addArticulo("mc","movil",120,Duration.parse("PT360H40M"));
-		controlador.addArticulo("ja","tablet",120,Duration.parse("PT720H20M"));
+		controlador.addArticulo("fc_cp","ordenador",120,Duration.parse("PT180H30M"));
+		controlador.addArticulo("fc_mc","movil",120,Duration.parse("PT360H40M"));
+		controlador.addArticulo("fc_ja","tablet",120,Duration.parse("PT720H20M"));
 
-		controlador.addPedido("pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
-		controlador.addPedido("paco","mc",2,LocalDateTime.parse("2023-10-29T23:00:00"),2,false,12.0);
-		controlador.addPedido("jose","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,false,12.0);
-		controlador.addPedido("juan","cp",4,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
-		controlador.addPedido("mario","mc",5,LocalDateTime.parse("1920-12-12T23:00:00"),2,true,12.0);
-		controlador.addPedido("laura","ja",6,LocalDateTime.parse("1920-12-12T23:00:00"),6,true,12.0);
-		controlador.addPedido("laura","pc",7,LocalDateTime.parse("1920-12-12T23:00:00"),12,true,12.0);
+		controlador.addPedido("M.pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
+		controlador.addPedido("M.paco","mc",2,LocalDateTime.parse("2023-10-29T23:00:00"),2,false,12.0);
+		controlador.addPedido("M.jose","ja",3,LocalDateTime.parse("1920-12-12T23:00:00"),6,false,12.0);
+		controlador.addPedido("M.juan","cp",4,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
+		controlador.addPedido("M.mario","mc",5,LocalDateTime.parse("1920-12-12T23:00:00"),2,true,12.0);
+		controlador.addPedido("M.laura","ja",6,LocalDateTime.parse("1920-12-12T23:00:00"),6,true,12.0);
+		controlador.addPedido("M.laura","pc",7,LocalDateTime.parse("1920-12-12T23:00:00"),12,true,12.0);
 	}
 
 }
