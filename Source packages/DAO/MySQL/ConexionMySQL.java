@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConexionMySQL {
 
     // Librería de MySQL
-    private String driver = "com.mysql.jdbc.Driver";
+    private String driver = "com.mysql.cj.jdbc.Driver";
 
     // Nombre de la base de datos
     private String database = "OnlineStore";
