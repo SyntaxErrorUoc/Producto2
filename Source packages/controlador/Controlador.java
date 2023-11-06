@@ -5,6 +5,7 @@ import modelo.*;
 
 import DAO.MySQL.articuloMySQLDAO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.temporal.TemporalAmount;
@@ -40,8 +41,9 @@ public class Controlador {
         }
         Articulo a;
         a = new Articulo(cp, desc, precio, tiempoPrepacion);
-        //datos.agregarArticulo(a);
-        articuloMySQLDAO b = new articuloMySQLDAO(ConexionMySQL.conectarMySQL());
+        datos.agregarArticulo(a);
+        Connection conn = new ConexionMySQL().conectarMySQL();
+        articuloMySQLDAO b = new articuloMySQLDAO(conn);
         b.insertar(a);
 
     }

@@ -11,17 +11,18 @@ import DAO.articuloDAO;
 
 public class articuloMySQLDAO implements articuloDAO {
 
-    final String INSERT  ="INSERT INTO articulo ('CP', 'Descripcion', 'Precio', 'TiempoPreparacion') VALUES ('?','?',?,'?');";
+    final String INSERT  ="INSERT INTO articulo (CP, Descripcion, Precio, TiempoPreparacion) VALUES (?,?,?,?)";
     final String UPDATE = "UPDATE articulo SET Descripcion = ?, Precio = ?, TiempoPreparacion = ? WHERE cp = ?";
     final String DELETE  ="DELETE FROM articulo WHERE 'CP'=?;";
     final String GETONE = "SELECT * FROM articulo WHERE 'CP'='?';";
     final String GETALL  = "SELECT * FROM articulo;";
 
-    private Connection conn;
+    private  Connection conn;
 
-    public articuloMySQLDAO(Connection Conn){
+    public  articuloMySQLDAO(Connection Conn){
         this.conn = Conn;
     }
+
 
     /**
      * @param a

@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConexionMySQL {
 
     // Librería de MySQL
-    private String driver = "com.mysql.jdbc.Driver";
+    private  String driver = "com.mysql.cj.jdbc.Driver";
 
     // Nombre de la base de datos
     private String database = "OnlineStore";
@@ -20,12 +20,12 @@ public class ConexionMySQL {
     private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
 
     // Nombre de usuario
-    private String username = "root";
+    private  String username = "root";
 
     // Clave de usuario
-    private String password = "ubuntu";
+    private  String password = "ubuntu";
 
-    public Connection conectarMySQL() throws SQLException {
+    public Connection conectarMySQL() throws DAOExceptions {
         Connection conn = null;
 
         try {
