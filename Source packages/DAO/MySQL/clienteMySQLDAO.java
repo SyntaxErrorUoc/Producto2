@@ -1,10 +1,7 @@
 package DAO.MySQL;
 
 import DAO.clienteDAO;
-import modelo.Articulo;
-import modelo.Cliente;
-import modelo.ClienteEstandar;
-import modelo.ClientePremium;
+import modelo.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -146,7 +143,57 @@ public class clienteMySQLDAO implements clienteDAO {
 
     @Override
     public List<Cliente> obtenerTodos() throws DAOExceptions {
-        return null;
+        ListaClientes Listado = null;
+        ClientePremium a = null;
+        ClienteEstandar b = null;
+        PreparedStatement stat = null;
+
+        try {
+            stat = conn.prepareStatement(GETALL);
+            ResultSet rs = stat.executeQuery();
+
+            while(rs.next() ) {
+                if (rs.getInt("vip") == 0) {
+                    b = new ClienteEstandar();
+                    b.setCorreoElectronico(rs.getString("mail"));
+                    b.setNombre(rs.getString("nombre"));
+                    // -- [ Apellidos ] ---------------------------------------
+                    b.setDireccion(rs.getString("direccion"));
+                    // TODO
+                    // Al final hay que hacer los Getters y Setters para pasar el valor o se asume
+                    // ¿Hacer una tabla sólo para clientes VIP y que recoja los datos de esta?
+                    // b.tipoCliente("ESTANDAR");
+                    // b.calcAnual(30);
+                    // b.descuentoEnv(0.20);
+                    Listado.agregar(b);
+                } else {
+                    a = new ClientePremium();
+                    a.setCorreoElectronico(rs.getString("mail"));
+                    a.setNombre(rs.getString("nombre"));
+                    // -- [ Apellidos ] ---------------------------------------
+                    a.setDireccion(rs.getString("direccion"));
+                    // En cliente ESTANDAR no existe esto.
+                    // a.tipoCliente("PREMIUM");
+                    // a.calcAnual(30);
+                    // a.descuentoEnv(0.20);
+                    Listado.agregar(a);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DAOExceptions("Error e SQL", e);
+        }finally{
+            if (stat != null){
+                try {
+                    stat.close();
+                }catch(SQLException e){
+                    throw  new DAOExceptions("Error en SQL", e);
+                }
+            }
+        }
+
+
+        return Listado.getLista();
     }
 
     @Override
