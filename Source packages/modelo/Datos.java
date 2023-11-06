@@ -1,5 +1,11 @@
 package modelo;
 
+import DAO.MySQL.ConexionMySQL;
+import DAO.MySQL.articuloMySQLDAO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
@@ -27,16 +33,21 @@ public class Datos {
 	 * Metodo para agregar articulo
 	 * @param articulo recibe un tipo Articulo
 	 */
-	public void agregarArticulo(Articulo articulo) {
-		listaArticulos.agregar(articulo);
+	public void agregarArticulo(Articulo articulo) throws SQLException {
+		Connection conn = new ConexionMySQL().conectarMySQL();
+		articuloMySQLDAO b = new articuloMySQLDAO(conn);
+		b.insertar(articulo);
 	}
 
 	/**
 	 * Metodo para eliminar articulo
-	 * @param articulo recibe un tipo articulo
+	 * @param cp recibe un tipo articulo
 	 */
-	public void eliminarArticulo(Articulo articulo) {
-		listaArticulos.eliminar(articulo);
+	public void eliminarArticulo(String cp) throws SQLException {
+
+		Connection conn = new ConexionMySQL().conectarMySQL();
+		articuloMySQLDAO b = new articuloMySQLDAO(conn);
+		b.eliminar(cp);
 	}
 
 	/**

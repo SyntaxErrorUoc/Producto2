@@ -123,14 +123,14 @@ public class pedidoMySQLDAO implements pedidoDAO {
 
 
     /**
-     * @param p
+     * @
      */
     @Override
-    public void eliminar(Pedido p) throws DAOExceptions{
+    public void eliminar(Integer idPedido) throws DAOExceptions{
         PreparedStatement stat = null;
         try{
             stat = conn.prepareStatement(DELETE);
-            stat.setInt(1,p.getNumeroPedido());
+
             if (stat.executeUpdate(DELETE) == 0){
 
                 throw new DAOExceptions(" posible error al eliminar");
@@ -163,14 +163,14 @@ public class pedidoMySQLDAO implements pedidoDAO {
      * @return
      */
     @Override
-    public Pedido obtener(String NP) throws DAOExceptions {
+    public Pedido obtener(Integer NP) throws DAOExceptions {
         PreparedStatement stat = null;
         String hora;
         Pedido p = null;
 
         try {
             stat = conn.prepareStatement(GETONE);
-            stat.setString(1,NP);
+            stat.setInt(1,NP);
             ResultSet rs = stat.executeQuery();
 
 

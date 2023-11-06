@@ -117,11 +117,11 @@ public class clienteMySQLDAO implements clienteDAO {
     }
 
     @Override
-    public void eliminar(Cliente a) throws DAOExceptions {
+    public void eliminar(String a) throws DAOExceptions {
         PreparedStatement stat = null;
         try{
             stat = conn.prepareStatement(DELETE);
-            stat.setString(1,a.getCorreoElectronico());
+
             if (stat.executeUpdate(DELETE) == 0){
 
                 throw new DAOExceptions(" posible error al eliminar");

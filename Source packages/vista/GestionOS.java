@@ -83,8 +83,8 @@ public class GestionOS {
 
 		do {
 			try {
-				mostrarMenu("Introducir articulo", "Mostrar articulos");
-				opcion = pedirOpcion(2);
+				mostrarMenu("Introducir articulo", "Mostrar articulos","Eliminar articulo");
+				opcion = pedirOpcion(3);
 
 				switch (opcion) {
 					case 1:
@@ -92,6 +92,9 @@ public class GestionOS {
 						break;
 					case 2:
 						controlador.mostrarArticulos();
+						break;
+					case 3:
+						deleteArticula();
 						break;
 
 					case 0:
@@ -365,6 +368,7 @@ public class GestionOS {
 		}
 	}
 
+
 	/**
 	 * Metodo para añadir articulos
 	 */
@@ -412,6 +416,12 @@ public class GestionOS {
 			addDatosArticulo();
 		}
 	}
+	public void deleteArticula() {
+		String cp;
+		System.out.println("introduce el codigo del articulo a eliminar:");
+		cp = teclado.nextLine();
+		controlador.eliminarArticulo(cp);
+	}
 
 	/**
 	 * Metodo para borrar pedidos
@@ -442,9 +452,9 @@ public class GestionOS {
 		controlador.addCliente("M.mario@gmail.com","M.mario","camino2");
 		controlador.addCliente("M.laura@gmail.com","M.laura","camino3");
 
-		controlador.addArticulo("fc_cp","ordenador",120,Duration.parse("PT180H30M"));
-		controlador.addArticulo("fc_mc","movil",120,Duration.parse("PT360H40M"));
-		controlador.addArticulo("fc_ja","tablet",120,Duration.parse("PT720H20M"));
+		//controlador.addArticulo("fc_cp","ordenador",120,Duration.parse("PT180H30M"));
+		//controlador.addArticulo("fc_mc","movil",120,Duration.parse("PT360H40M"));
+		//controlador.addArticulo("fc_ja","tablet",120,Duration.parse("PT720H20M"));
 
 		controlador.addPedido("M.pepe","cp",1,LocalDateTime.parse("1920-12-12T23:00:00"),5,true,12.0);
 		controlador.addPedido("M.paco","mc",2,LocalDateTime.parse("2023-10-29T23:00:00"),2,false,12.0);

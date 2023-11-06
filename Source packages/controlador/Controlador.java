@@ -1,6 +1,7 @@
 package controlador;
 
 import DAO.MySQL.ConexionMySQL;
+import DAO.MySQL.DAOExceptions;
 import modelo.*;
 
 import DAO.MySQL.articuloMySQLDAO;
@@ -35,10 +36,7 @@ public class Controlador {
      * @param tiempoPrepacion
      */
     public void addArticulo(String cp, String desc, double precio, Duration tiempoPrepacion) throws SQLException, ClassNotFoundException {
-        if (articuloExiste(cp)){
-            System.out.println("ERROR: El articulo ya existe");
-            return ;
-        }
+
         Articulo a;
         a = new Articulo(cp, desc, precio, tiempoPrepacion);
         datos.agregarArticulo(a);
@@ -53,6 +51,15 @@ public class Controlador {
      */
     public void mostrarArticulos(){
         datos.obtenerArticulo();
+    }
+
+    public void eliminarArticulo(String cp) {
+        try {
+            datos.eliminarArticulo(cp);
+        }catch(SQLException e){
+            new DAOExceptions("SQL exception",e);
+        }
+
     }
 
     /**

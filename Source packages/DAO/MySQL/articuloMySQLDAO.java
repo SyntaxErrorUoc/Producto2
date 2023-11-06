@@ -4,7 +4,6 @@ import java.sql.*;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Locale;
 
 import modelo.Articulo;
 import DAO.articuloDAO;
@@ -13,8 +12,8 @@ public class articuloMySQLDAO implements articuloDAO {
 
     final String INSERT  ="INSERT INTO articulo (CP, Descripcion, Precio, TiempoPreparacion) VALUES (?,?,?,?)";
     final String UPDATE = "UPDATE articulo SET Descripcion = ?, Precio = ?, TiempoPreparacion = ? WHERE cp = ?";
-    final String DELETE  ="DELETE FROM articulo WHERE 'CP'=?;";
-    final String GETONE = "SELECT * FROM articulo WHERE 'CP'='?';";
+    final String DELETE  ="DELETE FROM articulo WHERE cp = ?;";
+    final String GETONE = "SELECT * FROM articulo WHERE CP=?";
     final String GETALL  = "SELECT * FROM articulo;";
 
     private  Connection conn;
@@ -95,15 +94,16 @@ public class articuloMySQLDAO implements articuloDAO {
     }
 
     /**
-     * @param a
+     * @param
      */
     @Override
-    public void eliminar(Articulo a) throws DAOExceptions{
+    public void eliminar(String cp) throws DAOExceptions{
         PreparedStatement stat = null;
         try{
+
             stat = conn.prepareStatement(DELETE);
-            stat.setString(1,a.getCodigo());
-            if (stat.executeUpdate() == 0){
+            stat.setString(1,cp);
+            if (stat.executeUpdate() == 0 ){
 
                 throw new DAOExceptions(" posible error al eliminar");
             }
@@ -128,6 +128,7 @@ public class articuloMySQLDAO implements articuloDAO {
     @Override
     public List<Articulo> obtenerTodos() {
         return null;
+
     }
 
     /**

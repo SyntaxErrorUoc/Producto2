@@ -2,7 +2,7 @@ package DAO;
 
 import modelo.Pedido;
 
-public interface pedidoDAO extends DAO <Pedido, String>{
+public interface pedidoDAO extends DAO <Pedido,Integer>{
 
 
 

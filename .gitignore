@@ -17,7 +17,19 @@ out/production/SyntaxError/DAO/MySQL/clienteMySQLDAO.class
 
 out/production/SyntaxError/DAO/MySQL/ConexionMySQL.class
 
+<<<<<<< HEAD
 out/production/SyntaxError/DAO/MySQL/DAOExceptions.class
+=======
+out/production/SyntaxError/modelo/Datos.class
+
+out/production/SyntaxError/vista/GestionOS.class
+
+out/production/SyntaxError/DAO/DAO.class
+
+out/production/SyntaxError/DAO/MySQL/articuloMySQLDAO.class
+
+out/production/SyntaxError/DAO/MySQL/clienteMySQLDAO.class
+>>>>>>> a1167ba... Updated methods articulo and deprecate arraylist methods(add, delete)
 
 out/production/SyntaxError/DAO/MySQL/pedidoMySQLDAO.class
 
