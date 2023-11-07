@@ -1,10 +1,15 @@
 package modelo;
 
 import DAO.MySQL.ConexionMySQL;
+import DAO.MySQL.DAOExceptions;
 import DAO.MySQL.articuloMySQLDAO;
+import DAO.MySQL.clienteMySQLDAO;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author SyntaxError
@@ -88,9 +93,61 @@ public class Datos {
 	 * Metodo para agregar cliente
 	 * @param cliente recibe un tipo Cliente
 	 */
-	public void agregarCliente(Cliente cliente) {
-		listaClientes.agregar(cliente);
+	public void agregarCliente(Cliente cliente) throws DAOExceptions {
+
+		try(Connection conn = new ConexionMySQL().conectarMySQL()){
+			clienteMySQLDAO b = new clienteMySQLDAO(conn);
+			b.insertar(cliente);
+		} catch (SQLException e){
+			throw new DAOExceptions("SQL exception", e);
+		}
 	}
+
+	/**
+	 * Metodo para eliminar Cliente
+	 * @param mail recibe un tipo String
+	 */
+	public void eliminarCliente(String mail) throws SQLException {
+		try(Connection conn = new ConexionMySQL().conectarMySQL()){
+			clienteMySQLDAO b = new clienteMySQLDAO(conn);
+			b.eliminar(mail);
+		}catch (SQLException e){
+			throw new DAOExceptions("Error al eliminar el cliente", e);
+		}
+
+
+	}
+
+	public void modificarCliente(String correo, String nombre, String direccion) throws DAOExceptions {
+		try(Connection conn = new ConexionMySQL().conectarMySQL()){
+			clienteMySQLDAO m = new clienteMySQLDAO(conn);
+			Cliente cliente = m.obtener(correo);
+			if(cliente == null){
+				throw new DAOExceptions("Cliente no encontrado");
+			}
+			cliente.setNombre(nombre);
+			cliente.setDireccion(direccion);
+			m.modificar(cliente);
+
+		}catch (SQLException e){
+			throw new DAOExceptions("Error al eliminar el cliente", e);
+		}
+	}
+
+	public List<Cliente> mostrarTodosLosClientes() throws DAOExceptions {
+		List<Cliente> clientes = new ArrayList<>();
+		try(Connection conn = new ConexionMySQL().conectarMySQL()){
+			clienteMySQLDAO mot = new clienteMySQLDAO(conn);
+			clientes = mot.obtenerTodos();
+		} catch (SQLException e){
+			throw new DAOExceptions("Error al obtener los clientes", e);
+		}
+		return clientes;
+	}
+
+
+
+
 
 	/**
 	 * Metodo para obtener la lista Clientes
@@ -98,14 +155,6 @@ public class Datos {
 	 */
 	public void setListaClientes(ListaClientes listaClientes) {
 		this.listaClientes = listaClientes;
-	}
-
-	/**
-	 * Metodo para eliminar Cliente
-	 * @param cliente recibe un tipo Cliente
-	 */
-	public void eliminarCliente(Cliente cliente) {
-		listaClientes.eliminar(cliente);
 	}
 
 	/**
@@ -123,6 +172,16 @@ public class Datos {
 		 listaClientes.mostrarTodo();
 	}
 
+	public List<Cliente> obtenerClientePorTipo(String tipo)throws DAOExceptions{
+		List<Cliente> clientes = new ArrayList<>();
+		try(Connection conn = new ConexionMySQL().conectarMySQL()){
+			clienteMySQLDAO cpt = new clienteMySQLDAO(conn);
+			return cpt.mostrarPorTipoCliente(tipo);
+		} catch (SQLException e) {
+			throw new DAOExceptions("Error al obtener los clientes", e);
+		}
+
+	}
 	/**
 	 *
 	 * @return

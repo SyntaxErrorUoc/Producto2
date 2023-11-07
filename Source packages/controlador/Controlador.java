@@ -2,6 +2,7 @@ package controlador;
 
 import DAO.MySQL.ConexionMySQL;
 import DAO.MySQL.DAOExceptions;
+import DAO.MySQL.clienteMySQLDAO;
 import modelo.*;
 
 import DAO.MySQL.articuloMySQLDAO;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.temporal.TemporalAmount;
+import java.util.List;
 
 /**
  * @author SyntaxError
@@ -68,11 +70,11 @@ public class Controlador {
      * @param name de tipo String
      * @param dir de tipo String
      */
-    public void addCliente(String mail, String name, String dir){
+    public void addCliente(String mail, String name, String dir) throws DAOExceptions {
 
-        ClienteEstandar stand;
-        stand = new ClienteEstandar(mail,name,dir);
+        ClienteEstandar stand = new ClienteEstandar(mail,name,dir);
         datos.agregarCliente(stand);
+
 
     }
 
@@ -83,41 +85,88 @@ public class Controlador {
      * @param dir de tipo String
      * @param desc de tipo double
      */
-    public void addCliente(String mail, String name, String dir,double desc){
+    public void addCliente(String mail, String name, String dir,double desc) throws DAOExceptions {
 
         if(emailExiste(mail)){
             System.out.println("Error: El correo electrónico " + mail + " ya existe.");
             return;
         }
 
-        ClientePremium prem;
-        prem = new ClientePremium(mail,name, dir, desc);
+        ClientePremium prem = new ClientePremium(mail,name, dir, desc);
         datos.agregarCliente(prem);
 
+
+    }
+
+    public void eliminarCliente(String correo){
+        try{
+            datos.eliminarCliente(correo);
+        }catch (DAOExceptions e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void modificarCliente(String mail, String nombre, String direccion){
+        try {
+            datos.modificarCliente(mail, nombre, direccion);
+        }catch(DAOExceptions e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * Metdo para mostrar cliente
      */
     public void mostrarCliente(){
-        datos.obtenerCliente();
+       try{
+           List<Cliente> clientes = datos.mostrarTodosLosClientes();
+           for (Cliente cliente : clientes){
+               System.out.println(cliente);
+           }
+       }catch (DAOExceptions e){
+           e.printStackTrace();
+       }
     }
+
+    /**
+     *
+     * @param tipo
+     */
+    public void mostratClientesPorTipo(String tipo){
+        try{
+            List<Cliente> clientes = datos.obtenerClientePorTipo(tipo);
+            for (Cliente cliente : clientes){
+                System.out.println(cliente);
+            }
+        }catch (DAOExceptions e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Metdo para mostrar cliente Premium
      */
+    /* TODO
+    /*
     public void mostrarClientePremium(){
-        for( Cliente cliente: datos.getListaClientes().getLista()){
-            if (cliente.tipoCliente().equals("Premium")){
+        try{
+            List<Cliente> clientePremium = datos.mostrarClientesPremium();
+            for (Cliente cliente : clientesPremium){
                 System.out.println(cliente);
             }
+        } catch (DAOExceptions e){
+            e.printStackTrace();
         }
 
     }
-
+*/
     /**
      * Metdo para mostrar Estandar
      */
+    /*
     public void mostrarClienteStandard(){
         for( Cliente cliente: datos.getListaClientes().getLista()){
             if (cliente.tipoCliente().equals("Estandar")){
@@ -125,7 +174,9 @@ public class Controlador {
             }
         }
     }
+*/
 
+    //Metodos de pedidos
     /**
      * Metdo para añadir pedido
      * @param nombreCliente de tipo String

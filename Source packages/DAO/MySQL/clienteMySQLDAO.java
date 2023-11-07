@@ -9,28 +9,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class clienteMySQLDAO implements clienteDAO {
 
-    final String INSERT ="INSERT INTO `cliente` (mail`" +
-            ", `nombre`" +
-            ", `apellidos`" +
-            ", `direccion`" +
-            ", `vip`" +
-            ", `descuento`" +
-            ", `cuotaAnual`) " +
+    final String INSERT ="INSERT INTO cliente (mail" +
+            ", nombre" +
+            ", apellidos" +
+            ", direccion" +
+            ", vip" +
+            ", descuento" +
+            ", cuotaAnual) " +
             "VALUES (?,?,?,?,?,?,?);";
-    final String UPDATE ="UPDATE `cliente` SET " +
-            ", `nombre`=?" +
-            ", `apellidos`=?" +
-            ", `direccion`=?" +
-            ", `vip`=?" +
-            ", `descuento`=?" +
-            ", `cuotaAnual`=? WHERE `mail`=?;";
-    final String DELETE ="DELETE FROM `cliente` WHERE `mail`=?;";
-    final String GETONE= "SELECT * FROM `cliente` WHERE mail`'=?;";
-    final String GETALL = "SELECT * FROM `cliente`;";
+    final String UPDATE ="UPDATE cliente SET " +
+            ", nombre=?" +
+            ", apellidos=?" +
+            ", direccion=?" +
+            ", vip=?" +
+            ", descuento=?" +
+            ", cuotaAnual=? WHERE mail=?;";
+    final String DELETE ="DELETE FROM cliente WHERE mail=?;";
+    final String GETONE= "SELECT * FROM cliente WHERE mail=?;";
+    final String GETPREM= "SELECT * FROM cliente WHERE VIP=?;";
+    final String GETALL = "SELECT * FROM cliente;";
 
     private Connection conn;
 
@@ -50,17 +52,13 @@ public class clienteMySQLDAO implements clienteDAO {
         try {
             stat = conn.prepareStatement(INSERT);
             stat.setString(1,C.getCorreoElectronico());
-            stat.setString(1,C.getNombre());
-            stat.setString(2,C.getDireccion());
-            if (C.tipoCliente().equals("PREMIUM")){
-                stat.setInt(2,1);
-                stat.setDouble(2,0.20);
-                stat.setDouble(2, 30);
-            }else{
-                stat.setInt(2,0);
-                stat.setDouble(2,0);
-                stat.setDouble(2,0);
-            }
+            stat.setString(2,C.getNombre());
+            stat.setString(3,C.getApellidos());
+            stat.setString(4,C.getDireccion());
+            stat.setInt(5,C.tipoCliente().equals("PREMIUM") ? 1 : 0);
+            stat.setDouble(6,C.tipoCliente().equals("PREMIUM") ? 0.20 : 0);
+            stat.setDouble(7,C.tipoCliente().equals("PREMIUM") ? 30 : 0);
+
 
             if (stat.executeUpdate() == 0){
 
@@ -86,18 +84,14 @@ public class clienteMySQLDAO implements clienteDAO {
 
         try {
             stat = conn.prepareStatement(UPDATE);
-            stat.setString(1,a.getCorreoElectronico());
-            stat.setString(2,a.getNombre());
-            // TODO
-            // No hay campo de apellidos
-            stat.setString(2,a.getDireccion());
-            if (a.tipoCliente().equals("PREMIUM")){
-                stat.setInt(2,1);
-            }else{
-                stat.setInt(2,10);
-            }
-            stat.setDouble(2,a.descuentoEnv());
-            stat.setDouble(2,a.calcAnual());
+
+            stat.setString(1,a.getNombre());
+            stat.setString(2, a.getApellidos());
+            stat.setString(3, a.getDireccion());
+            stat.setInt(4, a.tipoCliente().equals("PREMIUM") ? 1 : 0);
+            stat.setDouble(5, a.descuentoEnv());
+            stat.setDouble(6, a.calcAnual());
+            stat.setString(7, a.getCorreoElectronico());
 
             if (stat.executeUpdate(UPDATE) == 0){
                 throw new DAOExceptions(" posible error al guardar");
@@ -117,10 +111,12 @@ public class clienteMySQLDAO implements clienteDAO {
     }
 
     @Override
-    public void eliminar(String a) throws DAOExceptions {
+    public void eliminar(String a) throws SQLException {
         PreparedStatement stat = null;
+
         try{
             stat = conn.prepareStatement(DELETE);
+            stat.setString(1, a);
 
             if (stat.executeUpdate(DELETE) == 0){
 
@@ -154,7 +150,7 @@ public class clienteMySQLDAO implements clienteDAO {
 
             while(rs.next() ) {
                 if (rs.getInt("vip") == 0) {
-                    b = new ClienteEstandar();
+                    b = new ClienteEstandar(rs.getString("mail"), rs.getString("nombre"), rs.getString("direccion"));
                     b.setCorreoElectronico(rs.getString("mail"));
                     b.setNombre(rs.getString("nombre"));
                     // -- [ Apellidos ] ---------------------------------------
@@ -167,7 +163,7 @@ public class clienteMySQLDAO implements clienteDAO {
                     // b.descuentoEnv(0.20);
                     Listado.agregar(b);
                 } else {
-                    a = new ClientePremium();
+                    a = new ClientePremium(rs.getString("mail"), rs.getString("nombre"), rs.getString("direccion"), rs.getDouble("descuento"));
                     a.setCorreoElectronico(rs.getString("mail"));
                     a.setNombre(rs.getString("nombre"));
                     // -- [ Apellidos ] ---------------------------------------
@@ -196,6 +192,12 @@ public class clienteMySQLDAO implements clienteDAO {
         return Listado.getLista();
     }
 
+    @Override
+    public Cliente obtener(String id) throws DAOExceptions {
+        return null;
+    }
+
+    /*
     @Override
     public Cliente obtener(String id) throws DAOExceptions {
 
@@ -247,5 +249,37 @@ public class clienteMySQLDAO implements clienteDAO {
             }
         }
         return a;
+
+    }
+*/
+
+    public List<Cliente> mostrarPorTipoCliente(String tc) throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        try (PreparedStatement stat = conn.prepareStatement(GETPREM)){
+            stat.setInt(1,"PREMIUM".equals(tc) ? 1 : 0);
+            try(ResultSet rs = stat.executeQuery()){
+                while(rs.next()){
+                    if(tc.equals("PREMIUM")) {
+                        ClientePremium cP = new ClientePremium(
+                                rs.getString("mail"),
+                                rs.getString("nombre"),
+                                rs.getString("direccion"),
+                                rs.getDouble("descuento")
+                        );
+                        clientes.add(cP);
+                    }else{
+                        ClienteEstandar cE = new ClienteEstandar(
+                                rs.getString("mail"),
+                                rs.getString("nombre"),
+                                rs.getString("direccion")
+                        );
+                        clientes.add(cE);
+                    }
+                }
+            }
+        }catch(SQLException e){
+            throw new DAOExceptions("Error al obtener los clientes, e");
+        }
+        return clientes;
     }
 }
