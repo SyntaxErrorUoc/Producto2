@@ -42,3 +42,5 @@ out/production/SyntaxError/DAO/MySQL/clienteMySQLDAO.class
 out/production/SyntaxError/DAO/MySQL/pedidoMySQLDAO.class
 
 out/production/SyntaxError/DAO/pedidoDAO.class
+
+*.class
