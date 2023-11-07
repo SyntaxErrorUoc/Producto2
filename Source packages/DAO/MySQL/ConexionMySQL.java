@@ -5,7 +5,11 @@ import java.sql.*;
 public class ConexionMySQL {
 
     // Librería de MySQL
+<<<<<<< HEAD
     private  String driver = "com.mysql.cj.jdbc.Driver";
+=======
+    private String driver = "com.mysql.cj.jdbc.Driver";
+>>>>>>> Chus
 
     // Nombre de la base de datos
     private String database = "OnlineStore";
