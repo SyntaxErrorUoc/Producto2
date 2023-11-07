@@ -197,6 +197,11 @@ public class clienteMySQLDAO implements clienteDAO {
         return null;
     }
 
+    @Override
+    public List<Cliente> obtenerPorCriterio(String criterio) throws DAOExceptions {
+        return null;
+    }
+
     /*
     @Override
     public Cliente obtener(String id) throws DAOExceptions {
