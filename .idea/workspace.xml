@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90421d45-48b5-48bc-b43a-8e349f159a3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/MySQL/articuloMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/MySQL/articuloMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/MySQL/clienteMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/MySQL/clienteMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/MySQL/pedidoMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/MySQL/pedidoMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/articuloDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/articuloDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/DAO/pedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/DAO/pedidoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/controlador/Controlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/modelo/Datos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/modelo/Datos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/modelo/ListaArticulos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/modelo/ListaClientes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/modelo/ListaPedidos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source packages/vista/GestionOS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source packages/vista/GestionOS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/ConexionMySQL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/ConexionMySQL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/articuloMySQLDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/articuloMySQLDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/clienteMySQLDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/clienteMySQLDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/pedidoMySQLDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/MySQL/pedidoMySQLDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/DAO/pedidoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/DAO/pedidoDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/modelo/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/modelo/Cliente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/modelo/Datos.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/modelo/Datos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SyntaxError/vista/GestionOS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SyntaxError/vista/GestionOS.class" afterDir="false" />
-    </list>
+    <list default="true" id="d0c868ee-002d-4078-928b-fd621ae7ca41" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
