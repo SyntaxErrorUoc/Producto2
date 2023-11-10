@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class GestionOS {
 
-	private Controlador controlador;
+	private  Controlador controlador;
 
 	Scanner teclado = new Scanner(System.in);
 
