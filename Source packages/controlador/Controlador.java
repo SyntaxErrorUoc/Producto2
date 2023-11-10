@@ -1,6 +1,14 @@
 package controlador;
+
+import DAO.MySQL.DAOExceptions;
 import modelo.*;
+
+import java.sql.SQLException;
 import java.time.*;
+import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
@@ -12,7 +20,7 @@ public class Controlador {
     /**
      * Constructor de la clase vacio
      */
-    public Controlador() {
+    public Controlador()  {
 
         this.datos = new Datos();
 
@@ -23,12 +31,12 @@ public class Controlador {
      * @param cp
      * @param desc
      * @param precio
-     * @param timempoPrepacion
+     * @param tiempoPrepacion
      */
-    public void addArticulo(String cp, String desc, double precio, Duration timempoPrepacion){
+    public void addArticulo(String cp, String desc, double precio, Duration tiempoPrepacion) throws SQLException, ClassNotFoundException {
 
         Articulo a;
-        a = new Articulo(cp, desc, precio, timempoPrepacion);
+        a = new Articulo(cp, desc, precio, tiempoPrepacion);
         datos.agregarArticulo(a);
 
     }
@@ -36,8 +44,30 @@ public class Controlador {
     /**
      * Metodo para mostrar Articulo
      */
-    public void mostrarArticulos(){
-        datos.obtenerArticulo();
+    public List<Articulo> mostrarArticulos(){
+      return datos.obtenerArticulos();
+    }
+
+    public void eliminarArticulo(String cp) {
+        datos.eliminarArticulo(cp);
+
+    }
+    public boolean articuloExiste(String cp) {
+
+        boolean existe = false;
+        if (datos.obtenerArticulo(cp).getCodigo().equals(cp)){
+            existe = true;
+            return existe;
+        }
+        return existe;
+    }
+    public Articulo mostrarArticulo(String cp){
+
+        Articulo a = null;
+        if (articuloExiste(cp)){
+            a = datos.obtenerArticulo(cp);
+        }
+        return a;
     }
 
     /**
@@ -46,11 +76,11 @@ public class Controlador {
      * @param name de tipo String
      * @param dir de tipo String
      */
-    public void addCliente(String mail, String name, String dir){
+    public void addCliente(String mail, String name, String dir)  {
 
-        ClienteEstandar stand;
-        stand = new ClienteEstandar(mail,name,dir);
+        ClienteEstandar stand = new ClienteEstandar(mail,name,dir);
         datos.agregarCliente(stand);
+
 
     }
 
@@ -61,41 +91,83 @@ public class Controlador {
      * @param dir de tipo String
      * @param desc de tipo double
      */
-    public void addCliente(String mail, String name, String dir,double desc){
+    public void addCliente(String mail, String name, String dir,double desc)  {
 
         if(emailExiste(mail)){
             System.out.println("Error: El correo electrónico " + mail + " ya existe.");
             return;
         }
 
-        ClientePremium prem;
-        prem = new ClientePremium(mail,name, dir, desc);
+        ClientePremium prem = new ClientePremium(mail,name, dir, desc);
         datos.agregarCliente(prem);
+
+
+    }
+
+    public boolean emailExiste(String email) {
+        boolean existe = false;
+        if (datos.obtenerCliente(email).getCorreoElectronico().equals(email)){
+            existe = true;
+        }
+        return existe;
+    }
+
+    public void eliminarCliente(String correo){
+        if (emailExiste(correo)){
+            datos.eliminarCliente(correo);
+        }
+
+    }
+
+
+    public void modificarCliente(String mail, String nombre, String direccion){
+
+        Cliente c = new ClienteEstandar(mail,nombre,direccion);
+        if (emailExiste(mail)){
+            datos.modificarCliente(c);
+        }
 
     }
 
     /**
      * Metdo para mostrar cliente
      */
-    public void mostrarCliente(){
-        datos.obtenerCliente();
+    public List<Cliente> mostrarCliente(){
+
+        return datos.mostrarTodosLosClientes();
+
     }
+
+    /**
+     *
+     * @param tipo
+     */
+    public void mostratClientesPorTipo(String tipo){
+
+    }
+
 
     /**
      * Metdo para mostrar cliente Premium
      */
+    /* TODO
+    /*
     public void mostrarClientePremium(){
-        for( Cliente cliente: datos.getListaClientes().getLista()){
-            if (cliente.tipoCliente().equals("Premium")){
+        try{
+            List<Cliente> clientePremium = datos.mostrarClientesPremium();
+            for (Cliente cliente : clientesPremium){
                 System.out.println(cliente);
             }
+        } catch (DAOExceptions e){
+            e.printStackTrace();
         }
 
     }
-
+*/
     /**
      * Metdo para mostrar Estandar
      */
+    /*
     public void mostrarClienteStandard(){
         for( Cliente cliente: datos.getListaClientes().getLista()){
             if (cliente.tipoCliente().equals("Estandar")){
@@ -103,7 +175,9 @@ public class Controlador {
             }
         }
     }
+*/
 
+    //Metodos de pedidos
     /**
      * Metdo para añadir pedido
      * @param nombreCliente de tipo String
@@ -114,35 +188,33 @@ public class Controlador {
      * @param enviado de tipo boolean
      * @param costeEnvio de tipo double
      */
-    public void addPedido(String nombreCliente, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
+
+    /**
+     * Metodo para comprobar si un numero existe
+     * @param numeroPedido recibe un int
+     * @return devuelve un Boolean
+     */
+    public boolean pedidoExiste(int numeroPedido){
+
+        Boolean existe = false ;
+
+        if(datos.obtenerUnPedido(numeroPedido).getNumeroPedido()== numeroPedido){
+            existe = true;
+        }
+        return existe;
+    }
+
+    public void addPedido(String mail, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
 
                        boolean enviado,double costeEnvio){
 
-        if(pedidoExiste(numeroPedido)){
-            System.out.println("Error: El número de pedido " + numeroPedido + " ya existe.");
-            return;
-        }
+        Cliente c = datos.obtenerCliente(mail) ;
+        Articulo a = datos.obtenerArticulo(codigoArticulo);
+        Pedido p = new Pedido(numeroPedido,fechaHoraPedido,c,a,cantidad,enviado,costeEnvio);
 
-        try {
+        datos.agregarPedido(p);
 
-            Articulo art;
-            Cliente cl;
-            Pedido pd;
-            int indexArt;
-            int indexCl;
-            indexArt = datos.devolverIndiceArticulo(codigoArticulo);
-            art = datos.getListaArticulos().getLista().get(indexArt);
-            indexCl = datos.devolverIndiceCliente(nombreCliente);
-            cl = datos.getListaClientes().getLista().get(indexCl);
-            pd = new Pedido(numeroPedido, fechaHoraPedido, cl, art, cantidad, enviado, costeEnvio);
-            datos.agregarPedido(pd);
-        } catch (IndexOutOfBoundsException e){
-            System.out.println("Error: Índice fuera de rango.");
-        } catch (NullPointerException e){
-            System.out.println("Error: Obleto nulo inesperado.");
-        } catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
-        }
+
     }
 
     /**
@@ -151,46 +223,33 @@ public class Controlador {
      * @return devuelve un tipo boolean
      */
     public Boolean deletePedido(int np){
-        Pedido ped;
-        int indicePedido;
-        Boolean eliminado =false;
 
-        indicePedido = datos.devolverIndicePedido(np);
+        boolean eliminado = false;
+        if (pedidoExiste(np)){
 
-        ped = datos.getListaPedidos().getLista().get(indicePedido);
-        if ((!comprobarPreparacion(ped.getFechaHoraPedido(),ped.getArticulo().getTiempoPreparacion())
-                && (!datos.getListaPedidos().getLista().get(indicePedido).isEnviado()))){
-            datos.eliminarPedido(ped);
+            datos.eliminarPedido(np);
             eliminado = true;
         }
         return eliminado;
-
     }
 
     /**
      * Metodo para mostrarPedido
      * @param enviado recibe un boolean
      */
-    public void mostrarPedido(boolean enviado){
+    public Lista<Pedido> mostrarPedido(boolean enviado){
 
-        if (enviado){
-            for(Pedido pedido:datos.getListaPedidos().getLista()){
+        Lista<Pedido> listaTemp = null;
+        List<Pedido> lista = datos.obtenerPedidos();
 
-                if (pedido.pedidoEnviado()){
-                        System.out.println(pedido);
-
-                }
-            }
-
-        }else{
-
-                for(Pedido pedido:datos.getListaPedidos().getLista()) {
-                    if (!pedido.pedidoEnviado()) {
-                        System.out.println(pedido);
-                    }
-
+        for (Pedido p: lista){
+            if (p.isEnviado()){
+                listaTemp.agregar(p);
+            }else{
+                listaTemp.agregar(p);
             }
         }
+        return listaTemp;
     }
 
     /**
@@ -198,6 +257,8 @@ public class Controlador {
      * @param enviado recibe un boolean
      * @param mail recibe un string
      */
+
+    /**
     public void mostrarPedido(boolean enviado, String  mail){
         int indice;
         if (enviado){
@@ -219,7 +280,7 @@ public class Controlador {
             }
         }
     }
-
+    **/
     /**
      * Metodo para obtener el descuento
      * @return devuelve un double
@@ -237,8 +298,8 @@ public class Controlador {
     public boolean comprobarPreparacion(LocalDateTime fechaHoraActual, Duration tiempoPrep){
         LocalDateTime now = LocalDateTime.now();
         boolean valida = false;
-        fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
-
+        fechaHoraActual = fechaHoraActual.plus((TemporalAmount) tiempoPrep);
+        System.out.println(fechaHoraActual);
         if (now.isBefore(fechaHoraActual)){
             valida = false;
         }else{
@@ -247,61 +308,19 @@ public class Controlador {
         return valida;
     }
 
-    /**
-     * Metodo para comprobar si un numero existe
-     * @param numeroPedido recibe un int
-     * @return devuelve un Boolean
-     */
-    public boolean pedidoExiste(int numeroPedido){
-        for (Pedido pedido: datos.getListaPedidos().getLista()){
-            if(pedido.getNumeroPedido() == numeroPedido){
-                return true;
-            }
-        }
-        return false;
-    }
+
     /**
      * Metodo para comprobar si un email existe
      * @param email recibe un String
      * @return devuelve un Boolean
      */
-    public boolean emailExiste(String email) {
-        for (Cliente cliente : datos.getListaClientes().getLista()) {
-            if (cliente.getCorreoElectronico().equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     /**
      * Metodo para comprobar si un articulo existe
      * @param cp recibe un String
      * @return devuelve un Boolean
      */
-    public boolean articuloExiste(String cp) {
-        for (Articulo articulo : datos.getListaArticulos().getLista()) {
-            if (articulo.getCodigo().equals(cp)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Metodo para comprobar si un cliente existe
-     * @param nombre recibe un String
-     * @return devuelve un Boolean
-     */
-    public boolean clienteExiste (String nombre) {
-        for (Cliente cliente : datos.getListaClientes().getLista()) {
-            if (cliente.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
 
 }

@@ -17,6 +17,10 @@ public class ClientePremium extends Cliente{
 		this.descuento = descuento;
 	}
 
+	public ClientePremium() {
+
+	}
+
 	/**
 	 * Implementación de la clase abstracta tipoCliente
 	 * @return devuelve un tipo String

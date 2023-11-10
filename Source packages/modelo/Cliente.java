@@ -8,6 +8,7 @@ public abstract class Cliente {
 	private String correoElectronico;
 	private String nombre;
 	private String direccion;
+	private String apellidos;
 
 	/**
 	 * Constructor de la clase con 3 prámetros
@@ -25,6 +26,14 @@ public abstract class Cliente {
 	 * Constructor de la clase vacío
 	 */
 	public Cliente() {
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	/**
@@ -99,5 +108,6 @@ public abstract class Cliente {
 		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electronico : "+correoElectronico+"\nDireccion fiscal: " +  direccion + "\n";
 	}
 
-	
+
+
 }

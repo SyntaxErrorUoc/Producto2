@@ -1,25 +1,41 @@
 package modelo;
 
+import DAO.MySQL.*;
+
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
  */
 
 public class Datos {
-	private ListaArticulos listaArticulos;
-	private ListaClientes listaClientes;
-	private ListaPedidos listaPedidos;
 
+	private articuloMySQLDAO articuloMySQLDAO;
+	private clienteMySQLDAO clienteMySQLDAO;
+	private pedidoMySQLDAO pedidoMySQLDAO;
 
+	Connection conn;
 	/**
 	 * Constructor de la clase sin parámetros
 	 */
 	public Datos() {
-		listaArticulos = new ListaArticulos();
-		listaClientes = new ListaClientes();
-		listaPedidos = new ListaPedidos();
-	}
 
+		try{
+			this.conn =  new ConexionMySQL().conectarMySQL();
+		}catch(SQLException e){
+			new DAOExceptions("Ha fallado la conexion a la base de datos",e);
+		}
+		this.clienteMySQLDAO = new clienteMySQLDAO(conn);
+		this.articuloMySQLDAO = new articuloMySQLDAO(conn);
+		this.pedidoMySQLDAO = new pedidoMySQLDAO(conn);
+
+
+	}
 
 	// Métodos para gestionar Artículos
 
@@ -27,47 +43,38 @@ public class Datos {
 	 * Metodo para agregar articulo
 	 * @param articulo recibe un tipo Articulo
 	 */
-	public void agregarArticulo(Articulo articulo) {
-		listaArticulos.agregar(articulo);
+	public void agregarArticulo(Articulo articulo)  {
+
+
+		this.articuloMySQLDAO.insertar(articulo);
 	}
 
 	/**
 	 * Metodo para eliminar articulo
-	 * @param articulo recibe un tipo articulo
+	 * @param cp recibe un tipo articulo
 	 */
-	public void eliminarArticulo(Articulo articulo) {
-		listaArticulos.eliminar(articulo);
+	public void eliminarArticulo(String cp) {
+
+
+		this.articuloMySQLDAO.eliminar(cp);
 	}
 
 	/**
 	 * Metodo para mostrar articulos
 	 * Devuelve un arrayList de tipo Articulo
 	 */
-	public void obtenerArticulo() {
-		 listaArticulos.mostrarTodo();
-	}
-
-	/**
-	 * Metodo para obtener el tamaño de la lista Articulos
-	 * @return devuelve un int
-	 */
-
-	public int tamArticulos() {
-		return listaArticulos.tamanio();
+	public Articulo obtenerArticulo(String id) {
+		return  this.articuloMySQLDAO.obtenerUno(id);
 	}
 
 	/**
 	 * Metodo para mostrar la lista de articulos
 	 * @return devuelve una lista de tipo Articulo
 	 */
-	public ListaArticulos getListaArticulos() {return listaArticulos;}
-
-	/**
-	 * Setter para ListaArticulos
-	 * @param listaArticulos recibe un tipo ListaArticulo
-	 */
-	public void setListaArticulos(ListaArticulos listaArticulos) {
-		this.listaArticulos = listaArticulos;
+	public List<Articulo> obtenerArticulos() {
+		List<Articulo> articulos;
+		articulos = this.articuloMySQLDAO.obtenerTodos();
+		return articulos;
 	}
 
 
@@ -77,173 +84,77 @@ public class Datos {
 	 * Metodo para agregar cliente
 	 * @param cliente recibe un tipo Cliente
 	 */
-	public void agregarCliente(Cliente cliente) {
-		listaClientes.agregar(cliente);
-	}
+	public void agregarCliente(Cliente cliente)  {
 
-	/**
-	 * Metodo para obtener la lista Clientes
-	 * @param listaClientes
-	 */
-	public void setListaClientes(ListaClientes listaClientes) {
-		this.listaClientes = listaClientes;
+			this.clienteMySQLDAO.insertar(cliente);
 	}
 
 	/**
 	 * Metodo para eliminar Cliente
-	 * @param cliente recibe un tipo Cliente
+	 * @param mail recibe un tipo String
 	 */
-	public void eliminarCliente(Cliente cliente) {
-		listaClientes.eliminar(cliente);
+	public void eliminarCliente(String mail) {
+
+		this.clienteMySQLDAO.eliminar(mail);
+
 	}
 
-	/**
-	 * Metodo para mostrar ListaCliente
-	 * @return ListaCliente
-	 */
-	public ListaClientes getListaClientes() {
+	public void modificarCliente(Cliente cliente) {
+
+		this.clienteMySQLDAO.modificar(cliente);
+
+	}
+
+	public List<Cliente> mostrarTodosLosClientes() {
+		List<Cliente> listaClientes  = new ArrayList();
+		listaClientes = this.clienteMySQLDAO.obtenerTodos();
 		return listaClientes;
+
 	}
 
 	/**
 	 * Metodo para mostrar Todos los Clientes
 	 */
-	public void obtenerCliente () {
-		 listaClientes.mostrarTodo();
+	public Cliente obtenerCliente (String mail) {
+		 return this.clienteMySQLDAO.obtenerUno(mail);
 	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public int tamClientes() {
-		return listaClientes.tamanio();
-	}
-
-
 
 
 	// Métodos para gestionar Pedidos
 
-	/**
-	 * Getter ListaPedido
-	 * @return devuelve un listaPedido
-	 */
-	public ListaPedidos getListaPedidos() {
-		return listaPedidos;
-	}
-
-	/**
-	 * Setter de listaPedidos
-	 * @param listaPedidos recibe listadoPedido
-	 */
-	public void setListaPedidos(ListaPedidos listaPedidos) {
-		this.listaPedidos = listaPedidos;
-	}
 
 	/**
 	 * Metodo para agregar pedido
 	 * @param pedido
 	 */
 	public void agregarPedido(Pedido pedido) {
-	        listaPedidos.agregar(pedido);
+	        this.pedidoMySQLDAO.insertar(pedido);
 	    }
 
-	/**
-	 * Metodo para eliminar pedido
-	 * @param pedido
-	 */
-	public void eliminarPedido(Pedido pedido) {
-		listaPedidos.eliminar(pedido);
+
+	public void eliminarPedido(int id) {
+		this.pedidoMySQLDAO.eliminar(id);
 	}
 
 	/**
 	 * Metodo para obtener os pedidos
 	 */
-	public void obtenerPedido() {
-		listaPedidos.mostrarTodo();
+	public ArrayList<Pedido> obtenerPedidos() {
+		ArrayList<Pedido> lista = new ArrayList<>();
+		lista = this.pedidoMySQLDAO.obtenerTodos();
+		return lista;
 	}
+	public Pedido obtenerUnPedido(int cp){
 
-	/**
-	 * Metodo para obtener el tamaño de lista pedido
-	 */
-	public void tamPedidos() {
-		listaPedidos.tamanio();
+		Pedido p = this.pedidoMySQLDAO.obtenerUno(cp);
+		return p;
+
 	}
 
 
 
 	// Metodos para obtener los indices
 
-	/**
-	 * Metodo para obtener el indice de un cliente
-	 * @param valor recibe un String
-	 * @return devuelve un int
-	 */
-	public int devolverIndiceCliente(String valor){
-		boolean existe = false;
-		int counter = 0;
-		while ((listaClientes.getLista().size() > counter) && (!existe)) {
-			if (listaClientes.getLista().get(counter).getNombre().equals(valor)) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaClientes.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-			}
-		}
-
-	/**
-	 * Metodo para obtener el indice de un cliente
-	 * @param valor recibe un String
-	 * @return devuelve un int
-	 */
-	public int devolverIndiceArticulo(String valor){
-
-		boolean existe = false;
-		int counter = 0;
-
-		while ((listaArticulos.getLista().size() > counter) && (!existe)) {
-			if (listaArticulos.getLista().get(counter).getCodigo().equals(valor)) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaArticulos.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-			}
-		}
-
-	/**
-	 * Metodo para obtener el indice de un pedido
-	 * @param valor recibe un int
-	 * @return devuelve un int
-	 */
-	public int devolverIndicePedido(int valor){
-
-		boolean existe = false;
-		int counter = 0;
-
-		while ((listaPedidos.getLista().size() > counter) && (!existe)) {
-			if (listaPedidos.getLista().get(counter).getNumeroPedido() == valor) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaPedidos.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-		}
-	}
 
 }
 

@@ -27,7 +27,7 @@ public class Pedido {
 	 * @param costeEnvio recibe un tipo double
 	 */
 	public Pedido(int numeroPedido, LocalDateTime fechaHoraPedido, Cliente cliente, Articulo articulo, int cantidad,
-					  boolean enviado,double costeEnvio) {
+				  boolean enviado, double costeEnvio) {
 			super();
 			this.numeroPedido = numeroPedido;
 			this.fechaHoraPedido = fechaHoraPedido;
