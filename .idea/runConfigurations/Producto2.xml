@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Producto2" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="vista.OnlineStore" />
+    <module name="SyntaxError" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
