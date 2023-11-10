@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_rebase_[Changes]" date="1699296475681" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/Articulo.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/Articulo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Articulo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/Pedido.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/Pedido.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Pedido.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/Lista.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/Lista.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Lista.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/vista/OnlineStore.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/vista/OnlineStore.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/OnlineStore.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/Cliente.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/Cliente.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/Cliente.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/ClienteEstandar.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/ClienteEstandar.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/ClienteEstandar.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/modelo/ClientePremium.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/modelo/ClientePremium.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/ClientePremium.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SyntaxError/vista/GestionOS.class" />
+    <option name="AFTER_PATH" value="out/production/SyntaxError/vista/GestionOS.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/GestionOS.class" />
+  </binary>
+</changelist>

@@ -1,0 +1,64 @@
+Index: SyntaxError.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Source packages\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/Test\" isTestSource=\"true\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"module-library\" scope=\"TEST\">\r\n      <library name=\"JUnit5.8.1\">\r\n        <CLASSES>\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.8.1/junit-jupiter-5.8.1.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.8.1/junit-jupiter-params-5.8.1.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar!/\" />\r\n          <root url=\"jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SyntaxError.iml b/SyntaxError.iml
+--- a/SyntaxError.iml	(revision dfbbd58cad4ee4f46322f807891f8ec32931eb80)
++++ b/SyntaxError.iml	(date 1699296238543)
+@@ -24,5 +24,6 @@
+         <SOURCES />
+       </library>
+     </orderEntry>
++    <orderEntry type="library" name="mysql-connector-j-8.2.0" level="application" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: Source packages/DAO/MySQL/ConexionMySQL.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package DAO.MySQL;\r\n\r\nimport java.sql.*;\r\n\r\npublic class ConexionMySQL {\r\n\r\n    // Librería de MySQL\r\n    private String driver = \"com.mysql.jdbc.Driver\";\r\n\r\n    // Nombre de la base de datos\r\n    private String database = \"OnlineStore\";\r\n\r\n    // Host\r\n    private String hostname = \"localhost\";\r\n\r\n    // Puerto\r\n    private String port = \"3306\";\r\n\r\n    // Ruta de nuestra base de datos (desactivamos el uso de SSL con \"?useSSL=false\")\r\n    private String url = \"jdbc:mysql://\" + hostname + \":\" + port + \"/\" + database + \"?useSSL=false\";\r\n\r\n    // Nombre de usuario\r\n    private String username = \"root\";\r\n\r\n    // Clave de usuario\r\n    private String password = \"ubuntu\";\r\n\r\n    public Connection conectarMySQL() throws SQLException {\r\n        Connection conn = null;\r\n\r\n        try {\r\n            Class.forName(driver);\r\n            conn = DriverManager.getConnection(url, username, password);\r\n        } catch (ClassNotFoundException | SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return conn;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Source packages/DAO/MySQL/ConexionMySQL.java b/Source packages/DAO/MySQL/ConexionMySQL.java
+--- a/Source packages/DAO/MySQL/ConexionMySQL.java	(revision dfbbd58cad4ee4f46322f807891f8ec32931eb80)
++++ b/Source packages/DAO/MySQL/ConexionMySQL.java	(date 1699296411854)
+@@ -5,27 +5,27 @@
+ public class ConexionMySQL {
+ 
+     // Librería de MySQL
+-    private String driver = "com.mysql.jdbc.Driver";
++    private static String driver = "com.mysql.jdbc.Driver";
+ 
+     // Nombre de la base de datos
+-    private String database = "OnlineStore";
++    private static String database = "OnlineStore";
+ 
+     // Host
+-    private String hostname = "localhost";
++    private static String hostname = "localhost";
+ 
+     // Puerto
+-    private String port = "3306";
++    private static String port = "3306";
+ 
+     // Ruta de nuestra base de datos (desactivamos el uso de SSL con "?useSSL=false")
+-    private String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
++    private static String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
+ 
+     // Nombre de usuario
+-    private String username = "root";
++    private static String username = "root";
+ 
+     // Clave de usuario
+-    private String password = "ubuntu";
++    private static String password = "ubuntu";
+ 
+-    public Connection conectarMySQL() throws SQLException {
++    public static Connection conectarMySQL() throws SQLException {
+         Connection conn = null;
+ 
+         try {
