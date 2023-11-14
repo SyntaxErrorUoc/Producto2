@@ -8,6 +8,7 @@ public abstract class Cliente {
 	private String correoElectronico;
 	private String nombre;
 	private String direccion;
+	private String apellidos;
 
 	/**
 	 * Constructor de la clase con 3 prámetros
@@ -15,7 +16,7 @@ public abstract class Cliente {
 	 * @param nombre recibe un tipo String
 	 * @param direccion recibe un tipo String
 	 */
-		public Cliente(String correoElectronico, String nombre, String direccion) {
+	public Cliente(String correoElectronico, String nombre, String direccion) {
 		this.correoElectronico = correoElectronico;
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -25,6 +26,14 @@ public abstract class Cliente {
 	 * Constructor de la clase vacío
 	 */
 	public Cliente() {
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	/**
@@ -92,12 +101,13 @@ public abstract class Cliente {
 	 * @return devuelve un tipo double
 	 */
 	public abstract double descuentoEnv();
-	
-	
+
+
 	@Override
 	public String toString() {
-		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electronico"+correoElectronico+"\nDireccion fiscal: " +  direccion + "\n";
+		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electronico : "+correoElectronico+"\nDireccion fiscal: " +  direccion + "\n";
 	}
 
-	
+
+
 }

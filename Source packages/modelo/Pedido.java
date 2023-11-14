@@ -1,17 +1,19 @@
 package modelo;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author SyntaxError
  * @version 2.0.1
  */
 public class Pedido {
-	 	private int numeroPedido;
-	    private LocalDateTime fechaHoraPedido;
-	    private Cliente cliente;
-	    private Articulo articulo;
-		private double costeEnvio;
-	    private int cantidad;
-	    private boolean enviado;
+	private int numeroPedido;
+	private LocalDateTime fechaHoraPedido;
+	private Cliente cliente;
+	private Articulo articulo;
+	private double costeEnvio;
+	private int cantidad;
+	private boolean enviado;
 
 
 	/**
@@ -26,15 +28,15 @@ public class Pedido {
 	 */
 	public Pedido(int numeroPedido, LocalDateTime fechaHoraPedido, Cliente cliente, Articulo articulo, int cantidad,
 				  boolean enviado, double costeEnvio) {
-			super();
-			this.numeroPedido = numeroPedido;
-			this.fechaHoraPedido = fechaHoraPedido;
-			this.cliente = cliente;
-			this.articulo = articulo;
-			this.cantidad = cantidad;
-			this.enviado = enviado;
-			this.costeEnvio = costeEnvio;
-		}
+		super();
+		this.numeroPedido = numeroPedido;
+		this.fechaHoraPedido = fechaHoraPedido;
+		this.cliente = cliente;
+		this.articulo = articulo;
+		this.cantidad = cantidad;
+		this.enviado = enviado;
+		this.costeEnvio = costeEnvio;
+	}
 
 	/**
 	 * Constructor de la clase vacio
@@ -46,53 +48,53 @@ public class Pedido {
 	 * Getter del numeroPedido
 	 * @return devuelve un int
 	 */
-		public int getNumeroPedido() {
-			return numeroPedido;
-		}
+	public int getNumeroPedido() {
+		return numeroPedido;
+	}
 
 	/**
 	 * Getter del fechaHoraPedido
 	 * @return devuelve Un LocalDateTime
 	 */
-		public LocalDateTime getFechaHoraPedido() {
-			return fechaHoraPedido;
-		}
+	public LocalDateTime getFechaHoraPedido() {
+		return fechaHoraPedido;
+	}
 
 	/**
 	 * Getter del cliente
 	 * @return devuelve un tipo Cliente
 	 */
-		public Cliente getCliente() {
-			return cliente;
-		}
+	public Cliente getCliente(String clienteStandardMail) {
+		return cliente;
+	}
 
 	/**
 	 * Getter del articulo
 	 * @return devuelve un tipo Articulo
 	 */
-		public Articulo getArticulo() {
-			return articulo;
-		}
+	public Articulo getArticulo(String string) {
+		return articulo;
+	}
 
 	/**
 	 * Getter de cantidad
 	 * @return devuelve un int
 	 */
 	public int getCantidad() {
-			return cantidad;
-		}
+		return cantidad;
+	}
 
 	/**
 	 * Getter de enviado
 	 * @return devuelve un tipo boolean
 	 */
 	public boolean isEnviado() {
-			return enviado;
-		}
+		return enviado;
+	}
 
 	/**
 	 * Setter de numeroPedido
- 	 * @param numeroPedido de tipo int
+	 * @param numeroPedido de tipo int
 	 */
 
 	public void setNumeroPedido(int numeroPedido) {
@@ -141,7 +143,7 @@ public class Pedido {
 
 	/**
 	 * Metodo para pedidoEniado
- 	 * @return devuelve un boolean
+	 * @return devuelve un boolean
 	 */
 	public boolean pedidoEnviado() {
 		return enviado;
@@ -154,11 +156,11 @@ public class Pedido {
 	 */
 	public double precioEnvio(double costeEnvio ) {
 
-			if (cliente instanceof ClientePremium) {
-				costeEnvio -= (costeEnvio * cliente.descuentoEnv()/100);
-			}
-			return costeEnvio;
+		if (cliente instanceof ClientePremium) {
+			costeEnvio -= (costeEnvio * cliente.descuentoEnv()/100);
 		}
+		return costeEnvio;
+	}
 
 	/**
 	 * Metodo para el calculo del precioTotal
@@ -179,11 +181,41 @@ public class Pedido {
 		return cliente.getCorreoElectronico();
 	}
 
+	/**
+	 * Metodo para convertir fecha y Hora a un String
+	 * @return devuelve un String
+	 */
+	public String fechaHoraReturn(){
+
+		String fechahora, fecha, hora;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		String formatHoraDate = fechaHoraPedido.format(formatter);
+		System.out.println(formatHoraDate);
+
+		String[] parts = formatHoraDate.split("T");
+		fecha = parts[0];
+		hora = parts[1];
+		fechahora = fecha + "-"+hora;
+		return fechahora;
+	}
+
+	/**
+	 * Metodo para que enviado nos muestre un String y no un boolean
+	 * @return devuelve un String
+	 */
+	public String enviadoParse(){
+		if (enviado){
+			return "Enviado";
+		}else{
+			return "Falta de envio";
+		}
+	}
+
 
 	@Override
 	public String toString() {
-		return "\n-----------------" + "\nPedido numero : " + numeroPedido + "\n-----------------" + "\nFecha y hora del pedido :" + fechaHoraPedido + "\nCliente del pedido :"
-				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviado + "\nCosteEnvío :"
+		return "\n-----------------" + "\nPedido numero : " + numeroPedido + "\n-----------------" + "\nFecha y hora del pedido :" + fechaHoraReturn() + "\nCliente del pedido :"
+				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviadoParse() + "\nCosteEnvío :"
 				+ precioEnvio(costeEnvio) + "\nPrecio total del pedido :" + precioTotal() + "\n";
 	}
 

@@ -1,250 +1,112 @@
 package modelo;
 
-/**
- * @author SyntaxError
- * @version 2.0.1
- */
+
+import Factory.FactoryDAO;
+
+import java.util.ArrayList;
+
 
 public class Datos {
-	private ListaArticulos listaArticulos;
-	private ListaClientes listaClientes;
-	private ListaPedidos listaPedidos;
 
+	private FactoryDAO factory;
 
-	/**
-	 * Constructor de la clase sin parámetros
-	 */
+	//Connection conn;
+
 	public Datos() {
-		listaArticulos = new ListaArticulos();
-		listaClientes = new ListaClientes();
-		listaPedidos = new ListaPedidos();
-	}
 
+		this.factory = new FactoryDAO();
+
+	}
 
 	// Métodos para gestionar Artículos
 
-	/**
-	 * Metodo para agregar articulo
-	 * @param articulo recibe un tipo Articulo
-	 */
-	public void agregarArticulo(Articulo articulo) {
-		listaArticulos.agregar(articulo);
+	public void agregarArticulo(Articulo a)  {
+
+		this.factory.articulo.insertar(a);
 	}
 
-	/**
-	 * Metodo para eliminar articulo
-	 * @param articulo recibe un tipo articulo
-	 */
-	public void eliminarArticulo(Articulo articulo) {
-		listaArticulos.eliminar(articulo);
+	public void modificarArticulo(Articulo a ){
+		this.factory.articulo.modificar(a);
+
 	}
 
-	/**
-	 * Metodo para mostrar articulos
-	 * Devuelve un arrayList de tipo Articulo
-	 */
-	public void obtenerArticulo() {
-		 listaArticulos.mostrarTodo();
+	public void eliminarArticulo(String cp) {
+		this.factory.articulo.eliminar(cp);
+
 	}
 
-	/**
-	 * Metodo para obtener el tamaño de la lista Articulos
-	 * @return devuelve un int
-	 */
+	public Articulo obtenerArticulo(String id) {
+		Articulo a = this.factory.articulo.obtenerUno(id);
+		return  a;
 
-	public int tamArticulos() {
-		return listaArticulos.tamanio();
 	}
 
-	/**
-	 * Metodo para mostrar la lista de articulos
-	 * @return devuelve una lista de tipo Articulo
-	 */
-	public ListaArticulos getListaArticulos() {return listaArticulos;}
-
-	/**
-	 * Setter para ListaArticulos
-	 * @param listaArticulos recibe un tipo ListaArticulo
-	 */
-	public void setListaArticulos(ListaArticulos listaArticulos) {
-		this.listaArticulos = listaArticulos;
+	public ArrayList<Articulo> obtenerArticulos() {
+		ArrayList<Articulo> articulos;
+		articulos = this.factory.articulo.obtenerTodos();
+		return articulos;
 	}
 
 
 	// Métodos para gestionar Clientes
 
-	/**
-	 * Metodo para agregar cliente
-	 * @param cliente recibe un tipo Cliente
-	 */
-	public void agregarCliente(Cliente cliente) {
-		listaClientes.agregar(cliente);
+	public void agregarCliente(Cliente c)  {
+		this.factory.cliente.insertar(c);
+
 	}
 
-	/**
-	 * Metodo para obtener la lista Clientes
-	 * @param listaClientes
-	 */
-	public void setListaClientes(ListaClientes listaClientes) {
-		this.listaClientes = listaClientes;
+	public void eliminarCliente(String mail) {
+
+		this.factory.cliente.eliminar(mail);
+
 	}
 
-	/**
-	 * Metodo para eliminar Cliente
-	 * @param cliente recibe un tipo Cliente
-	 */
-	public void eliminarCliente(Cliente cliente) {
-		listaClientes.eliminar(cliente);
+	public void modificarCliente(Cliente cliente) {
+		this.factory.cliente.modificar(cliente);
+
 	}
 
-	/**
-	 * Metodo para mostrar ListaCliente
-	 * @return ListaCliente
-	 */
-	public ListaClientes getListaClientes() {
+	public ArrayList<Cliente> mostrarTodosLosClientes() {
+
+		ArrayList<Cliente> listaClientes;
+		listaClientes = this.factory.cliente.obtenerTodos();
 		return listaClientes;
+
 	}
 
-	/**
-	 * Metodo para mostrar Todos los Clientes
-	 */
-	public void obtenerCliente () {
-		 listaClientes.mostrarTodo();
+	public ArrayList<Cliente> mostrarPorTipo(String c,String d){
+
+		ArrayList<Cliente> listado;
+		listado = this.factory.cliente.obtenerPorCriterio(c,d);
+		return listado;
 	}
 
-	/**
-	 *
-	 * @return
-	 */
-	public int tamClientes() {
-		return listaClientes.tamanio();
+	public Cliente obtenerCliente (String mail) {
+
+		return this.factory.cliente.obtenerUno(mail);
 	}
-
-
 
 
 	// Métodos para gestionar Pedidos
 
-	/**
-	 * Getter ListaPedido
-	 * @return devuelve un listaPedido
-	 */
-	public ListaPedidos getListaPedidos() {
-		return listaPedidos;
-	}
-
-	/**
-	 * Setter de listaPedidos
-	 * @param listaPedidos recibe listadoPedido
-	 */
-	public void setListaPedidos(ListaPedidos listaPedidos) {
-		this.listaPedidos = listaPedidos;
-	}
-
-	/**
-	 * Metodo para agregar pedido
-	 * @param pedido
-	 */
 	public void agregarPedido(Pedido pedido) {
-	        listaPedidos.agregar(pedido);
-	    }
+		this.factory.pedido.insertar(pedido);
 
-	/**
-	 * Metodo para eliminar pedido
-	 * @param pedido
-	 */
-	public void eliminarPedido(Pedido pedido) {
-		listaPedidos.eliminar(pedido);
 	}
 
-	/**
-	 * Metodo para obtener os pedidos
-	 */
-	public void obtenerPedido() {
-		listaPedidos.mostrarTodo();
+	public void eliminarPedido(int id) {
+		this.factory.pedido.eliminar(id);
 	}
 
-	/**
-	 * Metodo para obtener el tamaño de lista pedido
-	 */
-	public void tamPedidos() {
-		listaPedidos.tamanio();
+	public ArrayList<Pedido> obtenerPedidos() {
+		ArrayList<Pedido> lista = new ArrayList<>();
+		lista = this.factory.pedido.obtenerTodos();
+		return lista;
 	}
-
-
-
-	// Metodos para obtener los indices
-
-	/**
-	 * Metodo para obtener el indice de un cliente
-	 * @param valor recibe un String
-	 * @return devuelve un int
-	 */
-	public int devolverIndiceCliente(String valor){
-		boolean existe = false;
-		int counter = 0;
-		while ((listaClientes.getLista().size() > counter) && (!existe)) {
-			if (listaClientes.getLista().get(counter).getNombre().equals(valor)) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaClientes.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-			}
-		}
-
-	/**
-	 * Metodo para obtener el indice de un cliente
-	 * @param valor recibe un String
-	 * @return devuelve un int
-	 */
-	public int devolverIndiceArticulo(String valor){
-
-		boolean existe = false;
-		int counter = 0;
-
-		while ((listaArticulos.getLista().size() > counter) && (!existe)) {
-			if (listaArticulos.getLista().get(counter).getCodigo().equals(valor)) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaArticulos.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-			}
-		}
-
-	/**
-	 * Metodo para obtener el indice de un pedido
-	 * @param valor recibe un int
-	 * @return devuelve un int
-	 */
-	public int devolverIndicePedido(int valor){
-
-		boolean existe = false;
-		int counter = 0;
-
-		while ((listaPedidos.getLista().size() > counter) && (!existe)) {
-			if (listaPedidos.getLista().get(counter).getNumeroPedido() == valor) {
-				existe = true;
-			} else {
-				counter++;
-			}
-		}
-		if (counter == listaPedidos.getLista().size()){
-			return 0;
-		}else{
-			return counter;
-		}
+	public Pedido obtenerUnPedido(int cp){
+		Pedido p = this.factory.pedido.obtenerUno(cp);
+		return p;
 	}
 
 }
-
 
