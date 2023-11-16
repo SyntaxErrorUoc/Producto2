@@ -103,9 +103,15 @@ public class Datos {
 		lista = this.factory.pedido.obtenerTodos();
 		return lista;
 	}
+
+	public ArrayList<Pedido> obtenerPedidosfiltro() {
+		ArrayList<Pedido> lista = new ArrayList<>();
+		lista = this.factory.pedido.obtenerTodos();
+		return lista;
+	}
+
 	public Pedido obtenerUnPedido(int cp){
-		Pedido p = this.factory.pedido.obtenerUno(cp);
-		return p;
+		return this.factory.pedido.obtenerUno(cp);
 	}
 
 }

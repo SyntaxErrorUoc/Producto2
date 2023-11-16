@@ -157,14 +157,6 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
 
         } catch (SQLException e) {
             new DAOExceptions("Error e SQL", e);
-        }finally{
-            if (stat != null){
-                try {
-                    stat.close();
-                }catch(SQLException e){
-                    new DAOExceptions("Error en SQL", e);
-                }
-            }
         }
 
 

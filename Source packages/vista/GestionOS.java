@@ -59,12 +59,12 @@ public class GestionOS {
 						salir = true;
 						break;
 					default:
-						System.out.println("Opcion no válida. Introduce un valor valido.");
+						System.out.println("Opción no válida. Introduce un valor valido.");
 						break;
 
 				}
 			}catch(InputMismatchException e){
-				System.out.println(" dato introducido no valido, vuelve a introducirlo");
+				System.out.println("Dato introducido no valido, vuelve a introducirlo");
 				teclado.nextLine();
 			}
 		}
@@ -180,7 +180,7 @@ public class GestionOS {
 
 		do {
 			try {
-				mostrarMenu("Insertar pedido", "Eliminar pedido", "Mostrar pedidos pendientes", "Mostrar pedidos enviados", "Mostrar un Pedido");
+				mostrarMenu("Insertar pedido", "Eliminar pedido", "Mostrar pedidos pendientes", "Mostrar pedidos enviados", "Mostrar un Pedido", "Mostrar todos los pedidos");
 				opcion = pedirOpcion(5);
 
 				switch (opcion) {
@@ -188,13 +188,19 @@ public class GestionOS {
 						addDatosPedido();
 						break;
 					case 2:
+						deletePedido();
 						break;
 					case 3:
+						mostrarPedidosEnPrep();
 						break;
 					case 4:
-
+						mostrarPedidosEnviados();
 						break;
 					case 5:
+						buscarPedido();
+						break;
+					case 6:
+						mostrarTodosLosPedidos();
 						break;
 					case 0:
 						salir = true;
@@ -217,14 +223,15 @@ public class GestionOS {
 		for (int i = 0;i< Opciones.length;i++){
 			System.out.printf("%d. %s%n", i +1 ,Opciones[i]);
 		}
-		System.out.println( "0. Pâra salir ");
+		System.out.println("*****************************");
+		System.out.println( "0. Para salir ");
 	}
 	/**
 	 * Metodo para mostrar pedir la opcion de todos los menus
 	 */
 	public int pedirOpcion(int OpcionMax){
 		int resultado;
-		System.out.printf("Selecciona una opcion(1 a %d o 0)\n", OpcionMax);
+		System.out.printf("Selecciona una opción(1 a %d o 0)\n", OpcionMax);
 		resultado = teclado.nextInt();
 		teclado.nextLine();
 		return resultado;
@@ -426,7 +433,7 @@ public class GestionOS {
 
 	}
 	public void mostrarPorTipoCliente(String value){
-		ArrayList<Cliente> array= controlador.mostratClientesPorTipo("vip",value);
+		ArrayList<Cliente> array= controlador.mostrarClientesPorTipo("vip",value);
 
 		for (Cliente c: array ){
 
@@ -514,12 +521,12 @@ public class GestionOS {
 				return;
 			}
 
-			System.out.println("introduce el porcentaje de coste de envio:");
+			System.out.println("Introduce el porcentaje de coste de envio:");
 			costeE = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
 		}catch(InputMismatchException e){
-			System.out.println(" dato introducido no valido, vuelve a introducirlo:");
+			System.out.println("Dato introducido no valido, vuelve a introducirlo:");
 
 		}
 	}
@@ -527,7 +534,7 @@ public class GestionOS {
 		//TODO
 		int cp;
 		Boolean eliminado;
-		System.out.println("introduce el numero de pedido a eliminar");
+		System.out.println("Introduce el número de pedido a eliminar");
 		cp = teclado.nextInt();
 		teclado.nextLine();
 		eliminado = controlador.deletePedido(cp);
@@ -545,15 +552,16 @@ public class GestionOS {
 		//TODO
 		String filtr;
 		String mail;
-
+		System.out.println("LISTAR PEDIDOS EN PREPARACIÓN");
+		System.out.println("-----------------------------------------------------");
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
 		if (filtr.equals("N")) {
-			controlador.mostrarPedido(true);
+			System.out.println(controlador.obtenerpedidos(1, null));
 		}else if (filtr.equals("S")){
 			System.out.println("Introduce el correo electrónico del cliente:");
 			mail = teclado.nextLine();
-			controlador.mostrarPedido(true,mail);
+			System.out.println(controlador.obtenerpedidos(1, mail));
 		}else{
 			System.out.println("Introduce un valor correcto");
 		}
@@ -563,25 +571,30 @@ public class GestionOS {
 		//TODO
 		String filtr;
 		String mail;
-
+		System.out.println("LISTAR PEDIDOS PENDIENTES");
+		System.out.println("-----------------------------------------------------");
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
 		if (filtr.equals("N")) {
-			controlador.mostrarPedido(true);
+			System.out.println(controlador.obtenerpedidos(0, null));
 		}else if (filtr.equals("S")){
 			System.out.println("Introduce el correo electronico del cliente:");
 			mail = teclado.nextLine();
-			controlador.mostrarPedido(true,mail);
+			System.out.println(controlador.obtenerpedidos(0, mail));
 		}else{
 			System.out.println("Introduce un valor correcto");
 		}
 	}
 	public void mostrarTodosLosPedidos(){
 		//TODO
-
+		System.out.println(controlador.MostrarTodosLosPedidos());
 	}
 	public void buscarPedido(){
-		//TODO
+		String filtr;
+		System.out.println("Introduzca el número de pedido : ");
+		filtr = teclado.nextLine();
+
+		System.out.println(controlador.mostrarPedido(Integer.parseInt(filtr)));
 
 	}
 

@@ -1,4 +1,6 @@
 package modelo;
+import Factory.ClienteDAOFactoryMySQL;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -64,15 +66,16 @@ public class Pedido {
 	 * Getter del cliente
 	 * @return devuelve un tipo Cliente
 	 */
-	public Cliente getCliente(String clienteStandardMail) {
+	public Cliente getCliente() {
 		return cliente;
 	}
+
 
 	/**
 	 * Getter del articulo
 	 * @return devuelve un tipo Articulo
 	 */
-	public Articulo getArticulo(String string) {
+	public Articulo getArticulo() {
 		return articulo;
 	}
 
@@ -162,6 +165,14 @@ public class Pedido {
 		return costeEnvio;
 	}
 
+	public double getCosteEnvio() {
+		return costeEnvio;
+	}
+
+	public void setCosteEnvio(double costeenvio) {
+		this.costeEnvio = costeenvio;
+	}
+
 	/**
 	 * Metodo para el calculo del precioTotal
 	 * @return devuele un double
@@ -190,7 +201,6 @@ public class Pedido {
 		String fechahora, fecha, hora;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatHoraDate = fechaHoraPedido.format(formatter);
-		System.out.println(formatHoraDate);
 
 		String[] parts = formatHoraDate.split("T");
 		fecha = parts[0];
@@ -218,7 +228,5 @@ public class Pedido {
 				+ cliente.getNombre() + "\nMail del cliente :" + cliente.getCorreoElectronico() + "\n" + "\t" + articulo.toString().replaceAll("\n", "\n\t") + "\nCantidad del articulo :" + cantidad + "\nEstado del envío :" + enviadoParse() + "\nCosteEnvío :"
 				+ precioEnvio(costeEnvio) + "\nPrecio total del pedido :" + precioTotal() + "\n";
 	}
-
-
 
 }

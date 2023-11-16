@@ -135,7 +135,7 @@ public class Controlador {
 
     }
 
-    public ArrayList<Cliente> mostratClientesPorTipo(String columna,String tipo){
+    public ArrayList<Cliente> mostrarClientesPorTipo(String columna,String tipo){
 
         ArrayList<Cliente> lista;
         lista = datos.mostrarPorTipo(columna,tipo);
@@ -166,7 +166,6 @@ public class Controlador {
     }
 
     public void addPedido(String mail, String codigoArticulo, int numeroPedido, LocalDateTime fechaHoraPedido,int cantidad,
-
                           boolean enviado,double costeEnvio){
 
         Cliente c = datos.obtenerCliente(mail) ;
@@ -194,16 +193,34 @@ public class Controlador {
         return eliminado;
     }
 
+    public ArrayList<Pedido> obtenerpedidos(int enviado, String mail){
+        ArrayList<Pedido> lista = new ArrayList<>();
+        int valor_entero;
+        for (Pedido ped : datos.obtenerPedidos()) {
+            valor_entero = ped.pedidoEnviado() ? 1 : 0;
+            if (valor_entero  == enviado) {
+                if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
+                    lista.add(ped);
+                }
+            }
+        }
+        return lista;
+    }
+
     /**
      * Metodo para mostrarPedido
      * @param pedido recibe un boolean
      */
-    public Pedido mostrarUnPedido(int pedido){
+    public Pedido mostrarPedido(int pedido){
 
         if(datos.obtenerUnPedido(pedido)!=null){
             return datos.obtenerUnPedido(pedido);
         }
         return null;
+    }
+
+    public ArrayList<Pedido> MostrarTodosLosPedidos(){
+        return datos.obtenerPedidos();
     }
 
     /**
@@ -212,29 +229,30 @@ public class Controlador {
      * @param mail recibe un string
      */
 
-    /**
-     public void mostrarPedido(boolean enviado, String  mail){
-     int indice;
-     if (enviado){
-     for(Pedido pedido:datos.getListaPedidos().getLista()){
-     if (pedido.pedidoEnviado()){
-     if (pedido.getCliente().getCorreoElectronico().equals(mail)){
-     System.out.println(pedido);
-     }
-     }
-     }
-     }else{
+    public Pedido mostrarUnPedido(boolean enviado, String  mail){
+        int indice;
+        Pedido pedido = null;
+        if (enviado){
+            for(Pedido ped:datos.obtenerPedidos()){
+                if (ped.pedidoEnviado()){
+                    if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
+                        pedido = ped;
+                    }
+                }
+            }
+        }else{
+            for(Pedido ped:datos.obtenerPedidos()) {
+                if (!ped.pedidoEnviado()) {
+                    if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
+                        pedido = ped;
+                    }
+                }
+            }
+        }
+        return pedido;
+    }
 
-     for(Pedido pedido:datos.getListaPedidos().getLista()) {
-     if (!pedido.pedidoEnviado()) {
-     if (pedido.getCliente().getCorreoElectronico().equals(mail)){
-     System.out.println(pedido);
-     }
-     }
-     }
-     }
-     }
-     */
+
     public double obtenerDescuento(){
         return 0.45;
     }
@@ -252,9 +270,5 @@ public class Controlador {
         }
         return valida;
     }
-
-
-
-
 
 }

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
     final String INSERT  ="INSERT INTO articulo (CP, Descripcion, Precio, TiempoPreparacion) VALUES (?,?,?,?)";
-    final String UPDATE = "UPDATE articulo SET Descripcion = ?, Precio = ?, TiempoPreparacion = ? WHERE cp = ?";
-    final String DELETE  ="DELETE FROM articulo WHERE cp = ?;";
+    final String UPDATE = "UPDATE articulo SET Descripcion = ?, Precio = ?, TiempoPreparacion = ? WHERE CP=?";
+    final String DELETE  ="DELETE FROM articulo WHERE CP=?;";
     final String GETONE = "SELECT * FROM articulo WHERE CP=?";
     final String GETALL  = "SELECT * FROM articulo;";
 
@@ -97,19 +97,11 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
             stat.setString(1,cp);
             if (stat.executeUpdate() == 0 ){
 
-                new DAOExceptions(" posible error al eliminar");
+                throw new DAOExceptions("No se encontró el código " + cp + " para eliminar.") ;
             }
 
         }catch (SQLException e) {
             new DAOExceptions("Error e SQL", e);
-        }finally{
-            if (stat != null){
-                try {
-                    stat.close();
-                }catch(SQLException e){
-                    new DAOExceptions("Error en SQL", e);
-                }
-            }
         }
     }
 
@@ -134,7 +126,6 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
                 int minutos = tiempo.getMinute();
                 Duration tiempoP = Duration.ofHours(horas).plusMinutes(minutos);
 
-
                 Articulo a = new Articulo(id,desc,precio,tiempoP);
                 listaA.add(a);
             }
@@ -152,7 +143,7 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
     public Articulo obtenerUno(String id) {
         PreparedStatement stat = null;
         String hora;
-        Articulo a = null;
+        Articulo a = new Articulo();
 
         try {
             stat = conn.prepareStatement(GETONE);
@@ -160,7 +151,6 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
             ResultSet rs = stat.executeQuery();
 
             while(rs.next() ){
-                a = new Articulo();
                 a.setCodigo( rs.getString("cp"));
                 a.setDescripcion(rs.getString("Descripcion"));
                 a.setPrecio(rs.getDouble("Precio"));
@@ -170,7 +160,6 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
                 int minutos = tiempo.getMinute();
                 Duration tiempoP = Duration.ofHours(horas).plusMinutes(minutos);
                 a.setTiempoPreparacion(tiempoP);
-
             }
         } catch (SQLException e) {
             new DAOExceptions("Error e SQL", e);
