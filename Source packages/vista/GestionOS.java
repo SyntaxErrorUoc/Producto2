@@ -557,11 +557,11 @@ public class GestionOS {
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
 		if (filtr.equals("N")) {
-			System.out.println(controlador.obtenerpedidos(1, null));
+			System.out.println(controlador.obtenerPedidos(true, null));
 		}else if (filtr.equals("S")){
 			System.out.println("Introduce el correo electrónico del cliente:");
 			mail = teclado.nextLine();
-			System.out.println(controlador.obtenerpedidos(1, mail));
+			System.out.println(controlador.obtenerPedidos(true, mail));
 		}else{
 			System.out.println("Introduce un valor correcto");
 		}
@@ -576,11 +576,11 @@ public class GestionOS {
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
 		if (filtr.equals("N")) {
-			System.out.println(controlador.obtenerpedidos(0, null));
+			System.out.println(controlador.obtenerPedidos(false, null));
 		}else if (filtr.equals("S")){
 			System.out.println("Introduce el correo electronico del cliente:");
 			mail = teclado.nextLine();
-			System.out.println(controlador.obtenerpedidos(0, mail));
+			System.out.println(controlador.obtenerPedidos(false, mail));
 		}else{
 			System.out.println("Introduce un valor correcto");
 		}

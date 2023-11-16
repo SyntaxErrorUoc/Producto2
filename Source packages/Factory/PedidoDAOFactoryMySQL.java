@@ -31,11 +31,11 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
     final String DELETE  ="DELETE FROM `pedido` WHERE `numeroPedido`=?;";
     final String GETONE=  "SELECT * FROM pedido " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
-            "INNER JOIN cliente ON Pedido.ClienteStandard_mail = cliente.mail" +
+            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail" +
             " WHERE numeroPedido=?;";
     final String GETALL = "SELECT * FROM `pedido` " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
-            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail";
+            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail;";
 
     final String GETALLFILTERESTATUSPEDIDO = "SELECT * FROM `pedido` " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
@@ -43,7 +43,7 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
 
     final String GETALLFILTERESTATUSPEDIDOCLIENTE = "SELECT * FROM `pedido` " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
-            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail WHERE pedido.enviado=? AND ClienteStandard_mail=?;";
+            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail WHERE pedido.enviado=? AND pedido.ClienteStandard_mail=?;";
 
     private Connection conn;
 
@@ -90,14 +90,6 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
             }
         } catch (SQLException e) {
             new DAOExceptions("Error e SQL", e);
-        }finally{
-            if (stat != null){
-                try {
-                    stat.close();
-                }catch(SQLException e){
-                    new DAOExceptions("Error en SQL", e);
-                }
-            }
         }
     }
 
@@ -113,8 +105,6 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
             }
         }catch (SQLException e) {
             new DAOExceptions("Error al eliminar", e);
-        } {
-
         }
     }
 

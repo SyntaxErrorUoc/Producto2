@@ -193,12 +193,11 @@ public class Controlador {
         return eliminado;
     }
 
-    public ArrayList<Pedido> obtenerpedidos(int enviado, String mail){
+    public ArrayList<Pedido> obtenerPedidos(boolean enviado, String mail) {
         ArrayList<Pedido> lista = new ArrayList<>();
-        int valor_entero;
+
         for (Pedido ped : datos.obtenerPedidos()) {
-            valor_entero = ped.pedidoEnviado() ? 1 : 0;
-            if (valor_entero  == enviado) {
+            if (ped.pedidoEnviado() == enviado) {
                 if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
                     lista.add(ped);
                 }
