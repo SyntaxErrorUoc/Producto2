@@ -26,7 +26,7 @@ public class ConexionMySQL {
     private static String username = "root";
 
     // Clave de usuario
-    private static String password = "NT486Wak";
+    private static String password = "ubuntu";
 
     public static Connection conectarMySQL() throws SQLException {
         Connection conn = null;

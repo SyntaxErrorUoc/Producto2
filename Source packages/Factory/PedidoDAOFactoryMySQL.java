@@ -129,6 +129,7 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
                 p.setFechaHoraPedido(LocalDateTime.parse(rs.getString("fechaHoraPedido"),formatter));
                 p.setNumeroPedido(rs.getInt("numeroPedido"));
                 p.setCantidad(rs.getInt("cantidad"));
+                p.setEnviado((rs.getBoolean("enviado")));
                 hora = rs.getString("TiempoPreparacion");
                 LocalTime tiempo = LocalTime.parse(hora);
                 int horas = tiempo.getHour();

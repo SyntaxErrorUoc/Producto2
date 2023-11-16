@@ -2,9 +2,11 @@ package vista;
 
 import controlador.Controlador;
 import modelo.Cliente;
+import org.w3c.dom.ls.LSOutput;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class GestionOS {
 	/**
 	 * Metodo inicial que muestra el menu inicial
 	 */
-	public void inicio() throws SQLException, ClassNotFoundException {
+	public void inicio() {
 
 		boolean salir = false;
 		int opcion;
@@ -229,30 +231,7 @@ public class GestionOS {
 	/**
 	 * Metodo para mostrar pedir la opcion de todos los menus
 	 */
-	public int pedirOpcion(int OpcionMax){
-		int resultado;
-		System.out.printf("Selecciona una opción(1 a %d o 0)\n", OpcionMax);
-		resultado = teclado.nextInt();
-		teclado.nextLine();
-		return resultado;
-	}
 
-	/**
-	 * Metodo para añadir clientes
-	 */
-
-
-	/**
-	 * Metodo para validar Email
-	 * @param emilio de tipo string
-	 * @return devuelve un boolean
-	 */
-	public boolean validaEmilio(String emilio){
-		String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher((emilio));
-		return matcher.matches();
-	}
 
 	//Metodos para Articulo
 	public void addDatosArticulo(){
@@ -346,6 +325,8 @@ public class GestionOS {
 			System.out.println(controlador.mostrarArticuloIndividual(cp));;
 		}
 	}
+
+
 
 	//Metodos Para Cliente
 	public void addDatosCliente(){
@@ -455,9 +436,11 @@ public class GestionOS {
 
 	}
 
+
+
 	//Metodos para Pedido
 
-	public void addDatosPedido(){
+	public void addDatosPedido() {
 		try {
 			String cl;
 			String art;
@@ -471,85 +454,84 @@ public class GestionOS {
 			String hora;
 			String fechahora;
 
-			System.out.println("Introduce nombre cliente:");
+			System.out.println("Introduce el mail del cliente:");
 			cl = teclado.nextLine();
-			//TODO
-			/*
-			if (!controlador.clienteExiste(cl)){
-				System.out.println("El nombre de cliente es invalido o no existe");
-				return;
-			}*/
-			System.out.println("Introduce el codigo de articulo:");
-			art = teclado.nextLine();
-			if (!controlador.articuloExiste(art)){
-				System.out.println("El codigo de articulo es invalido o ya existe");
-				return;
+
+			if (controlador.emailExiste(cl)) {
+
+				System.out.println("Introduce el codigo de articulo:");
+				art = teclado.nextLine();
+				if (!controlador.articuloExiste(art)) {
+					System.out.println("El codigo de articulo es invalido o ya existe");
+					return;
+				}
+				System.out.println("Introduce la cantidad:");
+				cantidad = teclado.nextInt();
+				teclado.nextLine();
+				System.out.println("introduce el numero de pedido:");
+				np = teclado.nextInt();
+				teclado.nextLine();
+				if (controlador.pedidoExiste(np)) {
+					System.out.println("El numero de pedido ya existe");
+					return;
+				}
+
+				try {
+					System.out.println("introduce la fecha (y-m-d):");
+					fecha = teclado.nextLine();
+					System.out.println("introduce la hora (h:m:s)");
+					hora = teclado.nextLine();
+					fechahora = (fecha + "T" + hora);
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					fechaHora = LocalDateTime.parse(fechahora, formatter);
+				} catch (Exception e) {
+					System.out.println(" dato introducido no valido, recuerda el formato correcto!!!");
+
+					return;
+				}
+				System.out.println("esta enviado?(S/N):");
+				envioS = teclado.nextLine();
+				if (envioS.equalsIgnoreCase("s")) {
+					envio = true;
+				} else if (envioS.equalsIgnoreCase("n")) {
+
+					envio = false;
+				} else {
+					System.out.println("Error al insertar envio");
+					return;
+				}
+
+				System.out.println("Introduce el porcentaje de coste de envio:");
+				costeE = teclado.nextDouble();
+				teclado.nextLine();
+				controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
+
 			}
-			System.out.println("Introduce la cantidad:");
-			cantidad = teclado.nextInt();
-			teclado.nextLine();
-			System.out.println("introduce el numero de pedido:");
-			np = teclado.nextInt();
-			teclado.nextLine();
-			if (controlador.pedidoExiste(np)){
-				System.out.println("El numero de pedido ya existe");
-				return;
-			}
-
-			try{System.out.println("introduce la fecha (y-m-d):");
-				fecha = teclado.nextLine();
-				System.out.println("introduce la hora (h:m:s)");
-				hora = teclado.nextLine();
-				fechahora = (fecha+"T"+hora);
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-				fechaHora = LocalDateTime.parse(fechahora, formatter);}
-
-			catch(Exception e){
-				System.out.println(" dato introducido no valido, recuerda el formato correcto!!!" );
-
-				return ;
-			}
-			System.out.println("esta enviado?(S/N):");
-			envioS = teclado.nextLine();
-			if (envioS.equalsIgnoreCase("s")){
-				envio = true;
-			}else if(envioS.equalsIgnoreCase("n")){
-
-				envio = false;
-			}else{
-				System.out.println("Error al insertar envio");
-				return;
-			}
-
-			System.out.println("Introduce el porcentaje de coste de envio:");
-			costeE = teclado.nextDouble();
-			teclado.nextLine();
-			controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
 		}catch(InputMismatchException e){
-			System.out.println("Dato introducido no valido, vuelve a introducirlo:");
-
+			System.out.println("Error al introducir datos");
 		}
 	}
 	public void deletePedido(){
-		//TODO
+
 		int cp;
-		Boolean eliminado;
+		Boolean eliminado =false;
 		System.out.println("Introduce el número de pedido a eliminar");
 		cp = teclado.nextInt();
 		teclado.nextLine();
-		eliminado = controlador.deletePedido(cp);
-		if (eliminado){
+		LocalDateTime date = controlador.obtenerPedido(cp).getFechaHoraPedido();
+		Duration timePrep = controlador.obtenerPedido(cp).getArticulo().getTiempoPreparacion();
+		if (controlador.comprobarPreparacion(date,timePrep)) {
+			eliminado = controlador.deletePedido(cp);
+
+		}
+		if (eliminado) {
 			System.out.println("El pedido se ha eliminado.");
-		}else{
+		} else {
 			System.out.println("El pedido no se ha eliminado, fecha de preparación vencida.");
 		}
 	}
-	public void modificarPedido(){
-		//TODO
-
-	}
 	public void mostrarPedidosEnviados(){
-		//TODO
+
 		String filtr;
 		String mail;
 		System.out.println("LISTAR PEDIDOS EN PREPARACIÓN");
@@ -568,7 +550,7 @@ public class GestionOS {
 
 	}
 	public void mostrarPedidosEnPrep(){
-		//TODO
+
 		String filtr;
 		String mail;
 		System.out.println("LISTAR PEDIDOS PENDIENTES");
@@ -586,7 +568,7 @@ public class GestionOS {
 		}
 	}
 	public void mostrarTodosLosPedidos(){
-		//TODO
+
 		System.out.println(controlador.MostrarTodosLosPedidos());
 	}
 	public void buscarPedido(){
@@ -597,5 +579,27 @@ public class GestionOS {
 		System.out.println(controlador.mostrarPedido(Integer.parseInt(filtr)));
 
 	}
+
+
+	/**
+	 * Metodo para validar Email
+	 * @param emilio de tipo string
+	 * @return devuelve un boolean
+	 */
+	public boolean validaEmilio(String emilio){
+		String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher((emilio));
+		return matcher.matches();
+	}
+	public int pedirOpcion(int OpcionMax){
+		int resultado;
+		System.out.printf("Selecciona una opción(1 a %d o 0)\n", OpcionMax);
+		resultado = teclado.nextInt();
+		teclado.nextLine();
+		return resultado;
+	}
+
+
 
 }

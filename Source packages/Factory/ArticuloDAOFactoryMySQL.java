@@ -65,7 +65,6 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
             stat.setString(1,a.getDescripcion());
             stat.setDouble(2,a.getPrecio());
             LocalTime time  = LocalTime.MIDNIGHT.plus(a.getTiempoPreparacion());
-            //TODO
             java.sql.Time sqlTime = java.sql.Time.valueOf(time);
             stat.setTime(3,sqlTime);
             stat.setString(4,a.getCodigo());

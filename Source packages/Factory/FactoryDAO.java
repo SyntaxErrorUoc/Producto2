@@ -35,7 +35,7 @@ public class FactoryDAO {
             conn = ConexionMySQL.conectarMySQL();
 
         } catch(SQLException e){
-            new DAOExceptions("Error al conectar",e);
+            new DAOExceptions("Error al conectar", e);
         }
         return conn;
     }

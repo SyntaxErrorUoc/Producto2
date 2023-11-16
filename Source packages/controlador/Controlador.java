@@ -197,12 +197,16 @@ public class Controlador {
         ArrayList<Pedido> lista = new ArrayList<>();
 
         for (Pedido ped : datos.obtenerPedidos()) {
-            if (ped.pedidoEnviado() == enviado) {
-                if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
+
+            if (enviado == ped.pedidoEnviado() ) {
+                if (ped.getCliente().getCorreoElectronico().equals(mail)){
+                    lista.add(ped);
+                }else{
                     lista.add(ped);
                 }
             }
         }
+
         return lista;
     }
 
@@ -222,46 +226,30 @@ public class Controlador {
         return datos.obtenerPedidos();
     }
 
-    /**
-     * Metodo para mostrar pedido sobrecargados
-     * @param enviado recibe un boolean
-     * @param mail recibe un string
-     */
 
-    public Pedido mostrarUnPedido(boolean enviado, String  mail){
-        int indice;
+
+    public Pedido obtenerPedido( int  cp){
+
         Pedido pedido = null;
-        if (enviado){
-            for(Pedido ped:datos.obtenerPedidos()){
-                if (ped.pedidoEnviado()){
-                    if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
-                        pedido = ped;
-                    }
-                }
-            }
-        }else{
-            for(Pedido ped:datos.obtenerPedidos()) {
-                if (!ped.pedidoEnviado()) {
-                    if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
-                        pedido = ped;
-                    }
-                }
+
+        for(Pedido ped:datos.obtenerPedidos()){
+
+            if(ped.getNumeroPedido() == cp){
+                return ped;
             }
         }
+
         return pedido;
     }
-
 
     public double obtenerDescuento(){
         return 0.45;
     }
 
-
     public boolean comprobarPreparacion(LocalDateTime fechaHoraActual, Duration tiempoPrep){
         LocalDateTime now = LocalDateTime.now();
-        boolean valida = false;
-        fechaHoraActual = fechaHoraActual.plus((TemporalAmount) tiempoPrep);
-        System.out.println(fechaHoraActual);
+        boolean valida ;
+        fechaHoraActual = fechaHoraActual.plus(tiempoPrep);
         if (now.isBefore(fechaHoraActual)){
             valida = false;
         }else{
