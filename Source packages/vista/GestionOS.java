@@ -1,5 +1,6 @@
 package vista;
 
+import ConexionMySQL.DatabaseConnectionException;
 import controlador.Controlador;
 import modelo.Cliente;
 import org.w3c.dom.ls.LSOutput;
@@ -28,7 +29,7 @@ public class GestionOS {
 	/**
 	 * Constructor de la clase que inicializa el atributo controlador
 	 */
-	public GestionOS() {
+	public GestionOS() throws DatabaseConnectionException {
 		controlador = new Controlador();
 	}
 
@@ -243,6 +244,8 @@ public class GestionOS {
 
 			System.out.println("introduce el cp");
 			cp = teclado.nextLine();
+			System.out.println("El articulo ya existe");
+
 			System.out.println("Introduce la descripcion");
 			desc = teclado.nextLine();
 			System.out.println("introduce el precio del articulo(0,0)");
@@ -260,6 +263,7 @@ public class GestionOS {
 					// -------------------------------------------------------------
 					controlador.addArticulo(cp, desc, precio,tiempoPrep);
 					// -------------------------------------------------------------
+
 				}catch(NumberFormatException e){
 					System.out.println("La hora no es valida");
 				}
@@ -269,12 +273,14 @@ public class GestionOS {
 			teclado.nextLine();
 			addDatosArticulo();
 		}
+		System.out.println("Datos añadidos con exito");
 	}
 	public void deleteArticulo() {
 		String cp;
 		System.out.println("introduce el codigo del articulo a eliminar:");
 		cp = teclado.nextLine();
 		controlador.eliminarArticulo(cp);
+		System.out.println("Ariculo eliminado con exito");
 	}
 	public void modificarArticulo(){
 
@@ -304,9 +310,11 @@ public class GestionOS {
 					// -------------------------------------------------------------
 					controlador.modArticulo(cp, desc, precio, tiempoP);
 					// -------------------------------------------------------------
+					System.out.println("Datos modificados con exito");
 				} catch (NumberFormatException e) {
 					System.out.println("La hora no es valida");
 				}
+
 
 			} else {
 				System.out.println("El articulo no existe");
@@ -358,19 +366,20 @@ public class GestionOS {
 			name = teclado.nextLine();
 			System.out.println("Es cliente VIP?(S/N)");
 			VIP = teclado.nextLine();
-			if (VIP.equals("S")) {
+			if (VIP.equalsIgnoreCase("s")) {
 				controlador.addCliente(mail, name, dir, descuento);
 			} else {
 
 				controlador.addCliente(mail, name, dir);
 			}
+
 		}catch(InputMismatchException e ){
 			System.out.println("Entrada no valida. Vuelve a introducir los datos");
 			teclado.nextLine();
 		}catch(Exception e){
 			System.out.println("Ha ocurrido un error: "+ e.getMessage());
 		}
-
+		System.out.println("Datos añadidos con exito");
 	}
 	public void deleteCliente(){
 
@@ -393,7 +402,7 @@ public class GestionOS {
 		String direccion;
 		String vip;
 		double	desc;
-		System.out.println("Introduce el mail a cmabiar");
+		System.out.println("Introduce el mail a cambiar");
 		mail = teclado.nextLine();
 		System.out.println("Introduce nuevo nombre");
 		nombre = teclado.nextLine();
@@ -401,16 +410,17 @@ public class GestionOS {
 		direccion = teclado.nextLine();
 		System.out.println("Es cliente VIP (S/N)");
 		vip = teclado.nextLine();
-		if (vip.equals("S")){
+		if (vip.equalsIgnoreCase("s")){
 			System.out.println("Introduce el descuento");
 			desc = teclado.nextDouble();
 			teclado.nextLine();
 			controlador.modificarCliente(mail,nombre,direccion,desc);
-		}else if(vip.equals("N")){
+		}else if(vip.equalsIgnoreCase("n")){
 			controlador.modificarCliente(mail,nombre,direccion);
 		}else{
 			System.out.println("EL valor introducido no es valido");
 		}
+		System.out.println("Datos actualizados con exito");
 
 	}
 	public void mostrarPorTipoCliente(String value){
@@ -505,7 +515,7 @@ public class GestionOS {
 				costeE = teclado.nextDouble();
 				teclado.nextLine();
 				controlador.addPedido(cl, art, np, fechaHora, cantidad, envio, costeE);
-
+				System.out.println("Datos insertados con exito");
 			}
 		}catch(InputMismatchException e){
 			System.out.println("Error al introducir datos");
@@ -538,9 +548,9 @@ public class GestionOS {
 		System.out.println("-----------------------------------------------------");
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
-		if (filtr.equals("N")) {
+		if (filtr.equalsIgnoreCase("n")) {
 			System.out.println(controlador.obtenerPedidos(true, null));
-		}else if (filtr.equals("S")){
+		}else if (filtr.equalsIgnoreCase("s")){
 			System.out.println("Introduce el correo electrónico del cliente:");
 			mail = teclado.nextLine();
 			System.out.println(controlador.obtenerPedidos(true, mail));
@@ -557,9 +567,9 @@ public class GestionOS {
 		System.out.println("-----------------------------------------------------");
 		System.out.println("Desea filtrar por cliente(S/N)");
 		filtr = teclado.nextLine();
-		if (filtr.equals("N")) {
+		if (filtr.equalsIgnoreCase("n")) {
 			System.out.println(controlador.obtenerPedidos(false, null));
-		}else if (filtr.equals("S")){
+		}else if (filtr.equalsIgnoreCase("s")){
 			System.out.println("Introduce el correo electronico del cliente:");
 			mail = teclado.nextLine();
 			System.out.println(controlador.obtenerPedidos(false, mail));

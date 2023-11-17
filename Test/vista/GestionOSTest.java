@@ -1,5 +1,6 @@
 package vista;
 
+import ConexionMySQL.DatabaseConnectionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ public class GestionOSTest {
 
     private GestionOS gestion;
     @BeforeEach
-    void setUp() {
+    void setUp() throws DatabaseConnectionException {
         gestion = new GestionOS();
     }
 

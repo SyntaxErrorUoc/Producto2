@@ -1,5 +1,6 @@
 package controlador;
 
+import ConexionMySQL.DatabaseConnectionException;
 import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Pedido;
@@ -18,12 +19,12 @@ public class ControladorTest {
     private Datos datos;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws DatabaseConnectionException {
         controlador = new Controlador();
     }
 
     @Test
-    public void tesComprobarPreparacion() {
+    public void tesComprobarPreparacion() throws DatabaseConnectionException {
 
         Controlador controlador = new Controlador();
         LocalDateTime fechaActual = LocalDateTime.now();

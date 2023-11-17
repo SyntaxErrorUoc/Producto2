@@ -201,7 +201,7 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
                 stat.setString(1,criterio);
             }
             ResultSet rs = stat.executeQuery();
-            System.out.println(stat);
+
             while(rs.next()){
                 if(rs.getInt("vip") == 0){
 

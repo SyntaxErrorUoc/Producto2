@@ -1,10 +1,12 @@
 package Factory;
 import ConexionMySQL.DAOExceptions;
 import ConexionMySQL.ConexionMySQL;
+import ConexionMySQL.DatabaseConnectionException;
 import DAO.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 
 public class FactoryDAO {
 
@@ -14,21 +16,24 @@ public class FactoryDAO {
     public PedidoDAO pedido;
     public ClienteDAO cliente;
 
-    public FactoryDAO(){
+    public FactoryDAO() throws DatabaseConnectionException {
 
-        if(MySQL()!= null){
+        if (MySQL() != null) {
             Connection conn = MySQL();
             this.articulo = new ArticuloDAOFactoryMySQL(conn);
             this.pedido = new PedidoDAOFactoryMySQL(conn);
             this.cliente = new ClienteDAOFactoryMySQL(conn);
 
-        }else{
+        } else {
             Connection conn = null;
 
-            System.out.println("No es una base de datos Mysql");
+            throw new DatabaseConnectionException(("No es una base de datos MySQL"));
 
         }
+
+
     }
+
     public Connection MySQL()  {
         Connection conn = null;
         try{

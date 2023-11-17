@@ -1,6 +1,7 @@
 package modelo;
 
 
+import ConexionMySQL.DatabaseConnectionException;
 import Factory.FactoryDAO;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Datos {
 
 	//Connection conn;
 
-	public Datos() {
+	public Datos() throws DatabaseConnectionException {
 
 		this.factory = new FactoryDAO();
 

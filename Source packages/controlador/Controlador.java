@@ -1,5 +1,6 @@
 package controlador;
 
+import ConexionMySQL.DatabaseConnectionException;
 import modelo.*;
 
 import java.time.Duration;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Controlador {
     private Datos datos;
 
-    public Controlador()  {
+    public Controlador() throws DatabaseConnectionException {
 
         this.datos = new Datos();
 
@@ -25,9 +26,10 @@ public class Controlador {
 
         Articulo a;
         a = new Articulo(cp, desc, precio, tiempoPrepacion);
-        if (a.getCodigo() != null) {
-            datos.agregarArticulo(a);
-        }
+
+            if (a.getCodigo() != null) {
+                datos.agregarArticulo(a);
+            }
 
     }
 
@@ -58,10 +60,12 @@ public class Controlador {
         }
         return null;
     }
+
+
     public boolean articuloExiste(String cp) {
 
         boolean existe = false;
-        if (datos.obtenerArticulo(cp)!= null){
+        if (datos.obtenerArticulo(cp) != null){
 
             existe = true;
             return existe;
@@ -81,12 +85,7 @@ public class Controlador {
     }
 
 
-    public void addCliente(String mail, String name, String dir,double desc)  {
-
-        if(emailExiste(mail)){
-            System.out.println("Error: El correo electrónico " + mail + " ya existe.");
-            return;
-        }
+    public void addCliente(String mail, String name, String dir,double desc) throws EmailExistsException {
 
         ClientePremium prem = new ClientePremium(mail,name, dir, desc);
         datos.agregarCliente(prem);

@@ -1,5 +1,5 @@
 package modelo;
-import Factory.ClienteDAOFactoryMySQL;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -201,12 +201,12 @@ public class Pedido {
 		String fechahora, fecha, hora;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatHoraDate = fechaHoraPedido.format(formatter);
-
 		String[] parts = formatHoraDate.split("T");
 		fecha = parts[0];
 		hora = parts[1];
 		fechahora = fecha + "-"+hora;
 		return fechahora;
+
 	}
 
 	/**
