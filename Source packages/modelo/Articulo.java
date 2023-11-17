@@ -97,6 +97,11 @@ public class Articulo {
 		this.precio = precio;
 	}
 
+	/**
+	 * Co
+	 * @param duration
+	 * @return
+	 */
 	public String convertirDurationToString(Duration duration){
 		// Obtener una representación en formato ISO-8601
 		String isoString = duration.toString();
@@ -110,11 +115,7 @@ public class Articulo {
 		);
 		return formattedDuration;
 	}
-	public Duration convertirStringToDuration(String duration){
-		// Parsear la cadena y crear una instancia de Duration
-		Duration formattedDuration = Duration.parse(duration);
-		return formattedDuration;
-	}
+
 
 	@Override
 	public String toString() {

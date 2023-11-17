@@ -26,16 +26,10 @@ public class GestionOS {
 
 	Scanner teclado = new Scanner(System.in);
 
-	/**
-	 * Constructor de la clase que inicializa el atributo controlador
-	 */
 	public GestionOS() throws DatabaseConnectionException {
 		controlador = new Controlador();
 	}
 
-	/**
-	 * Metodo inicial que muestra el menu inicial
-	 */
 	public void inicio() {
 
 		boolean salir = false;
@@ -75,9 +69,6 @@ public class GestionOS {
 
 	}
 
-	/**
-	 * Metodo para mostrar el menu articulos
-	 */
 	public void menuArticulo() {
 		boolean salir = false;
 		int opcion;
@@ -123,9 +114,7 @@ public class GestionOS {
 		while (!salir);
 
 	}
-	/**
-	 * Metodo para mostrar el menu clientes
-	 */
+
 	public void menuClientes() {
 
 		boolean salir = false;
@@ -172,9 +161,7 @@ public class GestionOS {
 		while (!salir);
 
 	}
-	/**
-	 * Metodo para mostrar el menu Pedidos
-	 */
+
 	public void menuPedidos() {
 		boolean salir = false;
 		int opcion;
@@ -218,9 +205,7 @@ public class GestionOS {
 		while (!salir);
 	}
 
-	/**
-	 * Metodo para mostrar el menu las opciones de todos los menus
-	 */
+
 	public void mostrarMenu(String... Opciones){
 		System.out.println("*****************************");
 		for (int i = 0;i< Opciones.length;i++){
@@ -229,9 +214,7 @@ public class GestionOS {
 		System.out.println("*****************************");
 		System.out.println( "0. Para salir ");
 	}
-	/**
-	 * Metodo para mostrar pedir la opcion de todos los menus
-	 */
+
 
 
 	//Metodos para Articulo
@@ -244,8 +227,10 @@ public class GestionOS {
 
 			System.out.println("introduce el cp");
 			cp = teclado.nextLine();
-			System.out.println("El articulo ya existe");
-
+			if(controlador.articuloExiste(cp)== true) {
+				System.out.println("El articulo ya existe");
+				return;
+			}
 			System.out.println("Introduce la descripcion");
 			desc = teclado.nextLine();
 			System.out.println("introduce el precio del articulo(0,0)");
@@ -263,10 +248,11 @@ public class GestionOS {
 					// -------------------------------------------------------------
 					controlador.addArticulo(cp, desc, precio,tiempoPrep);
 					// -------------------------------------------------------------
-
+					System.out.println("Articulo insertado con exito.");
 				}catch(NumberFormatException e){
 					System.out.println("La hora no es valida");
 				}
+
 			}
 		}catch(InputMismatchException e){
 			System.out.println(" dato introducido no valido, vuelve a introducirlo");
@@ -590,12 +576,6 @@ public class GestionOS {
 
 	}
 
-
-	/**
-	 * Metodo para validar Email
-	 * @param emilio de tipo string
-	 * @return devuelve un boolean
-	 */
 	public boolean validaEmilio(String emilio){
 		String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
 		Pattern pattern = Pattern.compile(regex);

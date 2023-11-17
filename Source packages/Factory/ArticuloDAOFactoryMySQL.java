@@ -142,7 +142,7 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
     public Articulo obtenerUno(String id) {
         PreparedStatement stat = null;
         String hora;
-        Articulo a = new Articulo();
+        Articulo a = null;
 
         try {
             stat = conn.prepareStatement(GETONE);
@@ -150,6 +150,7 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
             ResultSet rs = stat.executeQuery();
 
             while(rs.next() ){
+                a = new Articulo();
                 a.setCodigo( rs.getString("cp"));
                 a.setDescripcion(rs.getString("Descripcion"));
                 a.setPrecio(rs.getDouble("Precio"));
