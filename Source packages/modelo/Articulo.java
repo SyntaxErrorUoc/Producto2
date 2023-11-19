@@ -33,7 +33,6 @@ public class Articulo {
 	}
 	/**
      * Getter de Tiempo de preparación
-     *
      * @return Devuelve un tipo Duration
      */
 	public Duration getTiempoPreparacion() {
@@ -98,7 +97,7 @@ public class Articulo {
 	}
 
 	/**
-	 * Co
+	 * Convierente un campo Duration a String.
 	 * @param duration
 	 * @return
 	 */
@@ -116,13 +115,16 @@ public class Articulo {
 		return formattedDuration;
 	}
 
-
+	/**
+	 * Método para mostrar en pantalla la información del artículo.
+	 * @return Tipo String con el texto del artículo.
+	 */
 	@Override
 	public String toString() {
 		return "\n----------------"+"\nArticulo \n"+"--------------\n"+
-				"codigo del producto :" + codigo + "\ndescripcion del producto :"
-				+ descripcion + "\nPrecio del producto:" + precio
-				+ "\nTiempo : "+ convertirDurationToString(tiempoPreparacion) + "\n";
+				"Dodigo del producto :" + codigo + "\nDescripción del producto :"
+				+ descripcion + "\nPrecio del producto :" + precio
+				+ "\nTiempo :"+ convertirDurationToString(tiempoPreparacion) + "\n";
 	}
 
 

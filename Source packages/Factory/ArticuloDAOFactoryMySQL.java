@@ -12,6 +12,9 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**
+ * Clase tipo Factory para crear las instancias concretas de métodos DAO.
+ */
 public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
     final String INSERT  ="INSERT INTO articulo (CP, Descripcion, Precio, TiempoPreparacion) VALUES (?,?,?,?)";
     final String UPDATE = "UPDATE articulo SET Descripcion = ?, Precio = ?, TiempoPreparacion = ? WHERE CP=?";
@@ -21,11 +24,18 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
 
     private Connection conn;
 
+    /**
+     * Constructor de la clase. Establece la conexión
+     * @param conn Tipo Connection. Recibe el tipo de conexión a la BBDD.
+     */
     public ArticuloDAOFactoryMySQL(Connection conn){
         this.conn = conn;
     }
 
-
+    /**
+     * Método para insertar un artículo dentro de la tabla "articulo" de la BBDD
+     * @param a Tipo Articulo. Datos del artículo.
+     */
     @Override
     public void insertar(Articulo a) {
         PreparedStatement stat = null;
@@ -56,6 +66,10 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
         }
     }
 
+    /**
+     * Método que permite modificar un Artículo existente en la tabla "articulo".
+     * @param a Tipo Articulo. Datos del artículo para modificar.
+     */
     @Override
     public void modificar(Articulo a) {
         PreparedStatement stat = null;
@@ -87,6 +101,10 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
         }
     }
 
+    /**
+     * Método para eliminar un artículo de la tabla "articulo" de la BBDD
+     * @param cp Tipo String. Contiene el código del producto a eliminar.
+     */
     @Override
     public void eliminar(String cp) {
         PreparedStatement stat = null;
@@ -104,6 +122,10 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
         }
     }
 
+    /**
+     * Método que devuelve un ArrayList con todos los artículos existentes en la tabla "articulo".
+     * @return ArrayList de todos los artículos.
+     */
     @Override
     public ArrayList<Articulo> obtenerTodos() {
 
@@ -138,6 +160,11 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
         return listaA;
     }
 
+    /**
+     * Método para obtener la información de un artículo de la tabla "articulo".
+     * @param id Tipo String. Contiene el código del producto.
+     * @return Tipo Articulo. Contiene la información del producto seleccionado.
+     */
     @Override
     public Articulo obtenerUno(String id) {
         PreparedStatement stat = null;
@@ -175,6 +202,12 @@ public class ArticuloDAOFactoryMySQL implements ArticuloDAO {
         return a;
     }
 
+    /**
+     * Método para obtener una lista con los artículo seleccionados por un criterio en concreto.
+     * @param columna Tipo String. Contiene el nombre de la columna a aplicar el criterio.
+     * @param criterio Tipo String. Contiene el valor por el que queremos filtrar la tabla "articulo".
+     * @return ArrayList con los artículos que coincidan en la búsqueda.
+     */
     @Override
     public ArrayList<Articulo> obtenerPorCriterio(String columna, String criterio) {
         return null;

@@ -11,7 +11,7 @@ public abstract class Cliente {
 	private String apellidos;
 
 	/**
-	 * Constructor de la clase con 3 prámetros
+	 * Constructor de la clase con 3 parámetros
 	 * @param correoElectronico recibe un tipo String
 	 * @param nombre recibe un tipo String
 	 * @param direccion recibe un tipo String
@@ -28,10 +28,18 @@ public abstract class Cliente {
 	public Cliente() {
 	}
 
+	/**
+	 * Getter de apellidos.
+	 * @return devuelve un tipo String
+	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
+	/**
+	 * Setter de apellidos del cliente.
+	 * @param apellidos Tipo String. Contiene los apellidos del cliente.
+	 */
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
@@ -102,10 +110,13 @@ public abstract class Cliente {
 	 */
 	public abstract double descuentoEnv();
 
-
+	/**
+	 * Método para mostrar en pantalla la información del cliente.
+	 * @return Tipo String con el texto del cliente.
+	 */
 	@Override
 	public String toString() {
-		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electronico : "+correoElectronico+"\nDireccion fiscal: " +  direccion + "\n";
+		return "\n\n-----------\n"+"Cliente :" + nombre +"\n-----------"+ "\nCorreo electrónico : "+correoElectronico+"\nDirección fiscal: " +  direccion + "\n";
 	}
 
 

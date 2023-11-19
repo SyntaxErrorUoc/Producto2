@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
+/**
+ * Clase que permite seleccionar el tipo de conexión según la BBDD a la que queramos conectar.
+ */
 public class FactoryDAO {
 
     Connection conn = null;
@@ -16,6 +19,10 @@ public class FactoryDAO {
     public PedidoDAO pedido;
     public ClienteDAO cliente;
 
+    /**
+     * Constructor de la clase que discrimina el tipo de conexión a realizar según la BBDD a la que queramos conectar.
+     * @throws DatabaseConnectionException
+     */
     public FactoryDAO() throws DatabaseConnectionException {
 
         if (MySQL() != null) {
@@ -34,6 +41,10 @@ public class FactoryDAO {
 
     }
 
+    /**
+     * Método que establece la conexión a una BBDD de MySQL.
+     * @return Tipo Connection que contiene la conexión activa a la BBDD
+     */
     public Connection MySQL()  {
         Connection conn = null;
         try{
@@ -44,6 +55,12 @@ public class FactoryDAO {
         }
         return conn;
     }
+
+    /**
+     * Método que retorna null enb caso de no poder conectar a ninguna BBDD.
+     * @return null. Indica que no ha sido posible conectar a la BBDD.
+     */
+
     public Connection NoMysql(){
         return null;
     }

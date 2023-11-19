@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Clase tipo Factory para crear las instancias concretas de métodos DAO.
+ */
 public class ClienteDAOFactoryMySQL implements ClienteDAO {
 
     final String INSERT ="INSERT INTO cliente (mail" +
@@ -35,11 +38,19 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
 
     private Connection conn;
 
+
+    /**
+     * Constructor de la clase. Establece la conexión
+     * @param Conn Tipo Connection. Recibe el tipo de conexión a la BBDD.
+     */
     public ClienteDAOFactoryMySQL(Connection Conn){
         this.conn = Conn;
     }
 
-
+    /**
+     * Método para insertar un registro dentro de la tabla de "cliente".
+     * @param C Tipo Cliente. Objeto que puede ser un cliente premium o estándar.
+     */
     @Override
     public void insertar(Cliente C) {
         PreparedStatement stat = null;
@@ -73,6 +84,10 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
         }
     }
 
+    /**
+     * Método que permite actualizar la información de un cliente existente en la tabla "cliente".
+     * @param a Tipo Cliente. Objeto que puede ser un cliente premium o estándar.
+     */
     @Override
     public void modificar(Cliente a) {
         PreparedStatement stat = null;
@@ -107,6 +122,10 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
         }
     }
 
+    /**
+     * Método que permite eliminar un cliente existente de la tabla "cliente".
+     * @param a Tipo String. Contiene el mail del cliente a eliminar.
+     */
     @Override
     public void eliminar(String a) {
         PreparedStatement stat = null;
@@ -133,6 +152,10 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
         }
     }
 
+    /**
+     * Método que permite obtener una lista de todos los clientes de la tabla "cliente".
+     * @return ArrayList con el listado de clientes existentes.
+     */
     @Override
     public ArrayList<Cliente> obtenerTodos() {
         ArrayList<Cliente> listado = new ArrayList<>();
@@ -163,6 +186,11 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
         return listado;
     }
 
+    /**
+     * Método para obtener la información de un cliente, independientemente de si es estándar o premium.
+     * @param id Tipo String. Contiene el mail del cliente para localizarlo en la tabla "cliente."
+     * @return Tipo Cliente. Objeto que contiene la información del cliente sea estándar o premium.
+     */
     @Override
     public Cliente obtenerUno(String id) {
         try{
@@ -188,6 +216,12 @@ public class ClienteDAOFactoryMySQL implements ClienteDAO {
         return null;
     }
 
+    /**
+     * Método para filtrar la tabla "cliente" por unos criterios concretos.
+     * @param columna Tipo String. Indica el nombre de la columna de la tabla "cliente" por la que queremos filtrar.
+     * @param criterio Tipo String. Indica el criterio por el que queremos filtrar la tabla.
+     * @return ArrayList con las coincidencias de esta consulta.
+     */
     @Override
     public ArrayList<Cliente> obtenerPorCriterio(String columna, String criterio) {
         try {

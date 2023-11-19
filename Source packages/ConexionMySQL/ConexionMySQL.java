@@ -26,7 +26,13 @@ public class ConexionMySQL {
     private static String username = "root";
 
     // Clave de usuario
-    private static String password = "ubuntu";
+    private static String password = "NT486Wak"; // ubuntu
+
+    /**
+     * Método para conectar con la BBDD a través de MySQL.
+     * @return Tipo Connection. Conexión con la BBDD.
+     * @throws SQLException Error que se ha producido al intentar conectar con la BBDD.
+     */
 
     public static Connection conectarMySQL() throws SQLException {
         Connection conn = null;

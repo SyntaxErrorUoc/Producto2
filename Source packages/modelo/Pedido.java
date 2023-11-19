@@ -145,7 +145,7 @@ public class Pedido {
 	}
 
 	/**
-	 * Metodo para pedidoEniado
+	 * Método para pedidoEniado
 	 * @return devuelve un boolean
 	 */
 	public boolean pedidoEnviado() {
@@ -153,7 +153,7 @@ public class Pedido {
 	}
 
 	/**
-	 * Metodo de calculo para precioEnvio
+	 * Método de calculo para precioEnvio
 	 * @param costeEnvio recibe un double
 	 * @return devuelve un tipo doble
 	 */
@@ -165,16 +165,24 @@ public class Pedido {
 		return costeEnvio;
 	}
 
+	/**
+	 * Método que devuelve el Coste de envío.
+	 * @return Tipo double con el coste de envío.
+	 */
 	public double getCosteEnvio() {
 		return costeEnvio;
 	}
 
+	/**
+	 * Método que establece el coste de envío de un pedido.
+	 * @param costeenvio Tipo double. Valor del coste de envío.
+	 */
 	public void setCosteEnvio(double costeenvio) {
 		this.costeEnvio = costeenvio;
 	}
 
 	/**
-	 * Metodo para el calculo del precioTotal
+	 * Método para el cálculo del precioTotal
 	 * @return devuele un double
 	 */
 	public double precioTotal (){
@@ -185,7 +193,7 @@ public class Pedido {
 	}
 
 	/**
-	 * Metodo para mostrar MailCliente
+	 * Método para mostrar MailCliente
 	 * @return devuelve un String
 	 */
 	public String getMailCliente(){
@@ -193,7 +201,7 @@ public class Pedido {
 	}
 
 	/**
-	 * Metodo para convertir fecha y Hora a un String
+	 * Método para convertir fecha y Hora a un String
 	 * @return devuelve un String
 	 */
 	public String fechaHoraReturn(){

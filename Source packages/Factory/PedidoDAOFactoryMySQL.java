@@ -15,6 +15,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Clase tipo Factory para crear las instancias concretas de métodos DAO.
+ */
 public class PedidoDAOFactoryMySQL implements PedidoDAO {
 
     final String INSERT ="INSERT INTO pedido (numeroPedido, fechaHoraPedido, costeEnvio" +
@@ -47,10 +50,18 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
 
     private Connection conn;
 
+    /**
+     * Constructor de la clase. Establece la conexión
+     * @param Conn Tipo Connection. Recibe el tipo de conexión a la BBDD.
+     */
     public PedidoDAOFactoryMySQL(Connection Conn){
         this.conn = Conn;
     }
 
+    /**
+     * Método para insertar un registro dentro de la tabla de "pedido".
+     * @param p Tipo Pedido. Contiene la información del pedido.
+     */
     @Override
     public void insertar(Pedido p) {
         PreparedStatement stat  = null;
@@ -71,6 +82,10 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
         }
     }
 
+    /**
+     * Método para actualizar la información de un pedido existente en la tabla "pedido".
+     * @param p Tipo Pedido. Contiene la información del pedido.
+     */
     @Override
     public void modificar(Pedido p) {
         PreparedStatement stat = null;
@@ -93,6 +108,10 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
         }
     }
 
+    /**
+     * Método para eliminar un pedido existente en la tabla "pedido".
+     * @param a Tipo Integer. Contiene el número de pedido a eliminar.
+     */
     @Override
     public void eliminar(Integer a) {
         PreparedStatement stat = null;
@@ -108,6 +127,10 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
         }
     }
 
+    /**
+     * Método que muestra un listado de todos los pedidos existentes en la tabla "pedido".
+     * @return ArrayList con la información de la consulta.
+     */
     @Override
     public ArrayList<Pedido> obtenerTodos() {
         PreparedStatement stat = null;
@@ -128,6 +151,7 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
                 p = new Pedido();
                 p.setFechaHoraPedido(LocalDateTime.parse(rs.getString("fechaHoraPedido"),formatter));
                 p.setNumeroPedido(rs.getInt("numeroPedido"));
+                p.setCosteEnvio(rs.getInt("costeEnvio"));
                 p.setCantidad(rs.getInt("cantidad"));
                 p.setEnviado((rs.getBoolean("enviado")));
                 hora = rs.getString("TiempoPreparacion");
@@ -159,6 +183,11 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
         return ped;
     }
 
+    /**
+     * Método para obtener un pedido de la tabla "pedido".
+     * @param id Tipo Integer que contiene el número de pedido.
+     * @return Tipo Pedido. Contiene la información del pedido existente en la tabla "pedido".
+     */
     @Override
     public Pedido obtenerUno(Integer id) {
 
@@ -220,11 +249,26 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
         return p;
     }
 
+    /**
+     * Método que devuelve una lista de todos los pedidos filtrados por el valor que contenga una columna de la tabla
+     * "pedido".
+     * @param columna Tipo Integer. Contiene el índice de la columna.
+     * @param criterio Tipo Integer. Contiene el valor a filtrar.
+     * @return ArrayList con los pedidos que muestre la consulta.
+     */
     @Override
     public ArrayList<Pedido> obtenerPorCriterio(Integer columna, Integer criterio) {
         return null;
     }
 
+    /**
+     * Método que devuelve una lista de todos los pedidos filtrados por el valor que contenga una columna de la tabla
+     * "pedido". En Columna indicaremos 1 para que diferencie entre enviados o no y en criterio indicaremos el mail
+     * del cliente.
+     * @param columna Tipo Integer. Contiene el índice de la columna.
+     * @param criterio Tipo Integer. Contiene el valor a filtrar.
+     * @return ArrayList con los pedidos que muestre la consulta.
+     */
     @Override
     public ArrayList<Pedido> obtenerPorCriterio(Integer columna, String criterio) {
         String hora;

@@ -5,7 +5,6 @@ package modelo;
  */
 public class ClienteEstandar extends Cliente {
 
-
 	/**
 	 * Constructor de la clase heredada de cliente
 	 * @param correoElectronico recibe un String
@@ -49,6 +48,11 @@ public class ClienteEstandar extends Cliente {
 		double descuentoE = 0.0;
 		return descuentoE;
 	}
+
+	/**
+	 * Método para mostrar en pantalla la información del cliente estándar.
+	 * @return Tipo String con el texto del cliente estándar.
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "CLIENTE STANDARD\n";

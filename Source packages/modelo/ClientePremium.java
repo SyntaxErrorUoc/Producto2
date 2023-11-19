@@ -52,8 +52,13 @@ public class ClientePremium extends Cliente{
 		return descuentoE;
 	}
 
+
+	/**
+	 * Método para mostrar en pantalla la información del cliente premium.
+	 * @return Tipo String con el texto del cliente premium.
+	 */
 	@Override
 	public String toString() {
-		return super.toString() + "CLIENTE PREMIUM " + "y su descuento es " + this.descuento+"\n";
+		return super.toString() + " CLIENTE PREMIUM " + "y su descuento es " + this.descuento+"\n";
 	}
 }
