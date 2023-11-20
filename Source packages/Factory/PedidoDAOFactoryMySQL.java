@@ -31,14 +31,15 @@ public class PedidoDAOFactoryMySQL implements PedidoDAO {
             ", Articulo_CP=?" +
             ", ClienteStandard_mail=?" +
             " WHERE numeroPedido=?;";
-    final String DELETE  ="DELETE FROM `pedido` WHERE `numeroPedido`=?;";
+    final String DELETE  ="DELETE FROM pedido WHERE numeroPedido=?;";
     final String GETONE=  "SELECT * FROM pedido " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
             "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail" +
             " WHERE numeroPedido=?;";
     final String GETALL = "SELECT * FROM `pedido` " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +
-            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail;";
+            "INNER JOIN cliente ON pedido.ClienteStandard_mail = cliente.mail " +
+            "ORDER BY pedido.numeroPedido;";
 
     final String GETALLFILTERESTATUSPEDIDO = "SELECT * FROM `pedido` " +
             "INNER JOIN articulo ON pedido.Articulo_CP = articulo.CP " +

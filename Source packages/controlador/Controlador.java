@@ -308,10 +308,15 @@ public class Controlador {
 
         for (Pedido ped : datos.obtenerPedidos()) {
 
-            if (enviado == ped.pedidoEnviado() ) {
+            /*if (enviado == ped.pedidoEnviado() ) {
                 if (ped.getCliente().getCorreoElectronico().equals(mail)){
                     lista.add(ped);
-                }else{
+                }else if (mail!=null){
+                    lista.add(ped);
+                }
+            }*/
+            if (ped.pedidoEnviado() == enviado) {
+                if (mail == null || (ped.getCliente() != null && ped.getCliente().getCorreoElectronico().equals(mail))) {
                     lista.add(ped);
                 }
             }
